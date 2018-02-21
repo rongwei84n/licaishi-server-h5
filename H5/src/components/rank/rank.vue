@@ -1,6 +1,6 @@
 <template>
   <div>
-    推荐页面
+    工作室界面
   </div>
 </template>
 

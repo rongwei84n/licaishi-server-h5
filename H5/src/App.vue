@@ -7,6 +7,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+  require('./common/js/phihome-1.0.0.js?n=1');
   import MHeader from './components/m-header/m-header'
   import Tab from './components/tab/tab'
   export default {
