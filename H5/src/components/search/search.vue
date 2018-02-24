@@ -11,7 +11,7 @@
         </div>
       </div>
       <div class="right-icon">
-        <div class="ri-setting">设置</div>
+        <div class="ri-setting" v-on:click="gotoPersonInfo">设置</div>
         <div class="ri-message">消息</div>
       </div>
     </div>
@@ -43,10 +43,11 @@
 
     methods: {
       gotoLogin() {
-        // alert('xx');
-        // window.phihome.app.toast('浪里浪个浪', function (response) {
-        // });
         window.phihome.app.openPage("lcs.account.login", null, function (response) {
+        });
+      },
+      gotoPersonInfo() {
+        window.phihome.app.openPage("lcs.account.personinfo", null, function (response) {
         });
       }
     }
@@ -74,7 +75,7 @@
             font-size: 16px
             margin-bottom: 10px
           .money-all
-            font-size: 12 p
+            font-size: 12 px
     .right-icon
       position: absolute
       right: 18px
