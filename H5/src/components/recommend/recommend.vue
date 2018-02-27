@@ -11,8 +11,44 @@
             </div>
           </slider>
         </div>
+        <div class="nav-func">
+          <ul class="ofh">
+            <li @click="toFuncPage" class="fl">
+              <img src="~@/common/image/icon_17.jpg" alt=""><br>
+              <span>热销产品</span>
+            </li>
+            <li @click="toFuncPage" class="fl">
+              <img src="~@/common/image/icon_19.jpg" alt=""><br/>
+              <span>最新推荐</span>
+            </li>
+            <li @click="toFuncPage" class="fl">
+              <img src="~@/common/image/icon_21.jpg" alt=""><br/>
+              <span>集合信托</span>
+            </li>
+            <li @click="toFuncPage" class="fl">
+              <img src="~@/common/image/icon_23.jpg" alt=""><br/>
+              <span>集合资管</span>
+            </li>
+            <li @click="toFuncPage" class="fl">
+              <img src="~@/common/image/icon_29.jpg" alt=""><br>
+              <span>债券基金</span>
+            </li>
+            <li @click="toFuncPage" class="fl">
+              <img src="~@/common/image/icon_30.jpg" alt=""><br/>
+              <span>阳光私募</span>
+            </li>
+            <li @click="toFuncPage" class="fl">
+              <img src="~@/common/image/icon_31.jpg" alt=""><br/>
+              <span>股权基金</span>
+            </li>
+            <li @click="toFuncPage" class="fl">
+              <img src="~@/common/image/icon_32.jpg" alt=""><br/>
+              <span>视频路演</span>
+            </li>
+          </ul>
+        </div>
         <div class="recommend-list">
-          <h1 class="list-title">热门歌单推荐</h1>
+          <h1 class="list-title">热门歌单推荐66600</h1>
           <ul>
             <li @click="selectItem(item)" v-for="item in discList" class="item">
               <div class="icon">
@@ -54,6 +90,9 @@
       this._getDiscList()
     },
     methods: {
+      toFuncPage () {
+
+      },
       loadImage () {
         if (!this.checkloaded) {
           this.checkloaded = true
@@ -93,7 +132,24 @@
     bottom: 0
     .recommend-content
       height: 100%
+      background: #fff
       overflow: hidden
+      .nav-func
+        padding-top 18px
+        margin 10px 18px
+        ul{
+          width 100%
+          li{
+            width 25%
+            text-align center
+            margin-bottom 19px
+            font-size 14px
+            img {
+              width 48px
+              padding-bottom 6px
+            }
+          }
+        }
       .slider-wrapper
         position: relative
         width: 100%
@@ -124,9 +180,6 @@
             font-size: $font-size-medium
             .name
               margin-bottom: 10px
-              color: $color-text
-            .desc
-              color: $color-text-d
       .loading-container
         position: absolute
         width: 100%

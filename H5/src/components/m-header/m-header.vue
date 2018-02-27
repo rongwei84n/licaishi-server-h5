@@ -1,10 +1,11 @@
 <template>
   <div class="m-header">
-    <div class="icon"></div>
-    <h1 class="text">Chicken Music</h1>
-    <router-link tag="div" class="mine" to="/user">
-      <i class="icon-mine"></i>
-    </router-link>
+    <img src="~@/common/image/sfa.png" class="sfa-icon" alt="">
+      <div class="search">
+        <img src="~@/common/image/search.png" alt="">
+        <input type="text" placeholder="国通信托-方兴463号">
+      </div>
+    <img src="~@/common/image/remind.png" class="message-icon" alt="">
   </div>
 </template>
 
@@ -18,23 +19,42 @@
 
   .m-header
     position: relative
-    height: 44px
+    background: #deae47
+    height: 64px
     text-align: center
     color: $color-theme
     font-size: 0
-    .icon
+    line-height: 64px;
+    padding: 12px 10px;
+    .sfa-icon
       display: inline-block
       vertical-align: top
-      margin-top: 6px
-      width: 30px
-      height: 32px
+      margin-top: 24px
+      width: 39px
       margin-right: 9px
-      background-size: 30px 32px
-    .text
+    .message-icon
+      width: 25px;
+      margin-top 18px
+      margin-left 5px
+    .search
       display: inline-block
+      position relative
       vertical-align: top
-      line-height: 44px
+      width: 80%
       font-size: $font-size-large
+      img
+        position absolute
+        left: 10px;
+        top:24px;
+        width: 20px;
+      input
+        width: 100%;
+        height: 28px;
+        background #fff
+        text-indent: 42px
+        font-size 15px
+        color: #999999
+        border-radius: 6px;
     .mine
       position: absolute
       top: 0
