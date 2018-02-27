@@ -3,7 +3,7 @@
     <img src="~@/common/image/sfa.png" class="sfa-icon" alt="">
       <div class="search">
         <img src="~@/common/image/search.png" alt="">
-        <input type="text" placeholder="国通信托-方兴463号">
+        <input type="text" placeholder="国通信托-方兴4263号">
       </div>
     <img src="~@/common/image/remind.png" class="message-icon" alt="">
   </div>
@@ -14,6 +14,7 @@
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
+
   @import "~common/stylus/variable"
   @import "~common/stylus/mixin"
 
