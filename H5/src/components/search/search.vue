@@ -6,7 +6,7 @@
           <img width="64" height="64" src="~@/common/image/workRoom.png"/>
         </div>
         <div class="content">
-          <div class="av-name" v-on:click="gotoLogin">未登录</div>
+          <div class="av-name" v-on:click="gotoLogin">{{name}}</div>
           <div class="money-all">累计佣金: 10000元</div>
         </div>
       </div>
@@ -41,7 +41,27 @@
 <script>
   export default {
     data() {
-      return {}
+      return {
+        name: '未登录',
+        neturl: 'http://47.97.100.240/'
+      }
+    },
+    created: function () {
+      let _this = this;
+      window.phihome.util.netRequest("get", _this.neturl + 'srv/v1/accountDetail', '', '',
+        function (response) {
+          response = JSON.parse(response);
+          if (response.errorCode == 0) { //网络请求成功
+            let netResponse = JSON.parse(response.netResponse);
+            if (netResponse.error == 0) { //获取账号成功
+              _this.name = netResponse.data.nickname;
+            } else {
+              _this.name = '未设置';
+            }
+          } else {
+            _this.name = '未登录';
+          }
+        })
     },
 
     methods: {
