@@ -22,19 +22,23 @@
         我的订单
       </div>
       <div class="order-items">
-        <div class="order-item-wait-pay">待打款</div>
-        <div>待结佣</div>
-        <div>已结佣</div>
-        <div>已失败</div>
+        <div class="order-items-tab">待打款</div>
+        <div class="order-items-tab">待结佣</div>
+        <div class="order-items-tab">已结佣</div>
+        <div class="order-items-tab">已失败</div>
       </div>
     </div>
 
     <div class="my-owns">
-      <div class="my-labrary">我的工作室</div>
+      <router-link tag="div" class="my-labrary" to="/rank">
+        <span class="tab-link">工作室</span>
+      </router-link>
       <div class="my-customer">我的客户</div>
       <div class="my-extend">我要推广</div>
       <div class="my-server">客服热线：400-0852-6325</div>
     </div>
+
+    <router-view></router-view>
   </div>
 </template>
 
@@ -124,14 +128,16 @@
         text-align center
         font-size: 16px
       .order-items
-        position relative
-        padding-left 18px
-        display inline-block
-        .order-item-wait-pay
-          font-size 20px
+        display: flex
+        width: 100%
+        height: 80px
+        line-height: 80px
+        .order-items-tab
+          flex: 1
+          text-align: center
     .my-owns
       padding-left 18px
       .my-labrary
-        font-size: 20px
+        font-size 20px
 
 </style>
