@@ -1,5 +1,5 @@
 <template>
-  <div class="settings">
+  <div class="settings-all-0">
     <div class="setting-header">
       <div class="content-wrapper">
         <div class="avatar">
@@ -17,9 +17,12 @@
     </div>
 
     <div class="setting-order">
-      <div class="my-order">我的订单</div>
-      <div class="wait_pay">
-        <div>待打款</div>
+      <div class="view-all-orders">查看全部订单></div>
+      <div class="my-order">
+        我的订单
+      </div>
+      <div class="order-items">
+        <div class="order-item-wait-pay">待打款</div>
         <div>待结佣</div>
         <div>已结佣</div>
         <div>已失败</div>
@@ -55,12 +58,19 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  .settings
+  @import "~common/stylus/variable"
+
+  .settings-all-0
+    position: fixed
+    width: 100%
+    top: 88px
+    bottom: 0
+    background: #fff
     .setting-header
+      padding-left 18px
       position: relative
       .content-wrapper
-        color: #fff
-        padding: 24px 12px 18px 24px
+        padding: 24px 12px 18px 0px
         font-size: 0
         .avatar
           vertical-align: top
@@ -75,7 +85,7 @@
             font-size: 16px
             margin-bottom: 10px
           .money-all
-            font-size: 12 px
+            font-size: 12px
     .right-icon
       position: absolute
       right: 18px
@@ -86,7 +96,22 @@
       .ri-message
         display: inline-block
     .setting-order
+      .view-all-orders
+        text-align right
+        padding-right: 18px
+        font-size: 14px
       .my-order
+        text-align center
         font-size: 16px
+      .order-items
+        position relative
+        padding-left 18px
+        display inline-block
+        .order-item-wait-pay
+          font-size 20px
+    .my-owns
+      padding-left 18px
+      .my-labrary
+        font-size: 20px
 
 </style>
