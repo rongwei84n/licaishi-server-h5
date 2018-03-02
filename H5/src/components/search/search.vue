@@ -3,7 +3,7 @@
     <div class="setting-header">
       <div class="content-wrapper">
         <div class="avatar">
-          <img width="64" height="64" src="~@/common/image/workRoom.png"/>
+          <img width="64" height="64" src="~@/common/image/head_portrait.png"/>
         </div>
         <div class="content">
           <div class="av-name" v-on:click="gotoLogin">{{name}}</div>
