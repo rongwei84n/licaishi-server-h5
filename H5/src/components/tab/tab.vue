@@ -4,7 +4,7 @@
       <img @click.self="linkActive" title="0" src="../../common/image/homeActive.png" alt="homeActive.png"><br/>
       <span class="tab-link">首页</span>
     </router-link>
-    <router-link tag="div" class="tab-item" to="/singer">
+    <router-link tag="div" class="tab-item" to="/product">
       <img @click.self="linkActive" title="1" src="~@/common/image/product.png" alt="productActive.png"><br/>
       <span class="tab-link">产品</span>
     </router-link>
