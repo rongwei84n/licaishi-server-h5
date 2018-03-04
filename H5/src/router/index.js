@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Rank from '@/components/rank/rank'
-import Recommend from '@/components/recommend/recommend'
+import Recommend from '@/contanier/recommend/recommend'//首页
 import Search from '@/components/search/search'
-import Product from '@/components/product/product'
+import Product from '@/contanier/product/product'//产品
 
 Vue.use(Router)
 

@@ -72,7 +72,7 @@ import Scroll from "base/scroll/scroll";
 import { getRecommend } from "api/recommend";
 import { ERR_OK } from "api/config";
 import moduleTitle from "components/moduleTitle/moduleTitle";
-import productItem from "contanier/productItem/productItem";
+import productItem from "components/productItem/productItem";
 
 export default {
   data() {
@@ -159,7 +159,7 @@ export default {
   .recommend-content {
     position: absolute;
     top: 60px;
-    bottom: 60px;
+    bottom: 46px;
     background: #fff;
     overflow: hidden;
     width: 100%;

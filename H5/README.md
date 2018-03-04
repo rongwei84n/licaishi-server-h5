@@ -46,8 +46,12 @@ modelTitle组件的封装
 
 >编码进度
 
-modelTitle组件的封装
+首页产品组件productItem完成
 
-产品组件productItem完成
+首页产品查询接口recommendProducts调试完成
 
-首页产品查询接口recommendProducts调试完成，但数据未确定
+产品模块查询接口未调试，产品模块组件productItem初步完成，等待接口调试
+
+>遗留问题
+
+首页产品查询接口recommendProducts，缺少返佣比例字段

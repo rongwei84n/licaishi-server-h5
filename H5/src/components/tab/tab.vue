@@ -20,14 +20,14 @@
 </template>
 
 <script type="text/ecmascript-6">
-import home from "../../common/image/home.png";
-import product from "../../common/image/product.png";
-import workRoom from "../../common/image/workRoom.png";
-import userCenter from "../../common/image/userCenter.png";
-import homeActive from "../../common/image/homeActive.png";
-import productActive from "../../common/image/productAcitve.png";
-import workRoomActive from "../../common/image/workRoomActive.png";
-import userCenterActive from "../../common/image/userCenterActive.png";
+import home from "common/image/home.png";
+import product from "common/image/product.png";
+import workRoom from "common/image/workRoom.png";
+import userCenter from "common/image/userCenter.png";
+import homeActive from "common/image/homeActive.png";
+import productActive from "common/image/productAcitve.png";
+import workRoomActive from "common/image/workRoomActive.png";
+import userCenterActive from "common/image/userCenterActive.png";
 export default {
   data() {
     return {
@@ -73,7 +73,7 @@ export default {
   color: #303030;
   display: flex;
   align-items: center;
-  height: 60px;
+  height: 46px;
   /* line-height: 44px */
   font-size: $font-size-medium;
 
@@ -82,7 +82,8 @@ export default {
     text-align: center;
 
     img {
-      height: 36px;
+      height: 20px;
+      width: 20px;
     }
 
     .tab-link {
