@@ -41,3 +41,13 @@ modelTitle组件的封装
 产品组件productItem编写
 
 增加了些许图片到static文件夹内
+
+#### 180304
+
+>编码进度
+
+modelTitle组件的封装
+
+产品组件productItem完成
+
+首页产品查询接口recommendProducts调试完成，但数据未确定

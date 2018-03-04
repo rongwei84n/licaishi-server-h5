@@ -54,5 +54,12 @@ export default {
             margin-right: 6px;
         }
     }
+
+    .moreContent {
+        >span {
+            font-size: 10px;
+            color: #686868;
+        }
+    }
 }
 </style>

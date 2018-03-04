@@ -1,6 +1,6 @@
 <template>
   <div class="recommend" ref="recommend">
-    <scroll ref="scroll" class="recommend-content" :data="discList">
+    <scroll ref="scroll" class="recommend-content" :data="newRecommendProductsList">
       <div>
         <div v-if="recommends.length" class="slider-wrapper" ref="sliderWrapper">
           <slider>
@@ -48,27 +48,16 @@
             </li>
           </ul>
         </div>
+        <!-- 热销产品区域 -->
         <module-title title="热销产品" iconUrl="../../../static/image/icon_17.jpg" @moreClick="to_moreClick()"></module-title>
-
-        <product-item v-for="(item,index) in recommendProductsList" :key="index" :pShortName="item.pShortName" :annualRate="item.annualRate" :pSaleStatus="item.pSaleStatus" :pDulTime="item.pDulTime" :pInvestType="item.pInvestType"></product-item>
-        <!-- <div class="recommend-list">
-          <h1 class="list-title">热门歌单推荐666</h1>
-          <ul>
-            <li @click="selectItem(item)" v-for="(item,index) in discList" class="item" :key="index">
-              <div class="icon">
-                <img width="60" height="60" v-lazy="item.imgurl">
-              </div>
-              <div class="text">
-                <h2 class="name" v-html="item.creator.name"></h2>
-                <p class="desc" v-html="item.dissname"></p>
-              </div>
-            </li>
-          </ul>
+        <product-item v-for="(item,index) in recommendProductsList" :key="index" :pShortName="item.pShortName" :pExpectAnnualRevenue="item.pExpectAnnualRevenue" :pSaleStatus="item.pSaleStatus" :pDulTime="item.pDulTime" :pInvestType="item.pInvestType"></product-item>
+        <!-- 广告区域 -->
+        <img src="../../common/image/body.png" alt="" class="advertising">
+        <!-- 最新推荐产品区域 -->
+        <div class="newRecommendProducts-content">
+          <module-title title="最新推荐" iconUrl="../../../static/image/icon_17.jpg" @moreClick="to_moreClick()"></module-title>
+          <product-item v-for="(item,index) in newRecommendProductsList" :key="index" :pShortName="item.pShortName" :pExpectAnnualRevenue="item.pExpectAnnualRevenue" :pSaleStatus="item.pSaleStatus" :pDulTime="item.pDulTime" :pInvestType="item.pInvestType"></product-item>
         </div>
-      </div>
-      <div class="loading-container" v-show="!discList.length">
-        <loading></loading>
-        -->
       </div>
     </scroll>
     <router-view></router-view>
@@ -80,7 +69,7 @@ import ajax from "api/ajax";
 import Slider from "base/slider/slider";
 import Loading from "base/loading/loading";
 import Scroll from "base/scroll/scroll";
-import { getRecommend, getDiscList } from "api/recommend";
+import { getRecommend } from "api/recommend";
 import { ERR_OK } from "api/config";
 import moduleTitle from "components/moduleTitle/moduleTitle";
 import productItem from "contanier/productItem/productItem";
@@ -88,9 +77,9 @@ import productItem from "contanier/productItem/productItem";
 export default {
   data() {
     return {
-      recommends: [],
-      discList: [],
-      recommendProductsList: [] //热销产品列表
+      recommends: [], //广告轮播图
+      recommendProductsList: [], //热销产品列表
+      newRecommendProductsList: [] //最新推荐产品列表
     };
   },
   created() {
@@ -98,6 +87,7 @@ export default {
 
     // this._getDiscList();
     this.recommendProducts();
+    this.newRecommendProducts();
   },
   methods: {
     // 更多按钮跳转事件
@@ -119,17 +109,23 @@ export default {
         }
       });
     },
-    // _getDiscList() {
-    //   getDiscList().then(res => {
-    //     if (res.code === ERR_OK) {
-    //       this.discList = res.data.list;
-    //     }
-    //   });
-    // },
     // 请求推荐产品列表
     recommendProducts() {
       ajax({
-        // this.ajaxs({
+        url: "/srv/v1/product/recommendProducts",
+        params: {
+          recommendType: 2
+        },
+        method: "GET"
+      }).then(res => {
+        if (res.status === 200) {
+          this.recommendProductsList = res.data.result;
+        }
+      });
+    },
+    // 获取最新推荐产品列表
+    newRecommendProducts() {
+      ajax({
         url: "/srv/v1/product/recommendProducts",
         params: {
           recommendType: 1
@@ -137,7 +133,7 @@ export default {
         method: "GET"
       }).then(res => {
         if (res.status === 200) {
-          this.recommendProductsList = res.data.result;
+          this.newRecommendProductsList = res.data.result;
         }
       });
     }
@@ -187,6 +183,22 @@ export default {
           }
         }
       }
+    }
+
+    // 广告区域
+    .advertising {
+      position: relative;
+      width: 100vw;
+      height: 86px;
+      border-top: 8px solid #eff3f6;
+      border-bottom: 8px solid #eff3f6;
+      top: -4px;
+    }
+
+    // 最新推荐产品区域
+    .newRecommendProducts-content {
+      position: relative;
+      top: -4px;
     }
 
     .slider-wrapper {

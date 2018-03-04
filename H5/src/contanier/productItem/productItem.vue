@@ -14,7 +14,7 @@
         <div class="pro-main">
             <div class="main-left-content">
                 <span class="span-key">预期年化</span>
-                <span class="span-value annual-rate">{{annualRate}}</span>
+                <span class="span-value annual-rate">{{pExpectAnnualRevenue}}</span>
             </div>
             <div class="main-right-content">
                 <div>
@@ -23,7 +23,7 @@
                 </div>
                 <div>
                     <span class="span-key">投资领域</span>
-                    <span class="span-value">{{pInvestType}}</span>
+                    <span class="span-value">{{get_pInvestType}}</span>
                 </div>
                 <div>
                     <span class="span-key">返佣比例</span>
@@ -39,14 +39,13 @@ export default {
   props: {
     pShortName: "", //产品简称
     pSaleStatus: "", //产品销售状态 01：预热中 02：募集中 03：募集结束 04：产品成立
-    annualRate: "", //年化率
+    pExpectAnnualRevenue: "", //年化率
     pDulTime: "", //投资期限
     pInvestType: "" //投资领域
   },
   created() {},
   computed: {
     get_pSaleStatus() {
-      console.log(this.pSaleStatus);
       switch (this.pSaleStatus) {
         case "01":
           return "预热中";
@@ -59,6 +58,24 @@ export default {
         default:
           break;
       }
+    },
+    get_pInvestType() {
+      switch (this.pInvestType) {
+        case "01":
+          return "房地产类";
+        case "02":
+          return "金融市场";
+        case "03":
+          return "基础设施";
+        case "04":
+          return "资金池";
+        case "05":
+          return "工商企业";
+        case "00":
+          return "其他";
+        default:
+          break;
+      }
     }
   }
 };
@@ -66,7 +83,7 @@ export default {
 
 <style lang="stylus" scoped>
 .pro-content {
-    height: 100px;
+    height: 120px;
     width: 100vw;
 
     .pro-header-content {
@@ -102,8 +119,8 @@ export default {
 
     .pro-main {
         display: flex;
-        height: 78px;
-        border-bottom: 4px solid red;
+        height: calc(120px - 24px);
+        border-bottom: 4px solid #dce0e3;
 
         >div {
             flex: 1;
@@ -117,10 +134,16 @@ export default {
             border-right: 1px solid red;
             // justify-content: space-around;
         }
+
+        .main-right-content {
+            >div {
+                flex: 1;
+            }
+        }
     }
 
     .span-key, .span-value {
-        font-size: 10px;
+        font-size: 8px;
     }
 
     // 年化率
@@ -128,8 +151,8 @@ export default {
         flex: 1;
         font-size: 24px;
         display: inline-block;
-        height: 42px;
-        line-height: 42px;
+        height: 60px;
+        line-height: 60px;
     }
 
     .span-value {
