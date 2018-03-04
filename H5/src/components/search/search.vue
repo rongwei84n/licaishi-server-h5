@@ -3,7 +3,7 @@
     <div class="setting-header">
       <div class="content-wrapper">
         <div class="avatar">
-          <img width="64" height="64" src="~@/common/image/head_portrait.png"/>
+          <img width="64" height="64" src="~@/common/image/head_portrait.png" />
         </div>
         <div class="content">
           <div class="av-name" v-on:click="gotoLogin">{{name}}</div>
@@ -43,101 +43,142 @@
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        name: '未登录',
-        neturl: 'http://47.97.100.240/'
-      }
-    },
-    created: function () {
-      let _this = this;
-      window.phihome.util.netRequest("get", _this.neturl + 'srv/v1/accountDetail', '', '',
-        function (response) {
-          response = JSON.parse(response);
-          if (response.errorCode == 0) { //网络请求成功
-            let netResponse = JSON.parse(response.netResponse);
-            if (netResponse.error == 0) { //获取账号成功
-              _this.name = netResponse.data.nickname;
-            } else {
-              _this.name = '未设置';
-            }
+export default {
+  data() {
+    return {
+      name: "未登录",
+      neturl: "http://47.97.100.240/"
+    };
+  },
+  created: function() {
+    let _this = this;
+    window.phihome.util.netRequest(
+      "get",
+      _this.neturl + "srv/v1/accountDetail",
+      "",
+      "",
+      function(response) {
+        response = JSON.parse(response);
+        if (response.errorCode == 0) {
+          //网络请求成功
+          let netResponse = JSON.parse(response.netResponse);
+          if (netResponse.error == 0) {
+            //获取账号成功
+            _this.name = netResponse.data.nickname;
           } else {
-            _this.name = '未登录';
+            _this.name = "未设置";
           }
-        })
-    },
-
-    methods: {
-      gotoLogin() {
-        window.phihome.app.openPage("lcs.account.login", null, function (response) {
-        });
-      },
-      gotoPersonInfo() {
-        window.phihome.app.openPage("lcs.account.personinfo", null, function (response) {
-        });
+        } else {
+          _this.name = "未登录";
+        }
       }
+    );
+  },
+
+  methods: {
+    // 跳转到原生页面
+    gotoLogin() {
+      window.phihome.app.openPage("lcs.account.login", null, function(
+        response
+      ) {});
+    },
+    gotoPersonInfo() {
+      window.phihome.app.openPage("lcs.account.personinfo", null, function(
+        response
+      ) {});
     }
   }
+};
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "~common/stylus/variable"
+@import '~common/stylus/variable';
 
-  .settings-all-0
-    position: fixed
-    width: 100%
-    top: 88px
-    bottom: 0
-    background: #fff
-    .setting-header
-      padding-left 18px
-      position: relative
-      .content-wrapper
-        padding: 24px 12px 18px 0px
-        font-size: 0
-        .avatar
-          vertical-align: top
-          display: inline-block
-        .content
-          align-content: center
-          display: inline-block
-          font-size: 14px
-          margin-left: 16px
-          .av-name
-            margin-top: 10px
-            font-size: 16px
-            margin-bottom: 10px
-          .money-all
-            font-size: 12px
-    .right-icon
-      position: absolute
-      right: 18px
-      top: 24px
-      font-size: 20px
-      .ri-setting
-        display: inline-block
-      .ri-message
-        display: inline-block
-    .setting-order
-      .view-all-orders
-        text-align right
-        padding-right: 18px
-        font-size: 14px
-      .my-order
-        text-align center
-        font-size: 16px
-      .order-items
-        display: flex
-        width: 100%
-        height: 80px
-        line-height: 80px
-        .order-items-tab
-          flex: 1
-          text-align: center
-    .my-owns
-      padding-left 18px
-      .my-labrary
-        font-size 20px
+.settings-all-0 {
+  position: fixed;
+  width: 100%;
+  top: 88px;
+  bottom: 0;
+  background: #fff;
 
+  .setting-header {
+    padding-left: 18px;
+    position: relative;
+
+    .content-wrapper {
+      padding: 24px 12px 18px 0px;
+      font-size: 0;
+
+      .avatar {
+        vertical-align: top;
+        display: inline-block;
+      }
+
+      .content {
+        align-content: center;
+        display: inline-block;
+        font-size: 14px;
+        margin-left: 16px;
+
+        .av-name {
+          margin-top: 10px;
+          font-size: 16px;
+          margin-bottom: 10px;
+        }
+
+        .money-all {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+
+  .right-icon {
+    position: absolute;
+    right: 18px;
+    top: 24px;
+    font-size: 20px;
+
+    .ri-setting {
+      display: inline-block;
+    }
+
+    .ri-message {
+      display: inline-block;
+    }
+  }
+
+  .setting-order {
+    .view-all-orders {
+      text-align: right;
+      padding-right: 18px;
+      font-size: 14px;
+    }
+
+    .my-order {
+      text-align: center;
+      font-size: 16px;
+    }
+
+    .order-items {
+      display: flex;
+      width: 100%;
+      height: 80px;
+      line-height: 80px;
+
+      .order-items-tab {
+        flex: 1;
+        text-align: center;
+      }
+    }
+  }
+
+  .my-owns {
+    padding-left: 18px;
+
+    .my-labrary {
+      font-size: 20px;
+    }
+  }
+}
 </style>

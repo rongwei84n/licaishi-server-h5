@@ -4,13 +4,14 @@
       <div>
         <div v-if="recommends.length" class="slider-wrapper" ref="sliderWrapper">
           <slider>
-            <div v-for="item in recommends">
+            <div v-for="(item,index) in recommends" :key="index">
               <a :href="item.linkUrl">
                 <img class="needsclick" @load="loadImage" :src="item.picUrl">
               </a>
             </div>
           </slider>
         </div>
+        <!-- 首页功能导航菜单 -->
         <div class="nav-func">
           <ul class="ofh">
             <li @click="toFuncPage" class="fl">
@@ -47,10 +48,13 @@
             </li>
           </ul>
         </div>
-        <div class="recommend-list">
+        <module-title title="热销产品" iconUrl="../../../static/image/icon_17.jpg" @moreClick="to_moreClick()"></module-title>
+
+        <product-item v-for="(item,index) in recommendProductsList" :key="index" :pShortName="item.pShortName" :annualRate="item.annualRate" :pSaleStatus="item.pSaleStatus" :pDulTime="item.pDulTime" :pInvestType="item.pInvestType"></product-item>
+        <!-- <div class="recommend-list">
           <h1 class="list-title">热门歌单推荐666</h1>
           <ul>
-            <li @click="selectItem(item)" v-for="item in discList" class="item">
+            <li @click="selectItem(item)" v-for="(item,index) in discList" class="item" :key="index">
               <div class="icon">
                 <img width="60" height="60" v-lazy="item.imgurl">
               </div>
@@ -64,6 +68,7 @@
       </div>
       <div class="loading-container" v-show="!discList.length">
         <loading></loading>
+        -->
       </div>
     </scroll>
     <router-view></router-view>
@@ -71,118 +76,168 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import Slider from 'base/slider/slider'
-  import Loading from 'base/loading/loading'
-  import Scroll from 'base/scroll/scroll'
-  import {getRecommend, getDiscList} from 'api/recommend'
-  import {ERR_OK} from 'api/config'
+import ajax from "api/ajax";
+import Slider from "base/slider/slider";
+import Loading from "base/loading/loading";
+import Scroll from "base/scroll/scroll";
+import { getRecommend, getDiscList } from "api/recommend";
+import { ERR_OK } from "api/config";
+import moduleTitle from "components/moduleTitle/moduleTitle";
+import productItem from "contanier/productItem/productItem";
 
-  export default {
-    data () {
-      return {
-        recommends: [],
-        discList: []
+export default {
+  data() {
+    return {
+      recommends: [],
+      discList: [],
+      recommendProductsList: [] //热销产品列表
+    };
+  },
+  created() {
+    this._getRecommend();
+
+    // this._getDiscList();
+    this.recommendProducts();
+  },
+  methods: {
+    // 更多按钮跳转事件
+    to_moreClick(url) {
+      console.log("to_moreClick");
+      // this.$router.push(url);
+    },
+    toFuncPage() {},
+    loadImage() {
+      if (!this.checkloaded) {
+        this.checkloaded = true;
+        this.$refs.scroll.refresh();
       }
     },
-    created () {
-      this._getRecommend()
-
-      this._getDiscList()
-    },
-    methods: {
-      toFuncPage () {
-
-      },
-      loadImage () {
-        if (!this.checkloaded) {
-          this.checkloaded = true
-          this.$refs.scroll.refresh()
+    _getRecommend() {
+      getRecommend().then(res => {
+        if (res.code === ERR_OK) {
+          this.recommends = res.data.slider;
         }
-      },
-      _getRecommend () {
-        getRecommend().then((res) => {
-          if (res.code === ERR_OK) {
-            this.recommends = res.data.slider
-          }
-        })
-      },
-      _getDiscList () {
-        getDiscList().then((res) => {
-          if (res.code === ERR_OK) {
-            this.discList = res.data.list
-          }
-        })
-      }
+      });
     },
-    components: {
-      Slider,
-      Loading,
-      Scroll
+    // _getDiscList() {
+    //   getDiscList().then(res => {
+    //     if (res.code === ERR_OK) {
+    //       this.discList = res.data.list;
+    //     }
+    //   });
+    // },
+    // 请求推荐产品列表
+    recommendProducts() {
+      ajax({
+        // this.ajaxs({
+        url: "/srv/v1/product/recommendProducts",
+        params: {
+          recommendType: 1
+        },
+        method: "GET"
+      }).then(res => {
+        if (res.status === 200) {
+          this.recommendProductsList = res.data.result;
+        }
+      });
     }
+  },
+  components: {
+    Slider,
+    Loading,
+    Scroll,
+    moduleTitle,
+    productItem
   }
+};
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-  @import "~common/stylus/variable"
+@import '~common/stylus/variable';
 
-  .recommend
-    position: fixed
-    width: 100%
-    top: 88px
-    bottom: 0
-    .recommend-content
-      height: 100%
-      background: #fff
-      overflow: hidden
-      .nav-func
-        padding-top 18px
-        margin 10px 18px
-        ul{
-          width 100%
-          li{
-            width 25%
-            text-align center
-            margin-bottom 19px
-            font-size 14px
-            img {
-              width 48px
-              padding-bottom 6px
-            }
+.recommend {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+
+  .recommend-content {
+    position: absolute;
+    top: 60px;
+    bottom: 60px;
+    background: #fff;
+    overflow: hidden;
+    width: 100%;
+
+    .nav-func {
+      padding-top: 18px;
+      background-color: #eff3f6;
+
+      ul {
+        width: 100%;
+
+        li {
+          width: 25%;
+          text-align: center;
+          margin-bottom: 19px;
+          font-size: 14px;
+
+          img {
+            width: 48px;
+            padding-bottom: 6px;
           }
         }
-      .slider-wrapper
-        position: relative
-        width: 100%
-        overflow: hidden
-      .recommend-list
-        .list-title
-          height: 65px
-          line-height: 65px
-          text-align: center
-          font-size: $font-size-medium
-          color: $color-theme
-        .item
-          display: flex
-          box-sizing: border-box
-          align-items: center
-          padding: 0 20px 20px 20px
-          .icon
-            flex: 0 0 60px
-            width: 60px
-            padding-right: 20px
-          .text
-            display: flex
-            flex-direction: column
-            justify-content: center
-            flex: 1
-            line-height: 20px
-            overflow: hidden
-            font-size: $font-size-medium
-            .name
-              margin-bottom: 10px
-      .loading-container
-        position: absolute
-        width: 100%
-        top: 50%
-        transform: translateY(-50%)
+      }
+    }
+
+    .slider-wrapper {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .recommend-list {
+      .list-title {
+        height: 65px;
+        line-height: 65px;
+        text-align: center;
+        font-size: $font-size-medium;
+        color: $color-theme;
+      }
+
+      .item {
+        display: flex;
+        box-sizing: border-box;
+        align-items: center;
+        padding: 0 20px 20px 20px;
+
+        .icon {
+          flex: 0 0 60px;
+          width: 60px;
+          padding-right: 20px;
+        }
+
+        .text {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          flex: 1;
+          line-height: 20px;
+          overflow: hidden;
+          font-size: $font-size-medium;
+
+          .name {
+            margin-bottom: 10px;
+          }
+        }
+      }
+    }
+
+    .loading-container {
+      position: absolute;
+      width: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+}
 </style>

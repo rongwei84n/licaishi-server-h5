@@ -8,6 +8,8 @@ import store from './store'
 
 import 'common/stylus/index.styl'
 import 'common/css/reset.css'
+
+import ajax from "api/ajax"
 /* eslint-disable no-unused-vars */
 // import vConsole from 'vconsole'
 
@@ -24,3 +26,5 @@ new Vue({
   store,
   render: h => h(App)
 })
+
+Vue.prototype.ajaxs = ajax

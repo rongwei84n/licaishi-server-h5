@@ -1,5 +1,5 @@
 /* eslint-disable */
-;(function () {
+; (function () {
 
     if (window.phihome) {
         return
@@ -23,9 +23,9 @@
             document.dispatchEvent(event);
         });
         JSBridge.registerHandler("nativeBack", function (data) {
-          var event = new Event('nativeBack');
-          event.data = data;
-          document.dispatchEvent(event);
+            var event = new Event('nativeBack');
+            event.data = data;
+            document.dispatchEvent(event);
         });
     }
 
@@ -74,17 +74,17 @@
         },
 
         publish: function (publishTopic, publishData, successCallback) {
-            var data = JSON.stringify({publishTopic: publishTopic, publishData: publishData});
+            var data = JSON.stringify({ publishTopic: publishTopic, publishData: publishData });
             if (!navigator.onLine) {
-              window.phihome.app.toast('当前网络不可用，请检查网络设置', function (response) {
-              });
+                window.phihome.app.toast('当前网络不可用，请检查网络设置', function (response) {
+                });
             }
             JSBridge.callHandler('publish', data, function (response) {
                 successCallback(response)
             });
         },
         subscribe: function (subscribeTopic, successCallback) {
-            var data = JSON.stringify({subscribeTopic: subscribeTopic});
+            var data = JSON.stringify({ subscribeTopic: subscribeTopic });
             JSBridge.callHandler('subscribe', data, function (response) {
                 successCallback(response)
             });
@@ -96,19 +96,19 @@
     //native App相关api
     var app = {
         toast: function (message, successCallback) {
-            var data = JSON.stringify({message: message});
+            var data = JSON.stringify({ message: message });
             JSBridge.callHandler('toast', data, function (response) {
                 successCallback(response);
             });
         },
         toastLong: function (message, successCallback) {
-            var data = JSON.stringify({message: message});
+            var data = JSON.stringify({ message: message });
             JSBridge.callHandler('toastLong', data, function (response) {
                 successCallback(response);
             });
         },
         showLoading: function (message, showTime, successCallback) {
-            var data = JSON.stringify({message: message, showTime: showTime});
+            var data = JSON.stringify({ message: message, showTime: showTime });
             JSBridge.callHandler('showLoading', data, function (response) {
                 successCallback(response);
             });
@@ -129,7 +129,7 @@
             });
         },
         openPage: function (pageName, pageExtra, successCallback) {
-            var data = JSON.stringify({pageName: pageName, pageExtra: pageExtra});
+            var data = JSON.stringify({ pageName: pageName, pageExtra: pageExtra });
             JSBridge.callHandler('openPage', data, function (response) {
                 successCallback(response);
             });
@@ -138,7 +138,7 @@
 
     //工具类相关api
     var util = {
-        netRequest: function (netAction, url, requestHeader, requestBody, successCallback) {
+        netRequest(netAction, url, requestHeader, requestBody, successCallback) {
             var data = JSON.stringify({
                 netAction: netAction,
                 url: url,
@@ -164,7 +164,7 @@
     };
 
     document.addEventListener('WebViewJavascriptBridgeReady', function onReady(ev) {
-        phihome.init({'bridge': ev.bridge});
+        phihome.init({ 'bridge': ev.bridge });
     });
 })();
 /* eslint-disable */
