@@ -17,7 +17,7 @@
     </div>
 
     <div class="setting-order">
-      <div class="view-all-orders">查看全部订单></div>
+      <div class="view-all-orders" v-on:click="gotoOrderList">查看全部订单></div>
       <div class="my-order">
         我的订单
       </div>
@@ -87,6 +87,9 @@ export default {
       window.phihome.app.openPage("lcs.account.personinfo", null, function(
         response
       ) {});
+    },
+    gotoOrderList() {
+      this.$router.push({name: 'Orderlist'});
     }
   }
 };
@@ -98,9 +101,10 @@ export default {
 .settings-all-0 {
   position: fixed;
   width: 100%;
-  top: 88px;
+  top: 0px;
   bottom: 0;
   background: gainsboro;
+  z-index: 2;
 
   .setting-header {
     padding-left: 18px;
