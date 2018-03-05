@@ -2,37 +2,36 @@
  * @Author: 张浩然 
  * @Date: 2018-03-04 23:04:51 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-05 09:28:32
+ * @Last Modified time: 2018-03-05 19:59:13
  * 产品页-产品组件
  */
 
 <template>
-    <div class="main">
-        <div class="top-content">
-            <span class="product-name">{{pShortName}}</span>
-            <!-- TODO:此处根据状态替换icon -->
-            <!-- <img src="" alt="状态"> -->
-            <span>{{get_pSaleStatus}}</span>
-        </div>
-        <div class="bottom-content">
-            <div>
-                <span class="span-red">{{pExpectAnnualRevenue}}</span>
-                <span>预期年化</span>
-            </div>
-            <div>
-                <span>{{pDulTime}}个月</span>
-                <span>产品期限</span>
-            </div>
-            <div>
-                <span>{{get_pInvestType}}</span>
-                <span>投资领域</span>
-            </div>
-            <div>
-                <span class="span-red">1</span>
-                <span>返佣比例</span>
-            </div>
-        </div>
+  <div class="main">
+    <div class="top-content">
+      <span class="product-name">{{pShortName}}</span>
+      <!-- TODO:此处根据状态替换icon -->
+      <img :src="get_pSaleStatus" alt="状态">
     </div>
+    <div class="bottom-content">
+      <div>
+        <span class="span-red">{{pExpectAnnualRevenue}}</span>
+        <span>预期年化</span>
+      </div>
+      <div>
+        <span>{{pDulTime}}个月</span>
+        <span>产品期限</span>
+      </div>
+      <div>
+        <span>{{get_pInvestType}}</span>
+        <span>投资领域</span>
+      </div>
+      <div>
+        <span class="span-red">1</span>
+        <span>返佣比例</span>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script type="es6">
@@ -49,15 +48,13 @@ export default {
     get_pSaleStatus() {
       switch (this.pSaleStatus) {
         case "01":
-          return "预热中";
+          return "../../../static/image/product_status/preparing.png";
         case "02":
-          return "募集中";
+          return "../../../static/image/product_status/funding.png";
         case "03":
-          return "募集结束";
+          return "../../../static/image/product_status/finish.png";
         case "04":
-          return "产品成立";
-        default:
-          break;
+          return "../../../static/image/product_status/complete.png";
       }
     },
     get_pInvestType() {
@@ -84,50 +81,55 @@ export default {
 
 <style lang="stylus" scoped>
 .main {
-    height: 120px;
-    width: 100vw;
+  height: 120px;
+  width: 100vw;
 
-    span {
-        font-size: 14px;
-        color: #000000;
+  span {
+    font-size: 14px;
+    color: #000000;
+  }
+
+  .span-red {
+    color: red;
+  }
+
+  .top-content {
+    height: 40px;
+    border-bottom: 1px solid #dce0e3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .product-name {
+      margin-left: 4px;
     }
 
-    .span-red {
-        color: red;
+    >img {
+      height: 22px;
+      width: 22px;
     }
+  }
 
-    .top-content {
-        height: 40px;
-        border-bottom: 1px solid #dce0e3;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+  .bottom-content {
+    display: flex;
+    height: calc(120px - 40px);
+    border-bottom: 4px solid #eff3f6;
+    justify-content: space-around;
+    align-items: center;
 
-        .product-name {
-            margin-left: 4px;
-        }
+    >div {
+      height: 70%;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+
+      >span:last-child {
+        color: #686868;
+      }
     }
-
-    .bottom-content {
-        display: flex;
-        height: calc(120px - 40px);
-        border-bottom: 4px solid #dce0e3;
-        justify-content: space-around;
-        align-items: center;
-
-        >div {
-            height: 70%;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            align-items: center;
-
-            >span:last-child {
-                color: #686868;
-            }
-        }
-    }
+  }
 }
 </style>
 

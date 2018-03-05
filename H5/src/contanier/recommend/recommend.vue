@@ -158,7 +158,7 @@ export default {
 
   .recommend-content {
     position: absolute;
-    top: 60px;
+    top: 40px;
     bottom: 46px;
     background: #fff;
     overflow: hidden;

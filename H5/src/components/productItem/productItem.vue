@@ -8,7 +8,6 @@
                 <span class="name">{{pShortName}}</span>
                 <!-- TODO:此处根据状态替换icon -->
                 <img :src="get_pSaleStatus" alt="状态">
-                <!-- <span>{{get_pSaleStatus}}</span> -->
             </div>
         </div>
         <div class="pro-main">
@@ -55,8 +54,6 @@ export default {
           return "../../../static/image/product_status/finish.png";
         case "04":
           return "../../../static/image/product_status/complete.png";
-        default:
-          break;
       }
     },
     get_pInvestType() {

@@ -2,28 +2,20 @@
  * @Author: 张浩然 
  * @Date: 2018-03-04 22:28:31 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-05 10:38:39
+ * @Last Modified time: 2018-03-05 20:05:57
  * 产品模块布局组件
  */
 
 <template>
-    <div class="main">
-        <scroll class="scroll-content">
-            <header ref="tabsContent" class="tabs-content" @click="set_tabs">
-                <span v-for="(item,index) in headerTabList" :class="{currSpan:activeIndex===index}" :data-index="index" :key="index">{{item}}</span>
-                <!-- <span :class={currSpan:activeIndex===index}>集合信托</span>
-                <span :class={currSpan:activeIndex===index}>集合资管</span>
-                <span :class={currSpan:activeIndex===index}>债权基金</span>
-                <span :class={currSpan:activeIndex===index}>阳光私募</span>
-                <span :class={currSpan:activeIndex===index}>股权基金</span> -->
-            </header>
-            <gatherTrust v-if="activeIndex===0"></gatherTrust>
-            <gatherZG v-if="activeIndex===1"></gatherZG>
-            <bondFund v-if="activeIndex===2"></bondFund>
-            <sunPrivate v-if="activeIndex===3"></sunPrivate>
-            <equityFund v-if="activeIndex===4"></equityFund>
-            <productItem></productItem>
-        </scroll>
+    <div class="product-contnet">
+        <header ref="tabsContent" class="tabs-content" @click="set_tabs">
+            <span v-for="(item,index) in headerTabList" :class="{currSpan:activeIndex===index}" :data-index="index" :key="index">{{item}}</span>
+        </header>
+        <gatherTrust v-if="activeIndex===0"></gatherTrust>
+        <gatherZG v-if="activeIndex===1"></gatherZG>
+        <bondFund v-if="activeIndex===2"></bondFund>
+        <sunPrivate v-if="activeIndex===3"></sunPrivate>
+        <equityFund v-if="activeIndex===4"></equityFund>
     </div>
 </template>
 
@@ -34,7 +26,6 @@ import gatherZG from "components/gatherZG/gatherZG"; //集合资管
 import bondFund from "components/bondFund/bondFund"; //债权基金
 import sunPrivate from "components/sunPrivate/sunPrivate"; //阳光私募
 import equityFund from "components/equityFund/equityFund"; //股权基金
-import productItem from "components/pro_product/productItem";
 
 export default {
   data() {
@@ -64,26 +55,20 @@ export default {
     gatherZG,
     bondFund,
     sunPrivate,
-    equityFund,
-    productItem
+    equityFund
   }
 };
 </script>
 
 <style lang="stylus" scoped>
-.main {
-    position: relative;
+.product-contnet {
+    position: fixed;
     width: 100%;
     height: 100vh;
-
-    .scroll-content {
-        position: absolute;
-        top: 60px;
-        bottom: 46px;
-        background: #fff;
-        overflow: hidden;
-        width: 100%;
-    }
+    top: 40px;
+    bottom: 46px;
+    background: #fff;
+    overflow: hidden;
 
     // 头部选项卡
     .tabs-content {

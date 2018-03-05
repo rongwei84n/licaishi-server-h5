@@ -20,7 +20,7 @@ export default {};
 .m-header {
   position: fixed;
   background: #deae47;
-  height: 60px;
+  height: 40px;
   color: $color-theme;
   font-size: 0;
   z-index: 999;
