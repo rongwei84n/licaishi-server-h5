@@ -31,11 +31,12 @@
 
     <div class="my-owns">
       <router-link tag="div" class="my-labrary" to="/rank">
-        <span class="tab-link">工作室</span>
+        <span class="tab-link">我的工作室</span>
       </router-link>
       <div class="my-customer">我的客户</div>
       <div class="my-extend">我要推广</div>
       <div class="my-server">客服热线：400-0852-6325</div>
+      <div class="my-padding"></div>
     </div>
 
     <router-view></router-view>
@@ -99,11 +100,13 @@ export default {
   width: 100%;
   top: 88px;
   bottom: 0;
-  background: #fff;
+  background: gainsboro;
 
   .setting-header {
     padding-left: 18px;
     position: relative;
+    background: white
+    border-bottom: solid 1px gainsboro
 
     .content-wrapper {
       padding: 24px 12px 18px 0px;
@@ -140,6 +143,7 @@ export default {
     font-size: 20px;
 
     .ri-setting {
+      visibility: hidden;
       display: inline-block;
     }
 
@@ -149,7 +153,9 @@ export default {
   }
 
   .setting-order {
+    background: white;
     .view-all-orders {
+      padding-top: 10px;
       text-align: right;
       padding-right: 18px;
       font-size: 14px;
@@ -174,10 +180,37 @@ export default {
   }
 
   .my-owns {
-    padding-left: 18px;
+    background: white;
+    border-bottom: solid 1px gainsboro;
 
     .my-labrary {
-      font-size: 20px;
+      height: 48px;
+      line-height: 48px;
+      padding-left: 18px;
+      border-bottom: solid 1px gainsboro;
+    }
+    .my-customer {
+      height: 48px;
+      line-height: 48px;
+      padding-left: 18px;
+      border-bottom: solid 1px gainsboro;
+    }
+    .my-extend {
+      height: 48px;
+      line-height: 48px;
+      padding-left: 18px;
+      border-bottom: solid 1px gainsboro;
+    }
+    .my-server {
+      height: 48px;
+      line-height: 48px;
+      padding-left: 18px;
+      border-bottom: solid 1px gainsboro;
+    }
+    .my-padding {
+      height: 12px;
+      line-height: 12px;
+      background: white;
     }
   }
 }

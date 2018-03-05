@@ -4,6 +4,7 @@ import Rank from '@/components/rank/rank'
 import Recommend from '@/contanier/recommend/recommend'//首页
 import Search from '@/components/search/search'
 import Product from '@/contanier/product/product'//产品
+import Orderlist from '@/components/search/orderlist'
 
 Vue.use(Router)
 
@@ -30,6 +31,10 @@ export default new Router({
     {
       path: '/search',
       component: Search
-    }
+    },
+    {
+      path: '/orderlist',
+      component: Orderlist
+    },
   ]
 })
