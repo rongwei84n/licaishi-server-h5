@@ -23,7 +23,7 @@ export default {};
   height: 40px;
   color: $color-theme;
   font-size: 0;
-  z-index: 999;
+  z-index: 1;
   width: 100vw;
   display: flex;
   align-items: center;

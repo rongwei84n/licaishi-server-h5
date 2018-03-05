@@ -33,7 +33,8 @@ export default new Router({
       component: Search
     },
     {
-      path: '/orderlist',
+      name: 'Orderlist',
+      path: '/Orderlist',
       component: Orderlist
     },
   ]
