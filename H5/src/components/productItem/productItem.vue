@@ -7,8 +7,8 @@
             <div class="status-content">
                 <span class="name">{{pShortName}}</span>
                 <!-- TODO:此处根据状态替换icon -->
-                <!-- <img src="" alt="状态"> -->
-                <span>{{get_pSaleStatus}}</span>
+                <img :src="get_pSaleStatus" alt="状态">
+                <!-- <span>{{get_pSaleStatus}}</span> -->
             </div>
         </div>
         <div class="pro-main">
@@ -48,13 +48,13 @@ export default {
     get_pSaleStatus() {
       switch (this.pSaleStatus) {
         case "01":
-          return "预热中";
+          return "../../../static/image/product_status/preparing.png";
         case "02":
-          return "募集中";
+          return "../../../static/image/product_status/funding.png";
         case "03":
-          return "募集结束";
+          return "../../../static/image/product_status/finish.png";
         case "04":
-          return "产品成立";
+          return "../../../static/image/product_status/complete.png";
         default:
           break;
       }
@@ -113,6 +113,11 @@ export default {
             .name {
                 font-size: 12px;
                 margin-left: 4px;
+            }
+
+            >img {
+                height: 22px;
+                width: 22px;
             }
         }
     }

@@ -2,11 +2,12 @@
     <div class="moduleTitle">
         <div class="titleContent">
             <img :src="iconUrl" alt="">
-            <!-- <img src="../../../static/image/icon_17.jpg" alt=""> -->
             <span>{{title}}</span>
         </div>
         <div class="moreContent">
-            <span @click.self="_moreClick()">更多>></span>
+            <span @click.self="_moreClick()">更多
+                <img src="../../common/image/more.png" alt="">
+            </span>
         </div>
     </div>
 </template>
@@ -36,13 +37,13 @@ export default {
 
 .moduleTitle {
     width: 100vw;
-    height: 40px;
+    height: 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #dce0e1;
     box-sizing: border-box;
-    padding: 0 10px;
+    padding: 0 6px 0 10px;
 
     .titleContent {
         display: flex;
@@ -59,6 +60,13 @@ export default {
         >span {
             font-size: 10px;
             color: #686868;
+            display: flex;
+            align-items: center;
+
+            >img {
+                width: 14px;
+                height: 12px;
+            }
         }
     }
 }
