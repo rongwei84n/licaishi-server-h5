@@ -2,17 +2,17 @@
  * @Author: 张浩然 
  * @Date: 2018-03-04 23:04:51 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-04 23:25:34
+ * @Last Modified time: 2018-03-05 09:28:32
  * 产品页-产品组件
  */
 
 <template>
     <div class="main">
         <div class="top-content">
-            <span class="product-name">pShortName</span>
+            <span class="product-name">{{pShortName}}</span>
             <!-- TODO:此处根据状态替换icon -->
             <!-- <img src="" alt="状态"> -->
-            <span>get_pSaleStatus</span>
+            <span>{{get_pSaleStatus}}</span>
         </div>
         <div class="bottom-content">
             <div>

@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-04 22:28:31 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-04 23:13:24
+ * @Last Modified time: 2018-03-05 10:38:39
  * 产品模块布局组件
  */
 
@@ -10,12 +10,18 @@
     <div class="main">
         <scroll class="scroll-content">
             <header ref="tabsContent" class="tabs-content" @click="set_tabs">
-                <span>集合信托</span>
-                <span>集合资管</span>
-                <span>债权基金</span>
-                <span>阳光私募</span>
-                <span>股权基金</span>
+                <span v-for="(item,index) in headerTabList" :class="{currSpan:activeIndex===index}" :data-index="index" :key="index">{{item}}</span>
+                <!-- <span :class={currSpan:activeIndex===index}>集合信托</span>
+                <span :class={currSpan:activeIndex===index}>集合资管</span>
+                <span :class={currSpan:activeIndex===index}>债权基金</span>
+                <span :class={currSpan:activeIndex===index}>阳光私募</span>
+                <span :class={currSpan:activeIndex===index}>股权基金</span> -->
             </header>
+            <gatherTrust v-if="activeIndex===0"></gatherTrust>
+            <gatherZG v-if="activeIndex===1"></gatherZG>
+            <bondFund v-if="activeIndex===2"></bondFund>
+            <sunPrivate v-if="activeIndex===3"></sunPrivate>
+            <equityFund v-if="activeIndex===4"></equityFund>
             <productItem></productItem>
         </scroll>
     </div>
@@ -23,25 +29,42 @@
 
 <script type="es6">
 import Scroll from "base/scroll/scroll";
+import gatherTrust from "components/gatherTrust/gatherTrust"; //集合信托
+import gatherZG from "components/gatherZG/gatherZG"; //集合资管
+import bondFund from "components/bondFund/bondFund"; //债权基金
+import sunPrivate from "components/sunPrivate/sunPrivate"; //阳光私募
+import equityFund from "components/equityFund/equityFund"; //股权基金
 import productItem from "components/pro_product/productItem";
 
 export default {
+  data() {
+    return {
+      // 头部tabs列表
+      headerTabList: [
+        "集合信托",
+        "集合资管",
+        "债权基金",
+        "阳光私募",
+        "股权基金"
+      ],
+      activeIndex: 0 //初始化选中的tab项
+    };
+  },
   methods: {
     // 选项卡模块点击事件
     set_tabs(e) {
-      // 获取当前点击的对象
-      const currobj = e.target;
-      const tabsChildNodeList = this.$refs.tabsContent.children;
-      //   循环处理tabs被点击的样式
-      for (let i = 0; i < tabsChildNodeList.length; i++) {
-        const item = tabsChildNodeList[i];
-        item.className = null;
-      }
-      currobj.className = "currSpan";
+      // 获取当前点击的对象的索引
+      const currobjKey = e.target.getAttribute("data-index");
+      this.activeIndex = parseInt(currobjKey);
     }
   },
   components: {
     Scroll,
+    gatherTrust,
+    gatherZG,
+    bondFund,
+    sunPrivate,
+    equityFund,
     productItem
   }
 };
