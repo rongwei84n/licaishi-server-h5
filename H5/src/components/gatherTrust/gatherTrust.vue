@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-05 10:11:06 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-05 20:08:35
+ * @Last Modified time: 2018-03-06 09:03:14
  * 产品--集合信托--子组件
  */
 
@@ -32,10 +32,21 @@ export default {
   data() {
     return {
       /*  集合信托--产品列表*/
-      productList: []
+      productList: [],
+      loading: false
     };
   },
   methods: {
+    loadMore() {
+      this.loading = true;
+      setTimeout(() => {
+        let last = this.list[this.list.length - 1];
+        for (let i = 1; i <= 10; i++) {
+          this.list.push(last + i);
+        }
+        this.loading = false;
+      }, 2500);
+    },
     /**
      * @event 获取条件筛选栏的索引
      */

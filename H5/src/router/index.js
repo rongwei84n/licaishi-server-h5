@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Rank from '@/components/rank/rank'
-import Recommend from '@/contanier/recommend/recommend'//首页
-import Search from '@/components/search/search'
-import Product from '@/contanier/product/product'//产品
-import Orderlist from '@/components/search/orderlist'
+import Recommend from 'contanier/recommend/recommend'
+import Search from 'contanier/search/search'
+import Product from 'contanier/product/product'
+import Orderlist from 'contanier/search/orderlist'
 
 Vue.use(Router)
 
