@@ -2,16 +2,16 @@
  * @Author: 张浩然 
  * @Date: 2018-03-05 19:34:23 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-05 20:00:45
+ * @Last Modified time: 2018-03-06 19:10:40
  * 条件查询tabs
  */
 
 <template>
-    <div class="conditionTab-content" @click="onClick">
-        <div class="tabs-content">
-            <span v-for="(item,index) in tabList" :key="index" :data-index="index" :class="{active:activeIndex===index}">{{item}}</span>
-        </div>
+  <div class="conditionTab-content" @click="onClick">
+    <div class="tabs-content">
+      <span v-for="(item,index) in tabList" :key="index" :data-index="index" :class="{active:activeIndex===index}">{{item}}</span>
     </div>
+  </div>
 </template>
 <script type="es6">
 export default {
@@ -44,35 +44,35 @@ export default {
 
 <style lang="stylus" scoped>
 .conditionTab-content {
-    height: 34px;
-    width: 100vw;
-    background-color: #eff3f6;
+  height: 34px;
+  width: 100vw;
+  background-color: #eff3f6;
 
-    .tabs-content {
-        height: 26px;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        background-color: #FFFFFF;
+  .tabs-content {
+    height: 26px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #FFFFFF;
 
-        >span {
-            flex: 1;
-            font-size: 12px;
-            line-height: 14px;
-            color: #212121;
-            display: inline-block;
-            height: 14px;
-            text-align: center;
-        }
-
-        >span:not(:last-child) {
-            border-right: 1px solid #212121;
-        }
-
-        .active {
-            color: #E10101;
-        }
+    >span {
+      flex: 1;
+      font-size: 16px;
+      line-height: 14px;
+      color: #212121;
+      display: inline-block;
+      height: 14px;
+      text-align: center;
     }
+
+    >span:not(:last-child) {
+      border-right: 1px solid #212121;
+    }
+
+    .active {
+      color: #E10101;
+    }
+  }
 }
 </style>
 

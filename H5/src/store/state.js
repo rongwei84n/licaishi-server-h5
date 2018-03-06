@@ -13,7 +13,9 @@ const state = {
   topList: {},
   searchHistory: loadSearch(),
   playHistory: loadPlay(),
-  favoriteList: loadFavorite()
+  favoriteList: loadFavorite(),
+  /* 每页查询多少条数据 */
+  pageSize: 20,
 }
 
 export default state
