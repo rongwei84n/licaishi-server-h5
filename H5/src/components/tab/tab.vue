@@ -66,7 +66,7 @@ export default {
 
 .tab {
   position: fixed;
-  bottom: 0px;
+  bottom: 0;
   z-index: 99;
   width: 100%;
   background: #fff;

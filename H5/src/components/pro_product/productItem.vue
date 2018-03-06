@@ -2,24 +2,24 @@
  * @Author: 张浩然 
  * @Date: 2018-03-04 23:04:51 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-05 19:59:13
+ * @Last Modified time: 2018-03-06 22:32:06
  * 产品页-产品组件
  */
 
 <template>
   <div class="main">
     <div class="top-content">
-      <span class="product-name">{{pShortName}}</span>
+      <span class="product-name">{{productItem.pShortName}}</span>
       <!-- TODO:此处根据状态替换icon -->
       <img :src="get_pSaleStatus" alt="状态">
     </div>
     <div class="bottom-content">
       <div>
-        <span class="span-red">{{pExpectAnnualRevenue}}</span>
+        <span class="span-red">{{productItem.pExpectAnnualRevenue}}</span>
         <span>预期年化</span>
       </div>
       <div>
-        <span>{{pDulTime}}个月</span>
+        <span>{{productItem.pDulTime}}个月</span>
         <span>产品期限</span>
       </div>
       <div>
@@ -37,16 +37,25 @@
 <script type="es6">
 export default {
   props: {
-    pShortName: "", //产品简称
-    pSaleStatus: "", //产品销售状态 01：预热中 02：募集中 03：募集结束 04：产品成立
-    pExpectAnnualRevenue: "", //年化率
-    pDulTime: "", //投资期限
-    pInvestType: "" //投资领域
+    /* 产品组件所需要的对象 */
+    productItem: {
+      type: Object,
+      default: function() {
+        return {
+          pShortName: "", //产品简称
+          pSaleStatus: "", //产品销售状态 01：预热中 02：募集中 03：募集结束 04：产品成立
+          pExpectAnnualRevenue: "", //年化率
+          pDulTime: "", //投资期限
+          pInvestType: "" //投资领域}
+        };
+      },
+      required: true
+    }
   },
   created() {},
   computed: {
     get_pSaleStatus() {
-      switch (this.pSaleStatus) {
+      switch (this.productItem.pSaleStatus) {
         case "01":
           return "../../../static/image/product_status/preparing.png";
         case "02":
@@ -58,7 +67,7 @@ export default {
       }
     },
     get_pInvestType() {
-      switch (this.pInvestType) {
+      switch (this.productItem.pInvestType) {
         case "01":
           return "房地产类";
         case "02":

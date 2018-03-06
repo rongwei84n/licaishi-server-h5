@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-05 19:34:23 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-06 19:10:40
+ * @Last Modified time: 2018-03-06 21:46:37
  * 条件查询tabs
  */
 
@@ -57,7 +57,7 @@ export default {
 
     >span {
       flex: 1;
-      font-size: 16px;
+      font-size: 14px;
       line-height: 14px;
       color: #212121;
       display: inline-block;
