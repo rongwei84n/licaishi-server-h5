@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-05 10:11:06 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-07 00:12:35
+ * @Last Modified time: 2018-03-07 11:22:58
  * 产品--集合信托--子组件
  */
 
@@ -16,8 +16,8 @@
         <to-end v-else></to-end>
       </div>
     </Scroll>
-    <mt-popup v-model="popupVisible" position="bottom">
-      <prodQueryModal :popVisible="popupVisible"></prodQueryModal>
+    <mt-popup v-model="popupVisible" position="bottom" keep-alive>
+      <prodQueryModal @reset="pQueryReset" @confirm="confirm"></prodQueryModal>
     </mt-popup>
   </div>
 </template>
@@ -38,7 +38,11 @@ export default {
       productList: [],
       loading: false,
 
-      popupVisible: true, //筛选条件
+      /**
+       * 条件选择框
+       */
+      popupVisible: false, //筛选条件
+      initList: [0, 0, 0], //初始化选择项--item根据枚举使用
       /**
        * 翻页数据
        */
@@ -107,6 +111,19 @@ export default {
           }
         }
       });
+    },
+    /**
+     * @event 条件选择框确定事件
+     */
+    confirm(parmas) {
+      this.initList = parmas;
+      this.popupVisible = false;
+    },
+    /**
+     * @event 条件选择框重置
+     */
+    pQueryReset() {
+      this.initList = [0, 0, 0];
     }
   },
   components: {
@@ -136,11 +153,6 @@ export default {
     bottom: 46px;
     overflow: hidden;
     width: 100%;
-  }
-
-  // 弹出框的高度
-  .mint-popup-bottom {
-    // height: 70%;
   }
 }
 </style>

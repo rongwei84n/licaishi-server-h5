@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-05 19:34:23 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-06 21:46:37
+ * @Last Modified time: 2018-03-07 11:24:09
  * 条件查询tabs
  */
 
@@ -43,6 +43,8 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+@import '~common/stylus/mixin.styl';
+
 .conditionTab-content {
   height: 34px;
   width: 100vw;
@@ -63,6 +65,7 @@ export default {
       display: inline-block;
       height: 14px;
       text-align: center;
+      extend-click();
     }
 
     >span:not(:last-child) {

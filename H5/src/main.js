@@ -5,10 +5,11 @@ import router from './router'
 import FastClick from 'FastClick'
 import VueLazyload from 'vue-lazyload'
 import store from './store'
-import { Cell, Spinner, Popup } from "mint-ui";
+import { Cell, Spinner, Popup } from "mint-ui"
 
 import 'common/stylus/index.styl'
 import 'common/css/reset.css'
+import 'common/css/cover_mint.css' // mint-ui覆盖文件
 
 import ajax from "api/ajax"
 
@@ -18,11 +19,10 @@ Vue.component(Cell.name, Cell)
 Vue.component(Spinner.name, Spinner)
 Vue.component(Popup.name, Popup)
 
-
 FastClick.attach(document.body)
 
 Vue.use(VueLazyload, {
-  // loading: require('common/image/wangzai.jpg')
+    // loading: require('common/image/wangzai.jpg')
 })
 
 /* eslint-disable no-new */

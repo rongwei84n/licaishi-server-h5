@@ -1,0 +1,14 @@
+/*
+ * @Author: 张浩然 
+ * @Date: 2018-03-07 09:29:21 
+ * @Last Modified by: 张浩然
+ * @Last Modified time: 2018-03-07 09:30:06
+ * 此文件用来重置mint-ui
+ */
+
+
+/* popup弹出层的初始高度 */
+
+.mint-popup-bottom {
+    height: 80%;
+}

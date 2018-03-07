@@ -1,6 +1,18 @@
 # vue2.0
 
-> A Vue.js project
+> 理财师App
+
+## 技术架构
+
+>`vue`
+
+>`vuex`
+
+>`vue-router`
+
+>`mint-ui`
+
+>`axios`
 
 ## Build Setup
 
@@ -51,6 +63,22 @@ modelTitle组件的封装
 首页产品查询接口recommendProducts调试完成
 
 产品模块查询接口未调试，产品模块组件productItem初步完成，等待接口调试
+
+>遗留问题
+
+首页产品查询接口recommendProducts，缺少返佣比例字段
+
+#### 180307
+
+>编码进度
+
+产品模块筛选条件组件完成，等待筛选接口
+
+产品模块添加上拉加载loading组件
+
+产品模块添加无数据状态组件
+
+产品模块需要添加“回到顶部”组件
 
 >遗留问题
 
