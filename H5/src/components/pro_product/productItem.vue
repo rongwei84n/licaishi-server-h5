@@ -111,6 +111,7 @@ export default {
 
     .product-name {
       margin-left: 4px;
+      font-size: 16px;
     }
 
     >img {

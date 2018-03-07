@@ -54,6 +54,10 @@ export default {
             height: 20px;
             margin-right: 6px;
         }
+
+        >span {
+            font-size: 16px;
+        }
     }
 
     .moreContent {

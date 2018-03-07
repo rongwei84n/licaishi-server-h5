@@ -91,8 +91,8 @@ export default {
         align-items: center;
 
         .title-content {
-            font-size: 12px;
-            width: 70px;
+            font-size: 16px;
+            width: 80px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -108,7 +108,7 @@ export default {
             align-items: center;
 
             .name {
-                font-size: 12px;
+                font-size: 16px;
                 margin-left: 4px;
             }
 
@@ -145,7 +145,7 @@ export default {
     }
 
     .span-key, .span-value {
-        font-size: 8px;
+        font-size: 14px;
     }
 
     // 年化率
