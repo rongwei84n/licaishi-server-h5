@@ -18,12 +18,12 @@ import ajax from "api/ajax"
 Vue.component(Cell.name, Cell)
 Vue.component(Spinner.name, Spinner)
 Vue.component(Popup.name, Popup)
-Vue.component(Header.name, Header);
-Vue.component(Button.name, Button);
-Vue.component(Navbar.name, Navbar);
-Vue.component(TabItem.name, TabItem);
-Vue.component(TabContainer.name, TabContainer);
-Vue.component(TabContainerItem.name, TabContainerItem);
+Vue.component(Header.name, Header)
+Vue.component(Button.name, Button)
+Vue.component(Navbar.name, Navbar)
+Vue.component(TabItem.name, TabItem)
+Vue.component(TabContainer.name, TabContainer)
+Vue.component(TabContainerItem.name, TabContainerItem)
 
 FastClick.attach(document.body)
 
@@ -34,10 +34,10 @@ Vue.use(VueLazyload, {
 
 /* eslint-disable no-new */
 new Vue({
-    el: '#app',
-    router,
-    store,
-    render: h => h(App)
+  el: '#app',
+  router,
+  store,
+  render: h => h(App)
 })
 
 Vue.prototype.$ajax = ajax
