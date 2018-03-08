@@ -34,10 +34,10 @@ Vue.use(VueLazyload, {
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  store,
-  render: h => h(App)
+    el: '#app',
+    router,
+    store,
+    render: h => h(App)
 })
 
 Vue.prototype.$ajax = ajax

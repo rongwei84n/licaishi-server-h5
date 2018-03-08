@@ -2,46 +2,64 @@
 
 module.exports = {
   root: true,
-  parser: 'babel-eslint',
+  parser: "babel-eslint",
   parserOptions: {
-    sourceType: 'module'
+    sourceType: "module",
   },
   env: {
     browser: true,
   },
-  // https://github.com/standard/standard/blob/master/docs/RULES-en.md
-  extends: 'standard',
+  extends: "airbnb-base",
   // required to lint *.vue files
-  plugins: [
-    'html'
-  ],
+  plugins: ["html"],
+  // check if imports actually resolve
+  settings: {
+    "import/resolver": {
+      webpack: {
+        config: "build/webpack.base.conf.js",
+      },
+    },
+  },
   // add your custom rules here
-  'rules': {
-    'arrow-parens': 0, // 箭头函数用小括号括起来
-    'generator-star-spacing': 0, // 生成器函数*的前后空格
-    'no-debugger': process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'test' ? 2 : 0, // 生产测试环境禁止使用debugger
-    // 'semi': [2, "always"], // 语句强制分号结尾
-    'eqeqeq': 1, // 比较的时候使用严格等于
-    "no-nested-ternary": 0, // 不允许使用嵌套的三目运算符
-    'space-before-function-paren': 0, // 函数前是否有空格,
-    'no-console': 1, // 禁用no-console,
-    'no-alert': 1, // 禁用alert
-    'quotes': ['error', 'single'], // 单括号
-    'no-empty': 'warn', // 禁止出现空语句块
-    'default-case': 'warn', // 要求 switch 语句中有 default 分支
-    'dot-notation': ['warn', { 'allowKeywords': false }], // 对象属性访问，要求使用点号，而不是方括号
-    'no-case-declarations': 'warn', // 禁止在 case 或 default 子句中出现词法声明
-    'no-magic-numbers': ['warn', { 'ignoreArrayIndexes': true }], // 禁止使用魔术数字
-    'consistent-this': ['warn', '_this'], // 指定'_this'作为 this 的别名
-    'max-depth': ['warn', 5], // 强制块语句的最大可嵌套深度不超过5层
-    'max-statements': ['warn', 30], // 限制函数块中的语句的最大数量不超过20句
-    'max-nested-callbacks': ['warn', 3], // 强制回调函数最大嵌套深度不超过三层
-    'no-lonely-if': 'warn',  // 禁止 if 语句作为唯一语句出现在 else 语句块中
-    'no-var': 'warn', // 要求使用 let 或 const 而不是 var
-    //'object-shorthand': ['warn', 'consistent-as-needed'], // 保证对象字面量的简写或非简写一致性，但尽可能的全部使用简写
-    'object-shorthand': 0,
-    'prefer-const': 'warn', // 如果一个变量不会被重新赋值，最好使用const进行声明
-    'comma-dangle': 0,
-    quotes: 0,
-  }
+  rules: {
+    // don't require .vue extension when importing
+    "import/extensions": [
+      "error",
+      "always",
+      {
+        js: "never",
+        vue: "never",
+      },
+    ],
+    // allow optionalDependencies
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        optionalDependencies: ["test/unit/index.js"],
+      },
+    ],
+    // allow debugger during development
+    "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
+    semi: "off",
+    "spaced-comment": "off",
+    "comma-dangle": "off",
+    "eol-last": "off",
+    "import/no-unresolved": "off",
+    "import/no-duplicates": "off",
+    "import/no-extraneous-dependencies": "off",
+    "import/first": "off",
+    "import/no-named-as-default-member": "off",
+    "import/no-named-as-default": "off",
+    "import/no-dynamic-require": "off",
+    "no-dynamic-require": 'off',
+    "global-require": 'off',
+    "no-plusplus": "off",
+    quotes: "off",
+    camelcase: "off",
+    "import/extensions": ["off", "never"],
+    'arrow-parens': 'off',
+    "max-len": "warn",
+    camelcase: "warn",
+    "no-unneeded-ternary": "warn",
+  },
 }
