@@ -8,7 +8,6 @@
         <mt-button icon="search" slot="right" v-on:click="handleSearch"></mt-button>
       </mt-header>
     </div>
-
     <div class="page-navbar">
       <!-- navbar -->
       <mt-navbar class="page-part" v-model="selected">
@@ -22,13 +21,13 @@
       <!-- tabcontainer -->
       <mt-tab-container v-model="selected">
         <mt-tab-container-item id="1">
-          <mt-cell v-for="n in 20" :title="'内容 ' + n" />
+          <mt-cell v-for="(item, index) in 20" :title="'内容 ' + item" />
         </mt-tab-container-item>
         <mt-tab-container-item id="2">
-          <mt-cell v-for="n in 4" :title="'测试 ' + n" />
+          <mt-cell  :title="'测试 2' " />
         </mt-tab-container-item>
         <mt-tab-container-item id="3">
-          <mt-cell v-for="n in 6" :title="'选项 ' + n" />
+          <mt-cell :title="'选项 3' + n" />
         </mt-tab-container-item>
         <mt-tab-container-item id="4">
           <mt-cell :title="'选项 4'" />
@@ -43,23 +42,22 @@
 </template>
 
 <script>
+  import ajax from "api/ajax"
   export default {
     name: 'page-order-list',
     data () {
       return {
-        url: 'xxx',
+        url: 'http://47.97.100.240/',
         selected: '1'
       }
     },
-    mounted:function(){
-
+    mounted:function() {
+      //查询订单
     },
     methods: {
-      handleClose: function(){
-        alert('返回');
+      handleClose: function() {
       },
-      handleSearch: function(){
-        alert('搜索');
+      handleSearch: function() {
       }
     }
   }
