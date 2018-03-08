@@ -2,12 +2,13 @@
  * @Author: 张浩然 
  * @Date: 2018-03-04 22:28:31 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-06 23:39:21
+ * @Last Modified time: 2018-03-08 23:15:01
  * 产品模块布局组件
  */
 
 <template>
-  <div class="product-contnet">
+  <div id="product">
+
     <header ref="tabsContent" class="tabs-content" @click="set_tabs">
       <span v-for="(item,index) in headerTabList" :class="{currSpan:activeIndex===index}" :data-index="index" :key="index">{{item}}</span>
     </header>
@@ -16,6 +17,7 @@
     <bondFund v-if="activeIndex===2"></bondFund>
     <sunPrivate v-if="activeIndex===3"></sunPrivate>
     <equityFund v-if="activeIndex===4"></equityFund>
+
   </div>
 </template>
 
@@ -61,10 +63,10 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.product-contnet {
-  position: absolute;
+#product {
+  position: relative;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   top: 40px;
   bottom: 46px;
   background: #fff;

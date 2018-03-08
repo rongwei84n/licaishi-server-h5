@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-05 10:11:06 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-07 23:44:45
+ * @Last Modified time: 2018-03-08 23:15:34
  * 产品--集合信托--子组件
  */
 
@@ -139,7 +139,7 @@ export default {
 .gatherTrust {
   position: relative;
   width: 100%;
-  height: calc(100vh - 90px);
+  height: calc(100% - 90px);
 
   .tabs-content {
   }

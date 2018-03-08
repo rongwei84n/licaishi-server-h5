@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-07 09:29:21 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-08 18:44:07
+ * @Last Modified time: 2018-03-08 23:02:11
  * 此文件用来重置mint-ui
  */
 
@@ -11,6 +11,7 @@
 
 .mint-popup-bottom {
     height: 80%;
+    width: 100%;
 }
 
 
