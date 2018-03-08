@@ -5,7 +5,7 @@ import router from './router'
 import FastClick from 'FastClick'
 import VueLazyload from 'vue-lazyload'
 import store from './store'
-import { Cell, Spinner, Popup } from "mint-ui"
+import { Cell, Spinner, Popup, Header, Button, Navbar, TabItem, TabContainer, TabContainerItem} from "mint-ui"
 
 import 'common/stylus/index.styl'
 import 'common/css/reset.css'
@@ -18,6 +18,12 @@ import ajax from "api/ajax"
 Vue.component(Cell.name, Cell)
 Vue.component(Spinner.name, Spinner)
 Vue.component(Popup.name, Popup)
+Vue.component(Header.name, Header);
+Vue.component(Button.name, Button);
+Vue.component(Navbar.name, Navbar);
+Vue.component(TabItem.name, TabItem);
+Vue.component(TabContainer.name, TabContainer);
+Vue.component(TabContainerItem.name, TabContainerItem);
 
 FastClick.attach(document.body)
 

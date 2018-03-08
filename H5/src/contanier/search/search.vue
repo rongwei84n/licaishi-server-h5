@@ -49,26 +49,18 @@
     </div>
 
     <div class="my-owns">
-      <div>
-        <mt-cell title="我的工作室" to="/rank" is-link>
-          <img slot="icon" src="../../common/image/home.png" width="18" height="14">
-        </mt-cell>
-      </div>
-      <div>
-        <mt-cell title="我的客户" is-link>
-          <img slot="icon" src="../../common/image/home.png" width="18" height="14">
-        </mt-cell>
-      </div>
-      <div>
-        <mt-cell title="我要推广" is-link>
-          <img slot="icon" src="../../common/image/home.png" width="18" height="14">
-        </mt-cell>
-      </div>
-      <div>
-        <mt-cell title="客服热线：400-0852-6325">
-          <img slot="icon" src="../../common/image/home.png" width="18" height="14">
-        </mt-cell>
-      </div>
+      <mt-cell title="我的工作室" to="/rank" is-link>
+        <img slot="icon" src="../../common/image/home.png" width="18" height="14">
+      </mt-cell>
+      <mt-cell title="我的客户" is-link>
+        <img slot="icon" src="../../common/image/home.png" width="18" height="14">
+      </mt-cell>
+      <mt-cell title="我要推广" is-link>
+        <img slot="icon" src="../../common/image/home.png" width="18" height="14">
+      </mt-cell>
+      <mt-cell title="客服热线：400-0852-6325">
+        <img slot="icon" src="../../common/image/home.png" width="18" height="14">
+      </mt-cell>
     </div>
     <router-view></router-view>
   </div>
@@ -91,17 +83,11 @@ export default {
       "",
       function(response) {
         response = JSON.parse(response);
-        if (response.errorCode == 0) {
-          //网络请求成功
-          let netResponse = JSON.parse(response.netResponse);
-          if (netResponse.error == 0) {
-            //获取账号成功
-            _this.name = netResponse.data.nickname;
-          } else {
-            _this.name = "未设置";
-          }
+        if (response.error == 0) {
+          //获取账号成功
+          _this.name = response.data.nickname;
         } else {
-          _this.name = "未登录";
+          _this.name = "未设置";
         }
       }
     );
