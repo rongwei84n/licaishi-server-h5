@@ -6,7 +6,7 @@ import axios from "axios"
 
 const IP_PORT = {
   // 接口调试
-  houtai: "http://47.97.100.240", // 世雄
+  houtai: "http://47.97.100.240", 
 }
 
 /**
@@ -16,7 +16,7 @@ const IP_PORT = {
  * @param {Object} params 请求参数
  * @param {String} method 请求方法
  */
-function ajaxs({
+function ajax({
   url,
   params,
   method = "POST",
@@ -41,4 +41,4 @@ function ajaxs({
   })
 }
 
-export default ajaxs
+export default ajax

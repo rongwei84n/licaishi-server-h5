@@ -5,7 +5,7 @@ import router from './router'
 import FastClick from 'FastClick'
 import VueLazyload from 'vue-lazyload'
 import store from './store'
-import { Cell, Spinner, Popup } from "mint-ui"
+import { Cell, Spinner, Popup, Header, Button } from "mint-ui"
 
 import 'common/stylus/index.styl'
 import 'common/css/reset.css'
@@ -18,12 +18,15 @@ import ajax from "api/ajax"
 Vue.component(Cell.name, Cell)
 Vue.component(Spinner.name, Spinner)
 Vue.component(Popup.name, Popup)
+Vue.component(Header.name, Header)
+Vue.component(Button.name, Button)
 
 FastClick.attach(document.body)
 
 Vue.use(VueLazyload, {
-    // loading: require('common/image/wangzai.jpg')
+  // loading: require('common/image/wangzai.jpg')
 })
+// Vue.use(ajax)
 
 /* eslint-disable no-new */
 new Vue({
@@ -33,4 +36,4 @@ new Vue({
   render: h => h(App)
 })
 
-Vue.prototype.ajaxs = ajax
+Vue.prototype.$ajax = ajax

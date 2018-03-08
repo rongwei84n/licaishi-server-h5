@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-06 19:27:24 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-07 11:22:24
+ * @Last Modified time: 2018-03-07 21:42:31
  * 产品条件查询组件--此组件用于产品模块
  */
 
@@ -96,6 +96,7 @@ export default {
     // 取消事件
     reset() {
       this.$emit("reset");
+      this.ActiveIndexList = [...this.initList];
     },
     handleChange(key, value) {
       this.$set(this.ActiveIndexList, key, value);

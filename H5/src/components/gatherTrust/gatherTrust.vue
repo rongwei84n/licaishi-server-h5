@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-05 10:11:06 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-07 11:22:58
+ * @Last Modified time: 2018-03-07 23:44:45
  * 产品--集合信托--子组件
  */
 
@@ -16,7 +16,7 @@
         <to-end v-else></to-end>
       </div>
     </Scroll>
-    <mt-popup v-model="popupVisible" position="bottom" keep-alive>
+    <mt-popup v-model="popupVisible" position="bottom">
       <prodQueryModal @reset="pQueryReset" @confirm="confirm"></prodQueryModal>
     </mt-popup>
   </div>
@@ -37,7 +37,6 @@ export default {
       /*  集合信托--产品列表*/
       productList: [],
       loading: false,
-
       /**
        * 条件选择框
        */
@@ -57,16 +56,15 @@ export default {
     // 上拉加载
     scrollToEnd() {
       this.pageNo++;
-      if (this.pageNo === 4) {
-        this.pullup = false;
-      }
-      // this.get_proList();
+      // if (this.pageNo === 4) {
+      //   this.pullup = false;
+      // }
+      this.get_proList();
     },
     /**
      * @param index 条件筛选栏的索引
      */
     get_tabsIndex(index) {
-      console.log(index);
       switch (index) {
         case 0:
           this.pageNo = 1;
@@ -92,18 +90,17 @@ export default {
       }
     },
     /**
-     *@author
+     *  获取产品列表
      */
     get_proList() {
       ajax({
         url: `/srv/v1/product/list?pageNo=${this.pageNo}&pageSize=${
           this.$store.state.pageSize
-        }&type=02`,
+        }&type=01`,
         method: "GET"
       }).then(res => {
         if (res.status === 200) {
           this.productList = [...this.productList, ...res.data.result.list];
-
           if (res.data.result.pager) {
             this.pullup = res.data.result.pager.hasNaxtPage;
           } else {
@@ -124,6 +121,7 @@ export default {
      */
     pQueryReset() {
       this.initList = [0, 0, 0];
+      this.popupVisible = false;
     }
   },
   components: {

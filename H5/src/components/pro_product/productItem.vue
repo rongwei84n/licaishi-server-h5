@@ -2,12 +2,12 @@
  * @Author: 张浩然 
  * @Date: 2018-03-04 23:04:51 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-06 22:32:06
+ * @Last Modified time: 2018-03-07 23:14:24
  * 产品页-产品组件
  */
 
 <template>
-  <div class="main">
+  <div class="main" @click="to_pDetails">
     <div class="top-content">
       <span class="product-name">{{productItem.pShortName}}</span>
       <!-- TODO:此处根据状态替换icon -->
@@ -52,7 +52,6 @@ export default {
       required: true
     }
   },
-  created() {},
   computed: {
     get_pSaleStatus() {
       switch (this.productItem.pSaleStatus) {
@@ -83,6 +82,18 @@ export default {
         default:
           break;
       }
+    }
+  },
+  methods: {
+    /**
+     * @event 跳转到产品详情
+     */
+    to_pDetails() {
+      // TODO:点击之后带参数跳转到某一页面
+      this.$router.push({
+        name: "pDetails",
+        query: { pCode: this.productItem.pCode }
+      });
     }
   }
 };

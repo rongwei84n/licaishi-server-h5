@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-05 19:34:23 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-07 11:24:09
+ * @Last Modified time: 2018-03-07 22:55:00
  * 条件查询tabs
  */
 
@@ -19,7 +19,7 @@ export default {
     tabList: {
       type: Array,
       default: function() {
-        return ["全部", "佣金", "收益", "筛选"];
+        return ["综合", "佣金高到低", "收益高到低", "筛选"];
       }
     }
   },

@@ -2,6 +2,8 @@ import { playMode } from 'common/js/config'
 import { loadSearch, loadPlay, loadFavorite } from 'common/js/cache'
 
 const state = {
+  /*  ajax回调状态码 */
+  status: 200,
   singer: {},
   playing: false,
   fullScreen: false,
