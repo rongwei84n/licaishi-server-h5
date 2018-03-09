@@ -9,6 +9,7 @@ import { Cell, Spinner, Popup, Header, Button, Navbar, TabItem, TabContainer, Ta
 
 import 'common/stylus/index.styl'
 import 'common/css/reset.css'
+import 'common/css/font-awesome.min.css' //FontAwesome字体图标库
 import 'common/css/cover_mint.css' // mint-ui覆盖文件
 
 import ajax from "api/ajax"
@@ -28,16 +29,16 @@ Vue.component(TabContainerItem.name, TabContainerItem)
 FastClick.attach(document.body)
 
 Vue.use(VueLazyload, {
-    // loading: require('common/image/wangzai.jpg')
+  // loading: require('common/image/wangzai.jpg')
 })
 // Vue.use(ajax)
 
 /* eslint-disable no-new */
 new Vue({
-    el: '#app',
-    router,
-    store,
-    render: h => h(App)
+  el: '#app',
+  router,
+  store,
+  render: h => h(App)
 })
 
 Vue.prototype.$ajax = ajax

@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-08 18:58:13
+ * @Last Modified time: 2018-03-08 19:10:05
  *
  * 产品详情组件
  */
@@ -11,7 +11,8 @@
   <div id="pDetails">
     <mt-header title="产品详情">
       <mt-button icon="back" slot="left"></mt-button>
-      <mt-button icon="more" slot="right"></mt-button>
+      <i class="fa-share-alt" slot="right"></i>
+      <!-- <mt-button icon="more" slot="right"></mt-button> -->
     </mt-header>
     <Scroll class="scroll-conntent">
       <div>
