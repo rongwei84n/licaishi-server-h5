@@ -2,11 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
  * @Last Modified by: 张浩然
-<<<<<<< HEAD
- * @Last Modified time: 2018-03-08 19:10:05
-=======
- * @Last Modified time: 2018-03-08 22:43:12
->>>>>>> 12d6d68b3cbb6de9936bb37e950f32b5b3eb2012
+ * @Last Modified time: 2018-03-09 11:27:36
  *
  * 产品详情组件
  */
@@ -14,14 +10,8 @@
  <template>
   <div id="pDetails">
     <mt-header title="产品详情">
-<<<<<<< HEAD
-      <mt-button icon="back" slot="left"></mt-button>
-      <i class="fa-share-alt" slot="right"></i>
-      <!-- <mt-button icon="more" slot="right"></mt-button> -->
-=======
       <mt-button icon="back" @click="back" slot="left"></mt-button>
-      <mt-button icon="more" slot="right"></mt-button>
->>>>>>> 12d6d68b3cbb6de9936bb37e950f32b5b3eb2012
+      <i class="fa fa-share-alt extend-click" slot="right"></i>
     </mt-header>
     <Scroll class="scroll-conntent">
       <div>
@@ -29,7 +19,8 @@
         <div class="p-presentation">
           <div class="header-content">
             <span class="header-title">光大-歌山16个月</span>
-            <img src="../../../static/image/product_status/preparing.png" alt="">
+            <img :src="pStatus" alt="">
+            <!-- <img src="../../common/image/p-warm-up.png" alt=""> -->
           </div>
           <div class="body-content">
             <div class="data-content">
@@ -206,7 +197,10 @@
     </Scroll>
     <!-- 推荐 -->
     <div class="recommend-content">
-      <a href="tel:0147-88469258">咨询</a>
+      <a href="tel:0147-88469258">
+        <i class="fa-phone-square fa"></i>
+        咨询
+      </a>
       <a class="subscribe" @click="subscribe">立即预约</a>
     </div>
   </div>
@@ -221,6 +215,7 @@ export default {
   data() {
     return {
       pCode: "", //产品编号
+      pStatusCode: "", //产品状态编码
       pDetailsObj: {} //产品详情
     };
   },
@@ -253,6 +248,31 @@ export default {
     },
     back() {
       this.$router.go(-1);
+    }
+  },
+  computed: {
+    pStatus() {
+      switch ("01") {
+        // switch (this.pStatusCode) {
+        // 预热中
+        case "01":
+          return require("../../common/image/p-warm-up.png");
+          break;
+        // 募集中
+        case "02":
+          return require("../../common/image/p-funding.png");
+          break;
+        // 募集结束
+        case "03":
+          return require("../../common/image/p-finish.png");
+          break;
+        // 产品成立
+        case "04":
+          return require("../../common/image/p-complete.png");
+          break;
+        default:
+          break;
+      }
     }
   },
   components: {
@@ -293,7 +313,7 @@ export default {
         margin: 14px 0 8px 0;
       }
 
-      p, span {
+      p, span, a {
         font-size: $font-size-medium;
         color: $color-text;
       }
@@ -337,8 +357,8 @@ export default {
           height: 60px;
 
           >img {
-            width: 32px;
-            height: 10px;
+            width: 44px;
+            height: 14px;
           }
         }
 
@@ -407,6 +427,7 @@ export default {
       flex: 1;
       line-height: 40px;
       text-align: center;
+      color: #464545;
     }
 
     .subscribe {
