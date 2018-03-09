@@ -1,4 +1,44 @@
+/*
+ * @Author: 张浩然 
+ * @Date: 2018-03-08 23:03:09 
+ * @Last Modified by: 张浩然
+ * @Last Modified time: 2018-03-09 00:18:22
+ *
+ * 此CSS文件为全局个性化定制文件
+ */
+
 @import './reset.css';
-html{
+
+/* html{
   background: #000;
+} */
+
+
+/* 高度小于400时底部按钮隐藏 */
+
+@media (max-width:400) {
+    .footer {
+        display: none !important;
+    }
+}
+
+
+/* 去掉不能输入后的样式 */
+
+input:disabled,
+input[disabled] {
+    opacity: 1 !important;
+    background-color: #fff !important;
+}
+
+input:disabled,
+textarea:diabled {
+    -webkit-text-fill-color: #000;
+    -webkit-opacity: 1;
+    background-color: #fff !important;
+    color: #000;
+}
+
+::-webkit-scrollbar {
+    display: none;
 }

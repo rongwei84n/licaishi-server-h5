@@ -1,7 +1,14 @@
-/**
+/*
+ * @Author: 张浩然 
+ * @Date: 2018-03-08 23:03:33 
+ * @Last Modified by: 张浩然
+ * @Last Modified time: 2018-03-08 23:04:12
+ *
  * Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/)
  * http://cssreset.com
+ * 此文件为基础reset文件，适用于绝大多数情况，尽量不做修改
  */
+ 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -63,6 +70,7 @@ li {
 .ofh {
   overflow: hidden;
 }
+
 ::-webkit-scrollbar {
     width: 5px;
     height: 5px;
@@ -86,6 +94,7 @@ li {
 }
 
 html, body {
+    height: 100%;
     width: 100%;
 }
 

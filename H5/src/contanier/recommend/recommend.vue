@@ -1,5 +1,5 @@
 <template>
-  <div class="recommend" ref="recommend">
+  <div id="recommend">
     <scroll ref="scroll" class="recommend-content" :data="newRecommendProductsList">
       <div>
         <div v-if="recommends.length" class="slider-wrapper" ref="sliderWrapper">
@@ -148,13 +148,13 @@ export default {
 };
 </script>
 
-<style scoped lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" rel="stylesheet/stylus">
 @import '~common/stylus/variable';
 
-.recommend {
+#recommend {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 100%;
 
   .recommend-content {
     position: absolute;

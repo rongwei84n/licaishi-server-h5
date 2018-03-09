@@ -2,7 +2,11 @@
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
  * @Last Modified by: 张浩然
+<<<<<<< HEAD
  * @Last Modified time: 2018-03-08 19:10:05
+=======
+ * @Last Modified time: 2018-03-08 22:43:12
+>>>>>>> 12d6d68b3cbb6de9936bb37e950f32b5b3eb2012
  *
  * 产品详情组件
  */
@@ -10,9 +14,14 @@
  <template>
   <div id="pDetails">
     <mt-header title="产品详情">
+<<<<<<< HEAD
       <mt-button icon="back" slot="left"></mt-button>
       <i class="fa-share-alt" slot="right"></i>
       <!-- <mt-button icon="more" slot="right"></mt-button> -->
+=======
+      <mt-button icon="back" @click="back" slot="left"></mt-button>
+      <mt-button icon="more" slot="right"></mt-button>
+>>>>>>> 12d6d68b3cbb6de9936bb37e950f32b5b3eb2012
     </mt-header>
     <Scroll class="scroll-conntent">
       <div>
@@ -56,7 +65,6 @@
           <div class="body-content">
             <div>
               <span class="title">产品全称</span>
-              <span></span>
             </div>
             <div>
               <span class="title">募集规模</span>
@@ -96,6 +104,20 @@
               <i></i>复制
             </span>
           </div>
+          <div class="body-content">
+            <p>
+              1、苏州姑苏区核心区域项目质押，对应股权评估价值 9.12亿元，该项目位于苏州留园附近，地理位置极其优 越，项目由歌山置业与恒大集团联合开发，剩余未开发 部分土地价值28亿，该土地目前未设置抵押，股权价值 高
+            </p>
+            <p>
+              2、遵义熙悦以其持有位于遵义的东欣广场E组团现房提 供抵押；抵押物评估价值0.76亿元；以上抵押物合计价 值9.88亿，综合抵质押率不超过40%
+            </p>
+            <p>
+              3、交易对手歌山控股（AA发债主体）属于民营企业500 强，连续三年营业收入过百亿，还款来源有保障。
+            </p>
+            <p>
+              4、实际控制人夫妇提供连带责任担保.
+            </p>
+          </div>
         </div>
         <!-- 募集账号 -->
         <div class="p-collect-account">
@@ -105,11 +127,39 @@
               <i></i>复制
             </span>
           </div>
+          <div class="body-content">
+            <p>
+              1、苏州姑苏区核心区域项目质押，对应股权评估价值 9.12亿元，该项目位于苏州留园附近，地理位置极其优 越，项目由歌山置业与恒大集团联合开发，剩余未开发 部分土地价值28亿，该土地目前未设置抵押，股权价值 高
+            </p>
+            <p>
+              2、遵义熙悦以其持有位于遵义的东欣广场E组团现房提 供抵押；抵押物评估价值0.76亿元；以上抵押物合计价 值9.88亿，综合抵质押率不超过40%
+            </p>
+            <p>
+              3、交易对手歌山控股（AA发债主体）属于民营企业500 强，连续三年营业收入过百亿，还款来源有保障。
+            </p>
+            <p>
+              4、实际控制人夫妇提供连带责任担保.
+            </p>
+          </div>
         </div>
         <!-- 风险控制 -->
         <div class="risk-control">
           <div class="pro-header-content">
             <span>风险控制</span>
+          </div>
+          <div class="body-content">
+            <p>
+              1、苏州姑苏区核心区域项目质押，对应股权评估价值 9.12亿元，该项目位于苏州留园附近，地理位置极其优 越，项目由歌山置业与恒大集团联合开发，剩余未开发 部分土地价值28亿，该土地目前未设置抵押，股权价值 高
+            </p>
+            <p>
+              2、遵义熙悦以其持有位于遵义的东欣广场E组团现房提 供抵押；抵押物评估价值0.76亿元；以上抵押物合计价 值9.88亿，综合抵质押率不超过40%
+            </p>
+            <p>
+              3、交易对手歌山控股（AA发债主体）属于民营企业500 强，连续三年营业收入过百亿，还款来源有保障。
+            </p>
+            <p>
+              4、实际控制人夫妇提供连带责任担保.
+            </p>
           </div>
         </div>
         <!-- 还款来源 -->
@@ -117,17 +167,32 @@
           <div class="pro-header-content">
             <span>还款来源</span>
           </div>
+          <div class="body-content">
+            <p>
+              1、苏州姑苏区核心区域项目质押，对应股权评估价值 9.12亿元，该项目位于苏州留园附近，地理位置极其优 越，项目由歌山置业与恒大集团联合开发，剩余未开发 部分土地价值28亿，该土地目前未设置抵押，股权价值 高
+            </p>
+          </div>
         </div>
         <!-- 资金用途 -->
         <div class="purpose">
           <div class="pro-header-content">
             <span>资金用途</span>
           </div>
+          <div class="body-content">
+            <p>
+              1、苏州姑苏区核心区域项目质押，对应股权评估价值 9.12亿元，该项目位于苏州留园附近，地理位置极其优 越，项目由歌山置业与恒大集团联合开发，剩余未开发 部分土地价值28亿，该土地目前未设置抵押，股权价值 高
+            </p>
+          </div>
         </div>
         <!-- 融资方 -->
         <div class="financing">
           <div class="pro-header-content">
             <span>融资方</span>
+          </div>
+          <div class="body-content">
+            <p>
+              1、苏州姑苏区核心区域项目质押，对应股权评估价值 9.12亿元，该项目位于苏州留园附近，地理位置极其优 越，项目由歌山置业与恒大集团联合开发，剩余未开发 部分土地价值28亿，该土地目前未设置抵押，股权价值 高
+            </p>
           </div>
         </div>
         <!-- 预览资料 -->
@@ -136,14 +201,21 @@
             <span>预览资料</span>
           </div>
         </div>
+        <white-space></white-space>
       </div>
     </Scroll>
+    <!-- 推荐 -->
+    <div class="recommend-content">
+      <a href="tel:0147-88469258">咨询</a>
+      <a class="subscribe" @click="subscribe">立即预约</a>
+    </div>
   </div>
 </template>
 
  <script type="es6">
 import ajax from "api/ajax";
 import Scroll from "base/scroll/scroll";
+import whiteSpace from "base/whiteSpace/whiteSpace";
 
 export default {
   data() {
@@ -171,10 +243,21 @@ export default {
           this.pDetailsObj = res.data.result;
         }
       });
+    },
+    /**
+     * 立即预约
+     */
+    subscribe() {
+      // 跳转到预约页面，目前不知是否需要接口
+      this.$router.push("/pOrder");
+    },
+    back() {
+      this.$router.go(-1);
     }
   },
   components: {
-    Scroll
+    Scroll,
+    whiteSpace
   }
 };
 </script>
@@ -184,8 +267,8 @@ export default {
 
 #pDetails {
   position: relative;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   z-index: 100;
   background-color: $color-background;
 
@@ -207,6 +290,7 @@ export default {
       .header-title {
         font-size: $font-size-medium-x;
         color: $color-text;
+        margin: 14px 0 8px 0;
       }
 
       p, span {
@@ -247,7 +331,8 @@ export default {
         .header-content {
           display: flex;
           flex-direction: column;
-          justify-content: space-evenly;
+          // justify-content: space-around;
+          // justify-content: space-evenly;
           align-items: center;
           height: 60px;
 
@@ -296,6 +381,37 @@ export default {
           }
         }
       }
+
+      // 产品优势
+      .p-superiority, .p-collect-account, .risk-control, .source-repayment {
+        .body-content {
+          >p {
+            line-height: 22px;
+            margin: 6px 0;
+          }
+        }
+      }
+    }
+  }
+
+  // 咨询
+  .recommend-content {
+    height: 40px;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    width: 100vw;
+    background-color: $color-background-d;
+
+    >a {
+      flex: 1;
+      line-height: 40px;
+      text-align: center;
+    }
+
+    .subscribe {
+      color: $color-background-d;
+      background-color: $color-sub-theme;
     }
   }
 }

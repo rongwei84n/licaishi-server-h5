@@ -5,6 +5,8 @@ import Recommend from 'contanier/recommend/recommend' //
 /* 产品模块 */
 import Product from 'contanier/product/product'     //产品模块
 import pDetails from 'contanier/pDetails/pDetails'  //产品详情
+import pOrder from 'contanier/pOrder/pOrder'  //产品预约
+
 /* 工作室模块 */
 import Rank from '@/components/rank/rank'
 /* 我的模块 */
@@ -33,6 +35,10 @@ export default new Router({
       path: '/product',
       component: Product
 
+    },
+    {
+      path: '/pOrder',
+      component: pOrder
     },
     {
       path: '/search',

@@ -2,37 +2,39 @@
  * @Author: 张浩然 
  * @Date: 2018-03-06 19:27:24 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-07 21:42:31
+ * @Last Modified time: 2018-03-08 23:54:37
  * 产品条件查询组件--此组件用于产品模块
  */
 
  <template>
-    <div class="prodQueryModal">
+  <div class="prodQueryModal">
+    <div>
+      <div>
         <div>
-            <div>
-                <p class="title">产品期限</p>
-                <div>
-                    <span v-for="(item,index) in pKeyList[0]" :key="index" :class="{ActiveIndex:ActiveIndexList[0]===index}" @click="handleChange(0,index)">{{item}}</span>
-                </div>
-            </div>
-            <div>
-                <p class="title">预期年华收益</p>
-                <div>
-                    <span v-for="(item,index) in pKeyList[1]" :key="index" :class="{ActiveIndex:ActiveIndexList[1]===index}" @click="handleChange(1,index)">{{item}}</span>
-                </div>
-            </div>
-            <div>
-                <p class="title">付息方式</p>
-                <div>
-                    <span v-for="(item,index) in pKeyList[2]" :key="index" :class="{ActiveIndex:ActiveIndexList[2]===index}" @click="handleChange(2,index)">{{item}}</span>
-                </div>
-            </div>
+          <p class="title">产品期限</p>
+          <div>
+            <span v-for="(item,index) in pKeyList[0]" :key="index" :class="{ActiveIndex:ActiveIndexList[0]===index}" @click="handleChange(0,index)">{{item}}</span>
+          </div>
         </div>
-        <div class="footer-btn-content">
-            <span class="reset" @click="reset">重置</span>
-            <span class="confirm" @click="confirm">确定</span>
+        <div>
+          <p class="title">预期年华收益</p>
+          <div>
+            <span v-for="(item,index) in pKeyList[1]" :key="index" :class="{ActiveIndex:ActiveIndexList[1]===index}" @click="handleChange(1,index)">{{item}}</span>
+          </div>
         </div>
+        <div>
+          <p class="title">付息方式</p>
+          <div>
+            <span v-for="(item,index) in pKeyList[2]" :key="index" :class="{ActiveIndex:ActiveIndexList[2]===index}" @click="handleChange(2,index)">{{item}}</span>
+          </div>
+        </div>
+      </div>
     </div>
+    <div class="footer-btn-content">
+      <span class="reset" @click="reset">重置</span>
+      <span class="confirm" @click="confirm">确定</span>
+    </div>
+  </div>
 </template>
 
 <script type="es6">
@@ -114,73 +116,79 @@ export default {
 
 <style lang="stylus">
 .prodQueryModal {
-    height: 100%;
-    width: 100vw;
-    position: relative;
+  height: 100%;
+  width: 100%;
+  position: relative;
 
-    >div:not(:last-child) {
-        display: flex;
-        flex-direction: column;
-        overflow: auto;
-        position: absolute;
-        bottom: 34px;
-        top: 0;
+  >div {
+    height: 100%;
+    width: 100%;
+
+    >div {
+      width: calc(100% + 18px);
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      position: absolute;
+      bottom: 34px;
+      top: 0;
+
+      >div {
+        padding: 16px;
+        border-bottom: 1px solid #BFBFBF;
+
+        .title {
+          font-size: 14px;
+          color: #333333;
+          margin-bottom: 16px;
+        }
 
         >div {
-            padding: 16px;
-            border-bottom: 1px solid #BFBFBF;
+          >span {
+            display: inline-block;
+            padding: 4px 8px;
+            margin: 6px;
+            border: 1px solid #BFBFBF;
+            border-radius: 16px;
+          }
 
-            .title {
-                font-size: 14px;
-                color: #333333;
-                margin-bottom: 16px;
-            }
-
-            >div {
-                >span {
-                    display: inline-block;
-                    padding: 4px 8px;
-                    margin: 6px;
-                    border: 1px solid #BFBFBF;
-                    border-radius: 16px;
-                }
-
-                .ActiveIndex {
-                    background-color: red;
-                    color: #FFFFFF;
-                }
-            }
-        }
-    }
-
-    .footer-btn-content {
-        height: 34px;
-        width: 100vw;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        position: absolute;
-        bottom: 0;
-
-        >span {
-            flex: 1;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 14px;
-        }
-
-        .reset {
-            background: #D8D8D8;
-            color: #333333;
-        }
-
-        .confirm {
-            background: #E10101;
+          .ActiveIndex {
+            background-color: red;
             color: #FFFFFF;
+          }
         }
+      }
     }
+  }
+
+  .footer-btn-content {
+    height: 34px;
+    width: 100vw;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+
+    >span {
+      flex: 1;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 14px;
+    }
+
+    .reset {
+      background: #D8D8D8;
+      color: #333333;
+    }
+
+    .confirm {
+      background: #E10101;
+      color: #FFFFFF;
+    }
+  }
 }
 </style>
 
