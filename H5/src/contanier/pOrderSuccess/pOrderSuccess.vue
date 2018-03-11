@@ -2,19 +2,19 @@
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-09 00:32:18
+ * @Last Modified time: 2018-03-11 09:59:23
  *
  * 产品预约成功
  */
 
  <template>
-  <div id="order">
+  <div id="pOrderSuccess">
     <mt-header title="产品预约成功">
       <mt-button icon="back" @click="back" slot="left"></mt-button>
     </mt-header>
     <Scroll id="scroll">
       <div class="body">
-        <img src="../../common/image" alt="">
+        <img src="../../common/image/666_09.png" alt="">
         <p>恭喜您！预约成功，请等待审核</p>
         <div class="btn-content">
           <span class="checkOrder" @click="checkOrder">查看订单</span>
@@ -23,10 +23,6 @@
         <whiteSpace></whiteSpace>
       </div>
     </Scroll>
-    <!-- 推荐 -->
-    <footer class="footer">
-      <span class="submit">提交</span>
-    </footer>
   </div>
 </template>
 
@@ -48,6 +44,7 @@ export default {
     // 跳转到产品列表
     goOrder() {
       // 此处跳转到产品列表不能添加历史记录
+      
     },
     /**
      * 返回按钮单机事件
@@ -66,7 +63,7 @@ export default {
 <style lang="stylus">
 @import '~common/stylus/variable';
 
-#order {
+#pOrderSuccess {
   position: relative;
   height: 100%;
   width: 100%;
@@ -83,31 +80,47 @@ export default {
     .body {
       margin-top: 6px;
       width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
 
       >img {
         width: 64px;
         height: 64px;
-        margin-top: 50px;
+        // margin-top: 50px;
+        margin: 50px 0 20px 0;
       }
 
       >p {
-        font-size: $font-size-medium;
+        font-size: $font-size-medium-x;
         color: $color-highlight-background;
       }
 
       .btn-content {
+        display: flex;
+        justify-content: space-evenly;
         height: 34px;
-        width: 100%;
+        width: 80%;
+        margin-top: 40px;
+
+        >span {
+          width: 90px;
+          height: 34px;
+          display: inline-block;
+          line-height: 34px;
+          text-align: center;
+          color: $color-background;
+        }
+
+        .checkOrder {
+          background-color: #FE8921;
+        }
+
+        .goOrder {
+          background-color: #E10101;
+        }
       }
     }
-  }
-
-  .footer {
-    height: 40px;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    z-index: -1;
   }
 }
 </style>

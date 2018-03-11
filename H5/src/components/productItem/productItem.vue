@@ -52,8 +52,9 @@ export default {
           return "../../../static/image/product_status/funding.png";
         case "03":
           return "../../../static/image/product_status/finish.png";
-        case "04":
-          return "../../../static/image/product_status/complete.png";
+        /* 这期不做 */
+        // case "04":
+        //   return "../../../static/image/product_status/complete.png";
       }
     },
     get_pInvestType() {
