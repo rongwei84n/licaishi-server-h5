@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-04 23:04:51 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-07 23:14:24
+ * @Last Modified time: 2018-03-11 10:19:59
  * 产品页-产品组件
  */
 
@@ -61,8 +61,8 @@ export default {
           return "../../../static/image/product_status/funding.png";
         case "03":
           return "../../../static/image/product_status/finish.png";
-        case "04":
-          return "../../../static/image/product_status/complete.png";
+        // case "04":
+        //   return "../../../static/image/product_status/complete.png";
       }
     },
     get_pInvestType() {

@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-09 11:02:49
+ * @Last Modified time: 2018-03-11 10:15:40
  *
  * 基础布局组件
  * 带头部与底部布局
@@ -18,11 +18,15 @@
         <mt-field label="产品名称" disabled v-model="pShortName"></mt-field>
         <mt-field label="客户姓名" placeholder="请输入客户姓名" v-model="username"></mt-field>
         <mt-field label="身份证号" placeholder="请输入身份证号" v-model="IDCard"></mt-field>
-        <mt-field label="手机号" placeholder="请输入手机号" v-model="phone"></mt-field>
+        <!-- <mt-field label="手机号" placeholder="请输入手机号" v-model="phone"></mt-field> -->
+        <mt-field label="银行卡账号" placeholder="请输入手机号" v-model="bankCard"></mt-field>
+        <mt-field label="打卡行" placeholder="点击右侧图标选择银行" v-model="bankName">
+          <i class="fa fa-credit-card"></i>
+        </mt-field>
         <mt-field label="预约金额" placeholder="请输入预约金额" v-model="money">
           <span>万元</span>
         </mt-field>
-        <mt-field label="最迟打款日期" disableds v-model="lastDate">
+        <mt-field label="最迟打款日期" placeholder="点击右侧图标选择日期" disabled v-model="lastDate">
           <i class="fa fa-calendar extend-click" @click="openDatePicker"></i>
         </mt-field>
         <mt-field label="备注" placeholder="备注" type="textarea" rows="4" v-model="introduction"></mt-field>
@@ -30,7 +34,7 @@
     </Scroll>
     <!-- 推荐 -->
     <footer class="footer">
-      <span class="submit">提交</span>
+      <span class="submit" @click="submit">提交</span>
     </footer>
     <mt-datetime-picker type="date" ref="picker" v-model="pickerValue" year-format="{value} 年" month-format="{value} 月" date-format="{value} 日" @confirm="handleConfirm">
     </mt-datetime-picker>
@@ -39,7 +43,7 @@
 
  <script type="es6">
 import formatDateTime from "common/js/date";
-import moment from "moment";
+// import moment from "moment";
 import ajax from "api/ajax";
 import Scroll from "base/scroll/scroll";
 import whiteSpace from "base/whiteSpace/whiteSpace";
@@ -55,11 +59,12 @@ export default {
     return {
       username: "", //客户姓名
       IDCard: "", //身份证号
-      phone: "", //手机号
+      bankCard: "", //银行卡
       money: "", //预约金额
       lastDate: "", //最迟打款日期
       pickerValue: "",
-      introduction: "" //自我介绍
+      introduction: "", //自我介绍
+      bankName: "" //打卡行
     };
   },
   created() {
@@ -69,6 +74,10 @@ export default {
     });
   },
   methods: {
+    // 提交
+    submit() {
+      this.$router.push("/pOrderSuccess");
+    },
     /**
      * 返回按钮单机事件
      */

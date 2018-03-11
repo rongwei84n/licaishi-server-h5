@@ -168,7 +168,9 @@ export default {
       padding-top: 18px;
       background-color: #eff3f6;
 
-      ul {
+      .ofh {
+        display: flex;
+        flex-wrap: wrap;
         width: 100%;
 
         li {

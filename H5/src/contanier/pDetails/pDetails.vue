@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-09 11:27:36
+ * @Last Modified time: 2018-03-11 10:09:18
  *
  * 产品详情组件
  */
@@ -190,6 +190,12 @@
         <div class="preview-material">
           <div class="pro-header-content">
             <span>预览资料</span>
+          </div>
+        </div>
+        <!-- 备注 -->
+        <div class="back">
+          <div class="pro-header-content">
+            <span>备注</span>
           </div>
         </div>
         <white-space></white-space>

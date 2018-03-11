@@ -6,6 +6,7 @@ import Recommend from 'contanier/recommend/recommend' //
 import Product from 'contanier/product/product'     //产品模块
 import pDetails from 'contanier/pDetails/pDetails'  //产品详情
 import pOrder from 'contanier/pOrder/pOrder'  //产品预约
+import pOrderSuccess from 'contanier/pOrderSuccess/pOrderSuccess'  //产品提交成功
 
 /* 工作室模块 */
 import Rank from '@/components/rank/rank'
@@ -53,6 +54,11 @@ export default new Router({
       name: 'pDetails',
       path: '/pdetails',
       component: pDetails
+    },
+    {
+      name: 'pOrderSuccess',
+      path: '/pOrderSuccess',
+      component: pOrderSuccess
     },
   ]
 })
