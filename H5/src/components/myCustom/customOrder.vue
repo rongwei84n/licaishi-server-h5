@@ -13,10 +13,9 @@
     <mt-tab-container v-model="selected">
       <mt-tab-container-item id="1">
         <div v-for="(product,index) in customOrderList">
-
-          <customOrderInfo :productName="product.productName"
-          :loanAmount="product.loanAmount" :auEndDate="product.auEndDate"
-                           :commission="product.commission" :productTime="product.productTime"></customOrderInfo>
+          <customOrderInfo :productName="product.productShortName"
+          :loanAmount="product.profit" :auEndDate="product.createTime"
+                           :commission="product.commission" :productTime="product.ee"></customOrderInfo>
           <split :sh="8"></split>
         </div>
 
@@ -32,6 +31,10 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import ajax from "api/ajax";
+  import Scroll from "base/scroll/scroll";
+  import loading from "base/loading/loading";
+  import toEnd from "base/toEnd/toEnd";
   import split from "components/split/split";
   import workRoomHeader from "components/workRoomHeader/workRoomHeader";
   import customOrderInfo from "components/myCustom/customOrderInfo";
@@ -39,38 +42,44 @@
     data () {
       return {
         selected:"1",
-        customOrderList:[
-          {
-            productName:"九州期货-优选2号",
-            loanAmount:"10001",
-            auEndDate:"2012-02-25",
-            commission:"222",
-            productTime:"2011-11-11"
-          },
-          {
-            productName:"九州期货-优选2号",
-            loanAmount:"10001",
-            auEndDate:"2012-02-25",
-            commission:"222",
-            productTime:"2011-11-11"
-          },
-        ]
+        customOrderList:[],
+        pageNo: 1, //当前页
+        pullup: true, //开启上拉加载
+        customId:""
       }
+    },
+    created(){
+      this.customId = this.$route.query.customId
+      this.get_custom_order()
     },
     methods: {
       back(){
         this.$router.go(-1)
+      },
+      get_custom_order(){
+        ajax({
+          url: `/srv/v1/workshop/queryOrdersByCustomerId?pageNo=${this.pageNo}&pageSize=${
+            this.$store.state.pageSize
+            }&customerId=2`,
+          method: "GET"
+        }).then(res => {
+          if (res.status === 200) {
+            this.customOrderList = [...this.customOrderList, ...res.data.result.list];
+            if (res.data.result.pager) {
+              this.pullup = res.data.result.pager.hasNaxtPage;
+            } else {
+              this.pullup = false;
+            }
+          }
+        });
       }
-    },
-    created() {
-      //this.get_custom();
     },
     components: {
       workRoomHeader,
       customOrderInfo,
       split
 
-    },
+    }
   }
 </script>
 

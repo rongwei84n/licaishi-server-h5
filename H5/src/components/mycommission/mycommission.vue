@@ -4,7 +4,7 @@
     <img src="~@/common/image/my-co.png"/>
     <Scroll class="scroll-conntent" :data="comList" >
       <div>
-        <div v-for="(commission,index) in comList" :key="index" @click="customOrderFun">
+        <div v-for="(commission,index) in comList">
           <split :sh="8"></split>
           <myCommissionInfo :myDate="commission.myDate" :myComAmount="commission.myComAmount"
                           :orderId="commission.orderId" :orderAmount="commission.orderAmount"
