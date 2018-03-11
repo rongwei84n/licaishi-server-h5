@@ -1,7 +1,7 @@
 <template>
   <div class="settings-all-0">
     <!-- 头部功能模块 -->
-    <div class="setting-header">
+    <div class="setting-header" >
       <div class="content-wrapper">
         <div class="avatar">
           <img width="64" height="64" src="~@/common/image/head_portrait.png" />
@@ -13,7 +13,9 @@
       </div>
       <div class="right-icon">
         <div class="ri-setting" v-on:click="gotoPersonInfo">设置</div>
-        <div class="ri-message">消息</div>
+        <div class="ri-message">
+          <img width="16px" height="18px" src="../../common/image/my_settings_ring.png"/>
+        </div>
       </div>
     </div>
 
@@ -130,7 +132,7 @@ export default {
     height: calc(143px + 14px);
     padding-left: 18px;
     position: relative;
-    background: red;
+    background-image url("~@/common/image/my_settings_header_background.png")
     border-bottom: solid 1px gainsboro;
 
     .content-wrapper {
@@ -150,12 +152,12 @@ export default {
 
         .av-name {
           margin-top: 10px;
-          font-size: 16px;
+          font-size: 12px;
           margin-bottom: 10px;
         }
 
         .money-all {
-          font-size: 12px;
+          font-size: 9px;
         }
       }
     }
