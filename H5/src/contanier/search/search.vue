@@ -2,12 +2,12 @@
   <div class="settings-all-0">
     <!-- 头部功能模块 -->
     <div class="setting-header" >
-      <div class="content-wrapper">
+      <div class="content-wrapper" v-on:click="gotoLogin">
         <div class="avatar">
           <img width="64" height="64" src="~@/common/image/head_portrait.png" />
         </div>
         <div class="content">
-          <div class="av-name" v-on:click="gotoLogin">{{name}}</div>
+          <div class="av-name" >{{name}}</div>
           <div class="money-all">累计佣金: 10000元</div>
         </div>
       </div>
@@ -76,6 +76,7 @@
 export default {
   data() {
     return {
+      isLogin: false,
       name: "未登录",
       neturl: "http://47.97.100.240/"
     };
@@ -92,8 +93,10 @@ export default {
         if (response.error == 0) {
           //获取账号成功
           _this.name = response.data.nickname;
+          _this.isLogin = true;
         } else {
           _this.name = "未设置";
+          _this.isLogin = false;
         }
       }
     );
@@ -102,9 +105,16 @@ export default {
   methods: {
     // 跳转到原生页面
     gotoLogin() {
-      window.phihome.app.openPage("lcs.account.login", null, function(
-        response
-      ) {});
+      let _this = this;
+      if(_this.isLogin) {
+        window.phihome.app.openPage("lcs.account.personinfo", null, function(
+          response
+        ) {});
+      } else {
+        window.phihome.app.openPage("lcs.account.login", null, function(
+          response
+        ) {});
+      }
     },
     gotoPersonInfo() {
       window.phihome.app.openPage("lcs.account.personinfo", null, function(
