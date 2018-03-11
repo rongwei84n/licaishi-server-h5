@@ -104,6 +104,7 @@
     created() {
       //查询订单
       let _this = this;
+      _this.selected = this.$route.params.tab_id;
       window.phihome.util.netRequest(
         "get",
         _this.neturl + "srv/v1/order/list?pageNo=1&pageSize=100&type=1",

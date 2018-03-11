@@ -21,7 +21,7 @@
 
     <!-- 我的订单模块 -->
     <div class="setting-order">
-      <div class="view-all-orders" v-on:click="gotoOrderList">查看全部订单></div>
+      <div class="view-all-orders" v-on:click="gotoAllOrderList">查看全部订单></div>
       <img slot="icon" src="../../common/image/my_settings_order.png" width="24" height="24" class="icon">
       <div class="my-order">
         <hr color="#EDEEEF" />
@@ -29,21 +29,21 @@
         <hr color="#EDEEEF" />
       </div>
       <div class="order-items">
-        <div class="order-items-tab">
+        <div class="order-items-tab" v-on:click="handleWaitpayOnclick">
           <img slot="icon" src="../../common/image/my_settings_waitpay.png" width="24" height="27">
           <span>
             待打款
           </span>
         </div>
-        <div class="order-items-tab">
+        <div class="order-items-tab" v-on:click="handleWaitCommissionOnclick">
           <img slot="icon" src="../../common/image/my_settings_wait_commission.png" width="24" height="27">
           <span>待结佣</span>
         </div>
-        <div class="order-items-tab">
+        <div class="order-items-tab" v-on:click="handleAlreadyCommissionOnclick">
           <img slot="icon" src="../../common/image/my_settings_already_commission.png" width="24" height="27">
           <span>已结佣</span>
         </div>
-        <div class="order-items-tab">
+        <div class="order-items-tab" v-on:click="handleFailedOnclick">
           <img slot="icon" src="../../common/image/my_settings_failed.png" width="24" height="27">
           <span>已失败</span>
         </div>
@@ -111,8 +111,20 @@ export default {
         response
       ) {});
     },
-    gotoOrderList() {
-      this.$router.push({ name: "Orderlist" });
+    gotoAllOrderList() {
+      this.$router.push({ name: "Orderlist", params: { tab_id: "1"}});
+    },
+    handleWaitpayOnclick() {
+      this.$router.push({ name: "Orderlist", params: { tab_id: "2"}});
+    },
+    handleWaitCommissionOnclick() {
+      this.$router.push({ name: "Orderlist", params: { tab_id: "3"}});
+    },
+    handleAlreadyCommissionOnclick() {
+      this.$router.push({ name: "Orderlist", params: { tab_id: "4"}});
+    },
+    handleFailedOnclick() {
+      this.$router.push({ name: "Orderlist", params: { tab_id: "5"}});
     }
   },
   components: {}
