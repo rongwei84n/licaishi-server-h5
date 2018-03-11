@@ -7,7 +7,6 @@
     <mt-cell :title="dRebateAmount"></mt-cell>
     <mt-cell :title="dPayStatus"></mt-cell>
     <mt-cell :title="dCustomerName"></mt-cell>
-    <mt-cell :title="dCustomerPhone"></mt-cell>
     <mt-cell value="取消订单"></mt-cell>
   </div>
 </template>
@@ -22,8 +21,7 @@
         rebatePresent: "", //返佣比例
         rebateAmount: "",  //返佣金额
         payStatus: "", //支付状态(待打款可以取消订单)
-        customerName: "", //客户姓名
-        customerPhone: "" //客户电话
+        customerName: "" //客户姓名
       },
       data () {
         return {
@@ -34,7 +32,6 @@
           dRebateAmount: "返佣金额: " + this.rebateAmount,
           dPayStatus: "支付状态: " + this.payStatus,
           dCustomerName: "客户姓名: " + this.customerName,
-          dCustomerPhone: "客户手机号: " + this.customerPhone,
         }
       },
     }

@@ -28,13 +28,12 @@
           <mt-tab-container-item id="2" >
             <OrderListItem   v-for="(item,index) in allOrders" :key="index"
                              :orderId="item.orderNo"
-                             :prodName="item.productName"
-                             :orderAmount="item.commission"
-                             :rebatePresent="item.commissionRatio"
-                             :rebateAmount="cc"
-                             :payStatus="item.payStatus"
-                             :customerName="item.customerName"
-                             :customerPhone="item.customerPhoneNum"/>
+                             :prodName="item.productShortName"
+                             :orderAmount="item.amount"
+                             :rebatePresent="item.comRatio"
+                             :rebateAmount="item.commission"
+                             :payStatus="item.status"
+                             :customerName="item.customerName"/>
           </mt-tab-container-item>
         </div>
 
@@ -56,6 +55,7 @@
   import OrderListItem from "components/order/OrderListItem";
 
   export default {
+
     name: 'page-order-list',
     data () {
       return {
@@ -80,8 +80,6 @@
           response = JSON.parse(response);
           if (response.status == 200) {
             //获取订单成功
-            // _this.name = response.message;
-            alert(response.result.list.length)
             _this.allOrders = response.result.list;
           } else {
           }
