@@ -1,48 +1,50 @@
 <template>
   <div class="settings-all-0">
     <!-- 头部功能模块 -->
-    <div class="setting-header">
-      <div class="content-wrapper">
+    <div class="setting-header" >
+      <div class="content-wrapper" v-on:click="gotoLogin">
         <div class="avatar">
           <img width="64" height="64" src="~@/common/image/head_portrait.png" />
         </div>
         <div class="content">
-          <div class="av-name" v-on:click="gotoLogin">{{name}}</div>
+          <div class="av-name" >{{name}}</div>
           <div class="money-all">累计佣金: 10000元</div>
         </div>
       </div>
       <div class="right-icon">
         <div class="ri-setting" v-on:click="gotoPersonInfo">设置</div>
-        <div class="ri-message">消息</div>
+        <div class="ri-message">
+          <img width="16px" height="18px" src="../../common/image/my_settings_ring.png"/>
+        </div>
       </div>
     </div>
 
     <!-- 我的订单模块 -->
     <div class="setting-order">
-      <div class="view-all-orders" v-on:click="gotoOrderList">查看全部订单></div>
-      <img slot="icon" src="../../common/image/home.png" width="24" height="24" class="icon">
+      <div class="view-all-orders" v-on:click="gotoAllOrderList">查看全部订单></div>
+      <img slot="icon" src="../../common/image/my_settings_order.png" width="24" height="24" class="icon">
       <div class="my-order">
         <hr color="#EDEEEF" />
         <span>我的订单</span>
         <hr color="#EDEEEF" />
       </div>
       <div class="order-items">
-        <div class="order-items-tab">
-          <img slot="icon" src="../../common/image/home.png" width="24" height="27">
+        <div class="order-items-tab" v-on:click="handleWaitpayOnclick">
+          <img slot="icon" src="../../common/image/my_settings_waitpay.png" width="24" height="27">
           <span>
             待打款
           </span>
         </div>
-        <div class="order-items-tab">
-          <img slot="icon" src="../../common/image/home.png" width="24" height="27">
+        <div class="order-items-tab" v-on:click="handleWaitCommissionOnclick">
+          <img slot="icon" src="../../common/image/my_settings_wait_commission.png" width="24" height="27">
           <span>待结佣</span>
         </div>
-        <div class="order-items-tab">
-          <img slot="icon" src="../../common/image/home.png" width="24" height="27">
+        <div class="order-items-tab" v-on:click="handleAlreadyCommissionOnclick">
+          <img slot="icon" src="../../common/image/my_settings_already_commission.png" width="24" height="27">
           <span>已结佣</span>
         </div>
-        <div class="order-items-tab">
-          <img slot="icon" src="../../common/image/home.png" width="24" height="27">
+        <div class="order-items-tab" v-on:click="handleFailedOnclick">
+          <img slot="icon" src="../../common/image/my_settings_failed.png" width="24" height="27">
           <span>已失败</span>
         </div>
       </div>
@@ -50,19 +52,23 @@
 
     <div class="my-owns">
       <mt-cell title="我的工作室" to="/rank" is-link>
-        <img slot="icon" src="../../common/image/home.png" width="18" height="14">
+        <img slot="icon" src="../../common/image/my_settings_mystudio.png" width="18" height="14">
       </mt-cell>
-      <mt-cell title="我的客户" is-link>
-        <img slot="icon" src="../../common/image/home.png" width="18" height="14">
+      <mt-cell title="我的客户" to="/rank/mycustom" is-link>
+        <img slot="icon" src="../../common/image/my_settings_my_customer.png" width="18" height="14">
       </mt-cell>
       <mt-cell title="我要推广" is-link>
-        <img slot="icon" src="../../common/image/home.png" width="18" height="14">
+        <img slot="icon" src="../../common/image/my_settings_spread.png" width="18" height="14">
       </mt-cell>
       <mt-cell title="客服热线：400-0852-6325">
-        <img slot="icon" src="../../common/image/home.png" width="18" height="14">
+        <img slot="icon" src="../../common/image/my_settings_hotline.png" width="18" height="14">
       </mt-cell>
     </div>
     <router-view></router-view>
+
+    <div>
+      <img width="100%" src="../../common/image/my_settings_bottom.png"/>
+    </div>
   </div>
 </template>
 
@@ -70,43 +76,73 @@
 export default {
   data() {
     return {
+      isLogin: false,
       name: "未登录",
       neturl: "http://47.97.100.240/"
     };
   },
   created: function() {
-    let _this = this;
-    window.phihome.util.netRequest(
-      "get",
-      _this.neturl + "srv/v1/accountDetail",
-      "",
-      "",
-      function(response) {
-        response = JSON.parse(response);
-        if (response.error == 0) {
-          //获取账号成功
-          _this.name = response.data.nickname;
-        } else {
-          _this.name = "未设置";
-        }
-      }
-    );
+    this.queryAccountDetail();
   },
 
   methods: {
+    queryAccountDetail() {
+      let _this = this;
+      window.phihome.util.netRequest(
+        "get",
+        _this.neturl + "srv/v1/accountDetail",
+        "",
+        "",
+        function(response) {
+          response = JSON.parse(response);
+          if (response.error == 0) {
+            //获取账号成功
+            _this.name = response.data.nickname;
+            _this.isLogin = true;
+          } else {
+            _this.name = "未设置";
+            _this.isLogin = false;
+          }
+        }
+      );
+    },
     // 跳转到原生页面
     gotoLogin() {
-      window.phihome.app.openPage("lcs.account.login", null, function(
-        response
-      ) {});
+      let _this = this;
+      if(_this.isLogin) {
+        window.phihome.app.openPage("lcs.account.personinfo", null, function(
+          response
+        ) {
+          _this.queryAccountDetail();
+        });
+      } else {
+        window.phihome.app.openPage("lcs.account.login", null, function(
+          response
+        ) {
+          _this.queryAccountDetail();
+        });
+      }
+
     },
     gotoPersonInfo() {
       window.phihome.app.openPage("lcs.account.personinfo", null, function(
         response
       ) {});
     },
-    gotoOrderList() {
-      this.$router.push({ name: "Orderlist" });
+    gotoAllOrderList() {
+      this.$router.push({ name: "Orderlist", params: { tab_id: "1"}});
+    },
+    handleWaitpayOnclick() {
+      this.$router.push({ name: "Orderlist", params: { tab_id: "2"}});
+    },
+    handleWaitCommissionOnclick() {
+      this.$router.push({ name: "Orderlist", params: { tab_id: "3"}});
+    },
+    handleAlreadyCommissionOnclick() {
+      this.$router.push({ name: "Orderlist", params: { tab_id: "4"}});
+    },
+    handleFailedOnclick() {
+      this.$router.push({ name: "Orderlist", params: { tab_id: "5"}});
     }
   },
   components: {}
@@ -126,7 +162,7 @@ export default {
     height: calc(143px + 14px);
     padding-left: 18px;
     position: relative;
-    background: red;
+    background-image url("~@/common/image/my_settings_header_background.png")
     border-bottom: solid 1px gainsboro;
 
     .content-wrapper {
@@ -146,12 +182,12 @@ export default {
 
         .av-name {
           margin-top: 10px;
-          font-size: 16px;
+          font-size: 12px;
           margin-bottom: 10px;
         }
 
         .money-all {
-          font-size: 12px;
+          font-size: 9px;
         }
       }
     }

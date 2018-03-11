@@ -1,7 +1,7 @@
 <template>
   <div>
     <mt-header :title="mytitle">
-      <mt-button class="icon-back" @click="back" slot="left"></mt-button>
+      <mt-button icon="back" @click="back" slot="left"></mt-button>
       <mt-button slot="right" @click="rightFunc" v-show="rightFlag">{{content}}</mt-button>
     </mt-header>
   </div>

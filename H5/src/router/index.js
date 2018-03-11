@@ -13,7 +13,10 @@ import Rank from '@/components/rank/rank'
 /* 我的模块 */
 import Search from 'contanier/search/search'
 import Orderlist from 'contanier/search/orderlist'
-
+import Workroominfo from '@/components/workRoomInfo/workRoomInfo'
+import Mycustom from '@/components/myCustom/myCustom'
+import customOrder from '@/components/myCustom/customOrder'
+import mycommission from '@/components/mycommission/mycommission'
 Vue.use(Router)
 
 export default new Router({
@@ -26,7 +29,23 @@ export default new Router({
     },
     {
       path: '/rank',
-      component: Rank
+      component: Rank,
+      children: [
+        { path: '/rank/workroominfo',
+          component: Workroominfo
+        },
+        { path: '/rank/mycustom',
+          component: Mycustom,
+          children: [
+            { path: '/rank/mycustom/customOrder',
+              component: customOrder
+            }
+          ]
+        },
+        { path: '/rank/mycommission',
+          component: mycommission
+        }
+      ]
     },
     {
       path: '/recommend',

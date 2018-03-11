@@ -55,11 +55,11 @@
         width auto
         margin-left 10px
         .mint-cell-text
-          font-size 13px
+          font-size 14px
       .mint-cell-value
         margin-right 10px
       .mint-field-core
-        font-size 13px
+        font-size 14px
       .mint-cell-wrapper
         width 100%
         background-position bottom right
@@ -70,7 +70,7 @@
       padding: 4px 6px
       //border-top: 1px solid rgba(7, 17, 27, 0.1)
       //border-bottom: 1px solid rgba(7, 17, 27, 0.1)
-      background: rgb(240, 248, 255)
+      background: #EFF3F6
       .pro-info
         color red
         width 100%
@@ -78,7 +78,7 @@
         margin 4px 0px
         border 1px solid sandybrown
         background-color rgb(255, 235, 225)
-        font-size 13px
+        font-size 14px
         line-height 36px
         text-align  center
 
