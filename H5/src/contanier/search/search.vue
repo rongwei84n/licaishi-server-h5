@@ -82,39 +82,47 @@ export default {
     };
   },
   created: function() {
-    let _this = this;
-    window.phihome.util.netRequest(
-      "get",
-      _this.neturl + "srv/v1/accountDetail",
-      "",
-      "",
-      function(response) {
-        response = JSON.parse(response);
-        if (response.error == 0) {
-          //获取账号成功
-          _this.name = response.data.nickname;
-          _this.isLogin = true;
-        } else {
-          _this.name = "未设置";
-          _this.isLogin = false;
-        }
-      }
-    );
+    this.queryAccountDetail();
   },
 
   methods: {
+    queryAccountDetail() {
+      let _this = this;
+      window.phihome.util.netRequest(
+        "get",
+        _this.neturl + "srv/v1/accountDetail",
+        "",
+        "",
+        function(response) {
+          response = JSON.parse(response);
+          if (response.error == 0) {
+            //获取账号成功
+            _this.name = response.data.nickname;
+            _this.isLogin = true;
+          } else {
+            _this.name = "未设置";
+            _this.isLogin = false;
+          }
+        }
+      );
+    },
     // 跳转到原生页面
     gotoLogin() {
       let _this = this;
       if(_this.isLogin) {
         window.phihome.app.openPage("lcs.account.personinfo", null, function(
           response
-        ) {});
+        ) {
+          _this.queryAccountDetail();
+        });
       } else {
         window.phihome.app.openPage("lcs.account.login", null, function(
           response
-        ) {});
+        ) {
+          _this.queryAccountDetail();
+        });
       }
+
     },
     gotoPersonInfo() {
       window.phihome.app.openPage("lcs.account.personinfo", null, function(
