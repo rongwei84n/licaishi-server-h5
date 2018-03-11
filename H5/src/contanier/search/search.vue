@@ -63,6 +63,10 @@
       </mt-cell>
     </div>
     <router-view></router-view>
+
+    <div>
+      <img width="100%" src="../../common/image/my_settings_bottom.png"/>
+    </div>
   </div>
 </template>
 
