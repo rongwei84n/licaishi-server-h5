@@ -4,7 +4,7 @@
             <img :src="iconUrl" alt="">
             <span>{{title}}</span>
         </div>
-        <div class="moreContent">
+        <div class="moreContent" v-if="right">
             <span @click.self="_moreClick()">更多
                 <img src="../../common/image/more.png" alt="">
             </span>
@@ -18,7 +18,11 @@ export default {
     // 图标地址
     iconUrl: "",
     // title
-    title: ""
+    title: "",
+    right: {
+      type: Boolean,
+      defalut: true
+    }
   },
   methods: {
     /**

@@ -18,6 +18,7 @@ const state = {
   favoriteList: loadFavorite(),
   /* 每页查询多少条数据 */
   pageSize: 10,
+  
 }
 
 export default state

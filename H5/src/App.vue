@@ -15,14 +15,20 @@ export default {
   //   screenHeight: document.body.clientHeight; // 这里是给到了一个默认值 （这个很重要），
   //   originHeight: document.body.clientHeight; //默认高度在watch里拿来做比较
   // },
-  // mounted() {
-  //   window.onresize = () => {
-  //     return (() => {
-  //       window.screenHeight = document.body.screenHeight;
-  //       this.screenHeight = window.screenHeight;
-  //     })();
-  //   };
-  // },
+  created () {
+    // if (condition) {
+      
+    // }
+  },
+  mounted() {
+    // this.$router.replace("/recommend");
+    // window.onresize = () => {
+    //   return (() => {
+    //     window.screenHeight = document.body.screenHeight;
+    //     this.screenHeight = window.screenHeight;
+    //   })();
+    // };
+  },
   // watch: {
   //   screenHeight(val) {
   //     this.screenHeight = val;

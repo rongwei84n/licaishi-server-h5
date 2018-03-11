@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-05 10:11:06 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-08 23:15:34
+ * @Last Modified time: 2018-03-11 22:37:37
  * 产品--集合信托--子组件
  */
 
@@ -41,7 +41,19 @@ export default {
        * 条件选择框
        */
       popupVisible: false, //筛选条件
-      initList: [0, 0, 0], //初始化选择项--item根据枚举使用
+      initList: [0, 0, 0, 0, 0, 0, 0], //初始化选择项--item根据枚举使用
+      /**
+       * 条件查询用
+       */
+      saleStatus: "", //募集状态 01：预热中 02：募集中 03：募集结束 04：产品成立
+      dueTime: "", //产品期限： 01；02；03；04；05
+      annualRevenue: "", //预期收益：01；02；03；04；05；06
+      pPaymentInterestType: "", //付息方式：01：按月付息 02：按季付息 03：按半年付息 04：按年付息 05 到期付本息
+      pInvestType: "", //投资领域：01：房地产类 02：金融市场 03：基础设施 04：资金池 05：工商企业 99：其他
+      minimumAmount: "", //起购金额：500000；1000000；2000000；3000000
+      pSizeRatioType: "", //大小配比：01：小额畅打 02：已配出小额 03：严格配比 04：全大额
+      pRabateProfitParameter: false, //按照佣金比例从高到底 true
+      pAnnualRevenueExpectParameter: false, //按照预期收益率从高到底排序 true
       /**
        * 翻页数据
        */
@@ -55,11 +67,10 @@ export default {
   methods: {
     // 上拉加载
     scrollToEnd() {
-      this.pageNo++;
-      // if (this.pageNo === 4) {
-      //   this.pullup = false;
-      // }
-      this.get_proList();
+      if (this.pullup) {
+        this.pageNo++;
+        this.get_proList();
+      }
     },
     /**
      * @param index 条件筛选栏的索引
@@ -69,16 +80,23 @@ export default {
         case 0:
           this.pageNo = 1;
           this.pullup = true;
+          this.productList = [];
           this.get_proList();
           break;
         case 1:
           this.pageNo = 1;
           this.pullup = true;
+          this.pRabateProfitParameter = true;
+          this.pAnnualRevenueExpectParameter = false;
+          this.productList = [];
           this.get_proList();
           break;
         case 2:
           this.pageNo = 1;
           this.pullup = true;
+          this.pRabateProfitParameter = false;
+          this.pAnnualRevenueExpectParameter = true;
+          this.productList = [];
           this.get_proList();
           break;
         // 打开条件筛选框
@@ -96,13 +114,19 @@ export default {
       ajax({
         url: `/srv/v1/product/list?pageNo=${this.pageNo}&pageSize=${
           this.$store.state.pageSize
-        }&type=01`,
+        }&type=01&saleStatus=0${this.initList[0]}&dueTime=0${
+          this.initList[1]
+        }&annualRevenue=0${this.initList[2]}&pPaymentInterestType=0${
+          this.initList[3]
+        }&pInvestType=0${this.initList[4]}&minimumAmount=0${
+          this.initList[5]
+        }&pSizeRatioType=0${this.initList[6]}`,
         method: "GET"
       }).then(res => {
         if (res.status === 200) {
-          this.productList = [...this.productList, ...res.data.result.list];
           if (res.data.result.pager) {
             this.pullup = res.data.result.pager.hasNaxtPage;
+            this.productList = [...this.productList, ...res.data.result.list];
           } else {
             this.pullup = false;
           }
@@ -115,12 +139,14 @@ export default {
     confirm(parmas) {
       this.initList = parmas;
       this.popupVisible = false;
+      this.pageNo = 1;
+      this.get_proList();
     },
     /**
      * @event 条件选择框重置
      */
     pQueryReset() {
-      this.initList = [0, 0, 0];
+      this.initList = [0, 0, 0, 0, 0, 0, 0];
       this.popupVisible = false;
     }
   },
@@ -145,7 +171,7 @@ export default {
   }
 
   /* 滑动块区域 */
-  .scroll-conntent {
+  >.scroll-conntent {
     position: absolute;
     top: 34px;
     bottom: 46px;

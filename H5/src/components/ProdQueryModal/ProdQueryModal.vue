@@ -7,29 +7,53 @@
  */
 
  <template>
-  <div class="prodQueryModal">
-    <div>
+  <div id="prodQueryModal">
+    <Scroll class="scroll-conntent" :data="ActiveIndexList">
       <div>
         <div>
-          <p class="title">产品期限</p>
+          <p class="title">募集状态</p>
           <div>
             <span v-for="(item,index) in pKeyList[0]" :key="index" :class="{ActiveIndex:ActiveIndexList[0]===index}" @click="handleChange(0,index)">{{item}}</span>
           </div>
         </div>
         <div>
-          <p class="title">预期年华收益</p>
+          <p class="title">产品期限</p>
           <div>
             <span v-for="(item,index) in pKeyList[1]" :key="index" :class="{ActiveIndex:ActiveIndexList[1]===index}" @click="handleChange(1,index)">{{item}}</span>
           </div>
         </div>
         <div>
-          <p class="title">付息方式</p>
+          <p class="title">预期年化收益</p>
           <div>
             <span v-for="(item,index) in pKeyList[2]" :key="index" :class="{ActiveIndex:ActiveIndexList[2]===index}" @click="handleChange(2,index)">{{item}}</span>
           </div>
         </div>
+        <div>
+          <p class="title">付息方式</p>
+          <div>
+            <span v-for="(item,index) in pKeyList[3]" :key="index" :class="{ActiveIndex:ActiveIndexList[3]===index}" @click="handleChange(3,index)">{{item}}</span>
+          </div>
+        </div>
+        <div>
+          <p class="title">投资领域</p>
+          <div>
+            <span v-for="(item,index) in pKeyList[4]" :key="index" :class="{ActiveIndex:ActiveIndexList[4]===index}" @click="handleChange(4,index)">{{item}}</span>
+          </div>
+        </div>
+        <div>
+          <p class="title">起购金额</p>
+          <div>
+            <span v-for="(item,index) in pKeyList[5]" :key="index" :class="{ActiveIndex:ActiveIndexList[5]===index}" @click="handleChange(5,index)">{{item}}</span>
+          </div>
+        </div>
+        <div>
+          <p class="title">大小配比</p>
+          <div>
+            <span v-for="(item,index) in pKeyList[6]" :key="index" :class="{ActiveIndex:ActiveIndexList[6]===index}" @click="handleChange(6,index)">{{item}}</span>
+          </div>
+        </div>
       </div>
-    </div>
+    </Scroll>
     <div class="footer-btn-content">
       <span class="reset" @click="reset">重置</span>
       <span class="confirm" @click="confirm">确定</span>
@@ -38,13 +62,14 @@
 </template>
 
 <script type="es6">
+import Scroll from "base/scroll/scroll";
 export default {
   props: {
     //   初始化的选择项
     initList: {
       type: Array,
       default: function() {
-        return [0, 0, 0];
+        return [0, 0, 0,0,0,0,0];
       }
     },
     // 初始化key值
@@ -52,9 +77,13 @@ export default {
       type: Array,
       default: function() {
         return [
+          /* 募集状态 */
+          /* 目前产品成立状态放置 */
+          // ["不限","预热中","募集中","募集结束","产品成立"],
+          ["不限","预热中","募集中","募集结束"],
           /* 产品期限 */
           ["不限", "12个月以内", "12个月", "13-23个月", "24个月", "24个月以上"],
-          /* 预期年华收益 */
+          /* 预期年化收益 */
           [
             "不限",
             "7%以内",
@@ -72,24 +101,46 @@ export default {
             "按半年付息",
             "按年付息",
             "到本期付息"
-          ]
+          ],
+          /* 投资领域 */
+          [
+            "不限",
+            "房地产类",
+            "金融市场",
+            "基础设施",
+            "资金池",
+            "工商企业",
+            "其他",
+          ],
+          /* 起购金额 */
+          [
+            "不限",
+            "50万以上",
+            "100万以上",
+            "200万以上",
+            "300万以上",
+          ],
+          /* 大小配比 */
+          [
+            "不限",
+            "小额畅打",
+            "已配出小额",
+            "严格配比",
+            "全大额",
+          ],
         ];
       }
     }
   },
   data() {
     return {
-      ActiveIndexList: [0, 0, 0], //初始化的选择项
+      ActiveIndexList: [0, 0, 0,0,0,0,0], //初始化的选择项
       KeyList: []
     };
   },
   mounted() {
     this.KeyList = [...this.pKeyList];
   },
-  //   created() {
-  //     console.log(this.pKeyList);
-
-  //   },
   methods: {
     //   确定事件
     confirm() {
@@ -110,29 +161,26 @@ export default {
       this.ActiveIndexList = [...this.initList];
     }
   },
-  computed: {}
+  components : {
+    Scroll
+  }
 };
 </script>
 
 <style lang="stylus">
-.prodQueryModal {
+#prodQueryModal {
   height: 100%;
   width: 100%;
   position: relative;
 
-  >div {
-    height: 100%;
+  >.scroll-conntent {
     width: 100%;
+    position: absolute;
+    overflow: hidden;
+    bottom: 34px;
+    top: 0;
 
     >div {
-      width: calc(100% + 18px);
-      display: flex;
-      flex-direction: column;
-      overflow: auto;
-      position: absolute;
-      bottom: 34px;
-      top: 0;
-
       >div {
         padding: 16px;
         border-bottom: 1px solid #BFBFBF;

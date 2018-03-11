@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-11 10:09:18
+ * @Last Modified time: 2018-03-11 22:24:37
  *
  * 产品详情组件
  */
@@ -13,35 +13,33 @@
       <mt-button icon="back" @click="back" slot="left"></mt-button>
       <i class="fa fa-share-alt extend-click" slot="right"></i>
     </mt-header>
-    <Scroll class="scroll-conntent">
+    <Scroll class="scroll-conntent" :data="pDetailsObj">
       <div>
         <!-- 产品描述 -->
         <div class="p-presentation">
           <div class="header-content">
-            <span class="header-title">光大-歌山16个月</span>
+            <span class="header-title">{{pDetailsObj.pShortName}}</span>
             <img :src="pStatus" alt="">
-            <!-- <img src="../../common/image/p-warm-up.png" alt=""> -->
           </div>
           <div class="body-content">
             <div class="data-content">
               <div>
                 <span class="title">投资金额</span>
-                <span>100-300万元</span>
-                <span>100-300万元</span>
+                <span v-for="(item,index) of pDetailsObj.profitRebates" :key="index">{{item.prAmountDisplay}}</span>
+                <!-- <span>100-300万元</span>
+                <span>100-300万元</span> -->
               </div>
               <div>
                 <span class="title">预期年华收益</span>
-                <span>8%</span>
-                <span>100-300万元</span>
+                <span v-for="(item,index) of pDetailsObj.profitRebates" :key="index">{{item.prAmountDisplay}}</span>
               </div>
               <div>
                 <span class="title">返佣比例</span>
-                <span class="red-span">5%</span>
-                <span class="red-span">5%</span>
+                <span v-for="(item,index) of pDetailsObj.profitRebates" :key="index">{{item.prExpectAnnualRevenue}}</span>
               </div>
             </div>
             <p class="annotation">
-              【2018年01月26日08时更新】本期第9期，剩余额度2450 万，额度不多需要实名预约进款，预约600万+，预计周五 上午10点封账，有下期。（需要双录）
+              {{pDetailsObj.pRecruitmentSummary}}
             </p>
           </div>
         </div>
@@ -56,34 +54,35 @@
           <div class="body-content">
             <div>
               <span class="title">产品全称</span>
+              <span>{{pDetailsObj.pFullName}}</span>
             </div>
             <div>
               <span class="title">募集规模</span>
-              <span></span>
+              <span>{{pDetailsObj.pAllIssuingScale}}</span>
             </div>
             <div>
               <span class="title">投资领域</span>
-              <span></span>
+              <span>{{pInvestType_str}}</span>
             </div>
             <div>
               <span class="title">付息方式</span>
-              <span></span>
+              <span>{{pPaymentInterestType_str}}</span>
             </div>
             <div>
               <span class="title">大小配比</span>
-              <span></span>
+              <span>{{pSizeRatioType_str}}</span>
             </div>
             <div>
               <span class="title">发行机构</span>
-              <span></span>
+              <span>{{pDetailsObj.pInvestName}}</span>
             </div>
             <div>
               <span class="title">投资期限</span>
-              <span></span>
+              <span>{{pDetailsObj.pDulTime}}</span>
             </div>
             <div>
               <span class="title">发行时间</span>
-              <span></span>
+              <span>{{pDetailsObj.pSaleStartTime}}</span>
             </div>
           </div>
         </div>
@@ -97,16 +96,7 @@
           </div>
           <div class="body-content">
             <p>
-              1、苏州姑苏区核心区域项目质押，对应股权评估价值 9.12亿元，该项目位于苏州留园附近，地理位置极其优 越，项目由歌山置业与恒大集团联合开发，剩余未开发 部分土地价值28亿，该土地目前未设置抵押，股权价值 高
-            </p>
-            <p>
-              2、遵义熙悦以其持有位于遵义的东欣广场E组团现房提 供抵押；抵押物评估价值0.76亿元；以上抵押物合计价 值9.88亿，综合抵质押率不超过40%
-            </p>
-            <p>
-              3、交易对手歌山控股（AA发债主体）属于民营企业500 强，连续三年营业收入过百亿，还款来源有保障。
-            </p>
-            <p>
-              4、实际控制人夫妇提供连带责任担保.
+              {{pDetailsObj.pCpys}}
             </p>
           </div>
         </div>
@@ -119,17 +109,8 @@
             </span>
           </div>
           <div class="body-content">
-            <p>
-              1、苏州姑苏区核心区域项目质押，对应股权评估价值 9.12亿元，该项目位于苏州留园附近，地理位置极其优 越，项目由歌山置业与恒大集团联合开发，剩余未开发 部分土地价值28亿，该土地目前未设置抵押，股权价值 高
-            </p>
-            <p>
-              2、遵义熙悦以其持有位于遵义的东欣广场E组团现房提 供抵押；抵押物评估价值0.76亿元；以上抵押物合计价 值9.88亿，综合抵质押率不超过40%
-            </p>
-            <p>
-              3、交易对手歌山控股（AA发债主体）属于民营企业500 强，连续三年营业收入过百亿，还款来源有保障。
-            </p>
-            <p>
-              4、实际控制人夫妇提供连带责任担保.
+            <p v-html="pDetailsObj.pMjzh">
+              <!-- {{pDetailsObj.pMjzh}} -->
             </p>
           </div>
         </div>
@@ -139,17 +120,7 @@
             <span>风险控制</span>
           </div>
           <div class="body-content">
-            <p>
-              1、苏州姑苏区核心区域项目质押，对应股权评估价值 9.12亿元，该项目位于苏州留园附近，地理位置极其优 越，项目由歌山置业与恒大集团联合开发，剩余未开发 部分土地价值28亿，该土地目前未设置抵押，股权价值 高
-            </p>
-            <p>
-              2、遵义熙悦以其持有位于遵义的东欣广场E组团现房提 供抵押；抵押物评估价值0.76亿元；以上抵押物合计价 值9.88亿，综合抵质押率不超过40%
-            </p>
-            <p>
-              3、交易对手歌山控股（AA发债主体）属于民营企业500 强，连续三年营业收入过百亿，还款来源有保障。
-            </p>
-            <p>
-              4、实际控制人夫妇提供连带责任担保.
+            <p v-html="pDetailsObj.pFxkz">
             </p>
           </div>
         </div>
@@ -159,8 +130,7 @@
             <span>还款来源</span>
           </div>
           <div class="body-content">
-            <p>
-              1、苏州姑苏区核心区域项目质押，对应股权评估价值 9.12亿元，该项目位于苏州留园附近，地理位置极其优 越，项目由歌山置业与恒大集团联合开发，剩余未开发 部分土地价值28亿，该土地目前未设置抵押，股权价值 高
+            <p v-html="pDetailsObj.pHkly">
             </p>
           </div>
         </div>
@@ -170,8 +140,7 @@
             <span>资金用途</span>
           </div>
           <div class="body-content">
-            <p>
-              1、苏州姑苏区核心区域项目质押，对应股权评估价值 9.12亿元，该项目位于苏州留园附近，地理位置极其优 越，项目由歌山置业与恒大集团联合开发，剩余未开发 部分土地价值28亿，该土地目前未设置抵押，股权价值 高
+            <p v-html="pDetailsObj.pZjyt">
             </p>
           </div>
         </div>
@@ -181,27 +150,33 @@
             <span>融资方</span>
           </div>
           <div class="body-content">
-            <p>
-              1、苏州姑苏区核心区域项目质押，对应股权评估价值 9.12亿元，该项目位于苏州留园附近，地理位置极其优 越，项目由歌山置业与恒大集团联合开发，剩余未开发 部分土地价值28亿，该土地目前未设置抵押，股权价值 高
+            <p v-html="pDetailsObj.pRrzf">
             </p>
           </div>
         </div>
         <!-- 预览资料 -->
-        <div class="preview-material">
+        <div class="preview-material" v-if="pDetailsObj.productAttachments&&pDetailsObj.productAttachments.length>0">
           <div class="pro-header-content">
             <span>预览资料</span>
           </div>
+          <!-- TODO:预览资料模块 -->
+          <!-- pDetailsObj.productAttachments -->
         </div>
         <!-- 备注 -->
+        <!-- TODO:缺少字段 -->
         <div class="back">
           <div class="pro-header-content">
             <span>备注</span>
           </div>
         </div>
+        <!-- 推荐 -->
+        <!-- <module-title iconUrl="../../common/image/zan.png" title="推荐"></module-title>
+        <template v-if="pDetailsObj.productAttachments&&pDetailsObj.productAttachments.length>0">
+          <product-item v-for=""></product-item>
+        </template> -->
         <white-space></white-space>
       </div>
     </Scroll>
-    <!-- 推荐 -->
     <div class="recommend-content">
       <a href="tel:0147-88469258">
         <i class="fa-phone-square fa"></i>
@@ -213,8 +188,15 @@
 </template>
 
  <script type="es6">
+import {
+  pInvestType,
+  pPaymentInterestType,
+  pSizeRatioType
+} from "common/js/pEnumerate";
 import ajax from "api/ajax";
+import moduleTitle from "components/moduleTitle/moduleTitle";
 import Scroll from "base/scroll/scroll";
+import productItem from "components/productItem/productItem";
 import whiteSpace from "base/whiteSpace/whiteSpace";
 
 export default {
@@ -222,7 +204,13 @@ export default {
     return {
       pCode: "", //产品编号
       pStatusCode: "", //产品状态编码
-      pDetailsObj: {} //产品详情
+      pDetailsObj: {}, //产品详情
+      /**
+       * 枚举返回字符串
+       */
+      pInvestType_str: "",
+      pPaymentInterestType_str: "",
+      pSizeRatioType_str: ""
     };
   },
   mounted() {
@@ -242,6 +230,11 @@ export default {
       }).then(res => {
         if (res.status === this.$store.state.status) {
           this.pDetailsObj = res.data.result;
+          this.pInvestType_str = pInvestType[this.pDetailsObj.pInvestType];
+          this.pPaymentInterestType_str =
+            pPaymentInterestType[this.pDetailsObj.pPaymentInterestType];
+          this.pSizeRatioType_str =
+            pSizeRatioType[this.pDetailsObj.pSizeRatioType];
         }
       });
     },
@@ -249,8 +242,16 @@ export default {
      * 立即预约
      */
     subscribe() {
+      console.log(111);
       // 跳转到预约页面，目前不知是否需要接口
-      this.$router.push("/pOrder");
+      this.$router.push({
+        name: "pOrder",
+        params: {
+          pCode: this.pDetailsObj.pCode,
+          pShortName: this.pDetailsObj.pShortName
+        }
+      });
+      // this.$router.push("/pOrder");
     },
     back() {
       this.$router.go(-1);
@@ -259,7 +260,6 @@ export default {
   computed: {
     pStatus() {
       switch ("01") {
-        // switch (this.pStatusCode) {
         // 预热中
         case "01":
           return require("../../common/image/p-warm-up.png");
@@ -283,13 +283,16 @@ export default {
   },
   components: {
     Scroll,
-    whiteSpace
+    whiteSpace,
+    moduleTitle,
+    productItem
   }
 };
 </script>
 
 <style lang="stylus">
 @import '~common/stylus/variable';
+@import '~common/stylus/mixin';
 
 #pDetails {
   position: relative;
@@ -300,7 +303,7 @@ export default {
 
   .scroll-conntent {
     position: absolute;
-    bottom: 34px;
+    bottom: 40px;
     top: 40px;
 
     >div {
@@ -428,7 +431,9 @@ export default {
     display: flex;
     width: 100vw;
     background-color: $color-background-d;
+    z-index: 101;
 
+    // extend-click();
     >a {
       flex: 1;
       line-height: 40px;

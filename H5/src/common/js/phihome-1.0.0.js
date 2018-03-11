@@ -128,7 +128,14 @@
                 successCallback(response);
             });
         },
-        openPage: function (pageName, pageExtra, successCallback) {
+        /**
+         * 有空把参数注释一下
+         * 
+         * @param {} pageName 
+         * @param {*} pageExtra 
+         * @param {*} successCallback 
+         */
+        openPage(pageName, pageExtra, successCallback) {
             var data = JSON.stringify({ pageName: pageName, pageExtra: pageExtra });
             JSBridge.callHandler('openPage', data, function (response) {
                 successCallback(response);

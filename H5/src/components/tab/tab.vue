@@ -1,18 +1,18 @@
 <template>
   <div class="tab">
-    <router-link tag="div" class="tab-item" to="/recommend">
+    <router-link tag="div" class="tab-item" to="/recommend" replace>
       <img @click.self="linkActive" title="0" src="~@/common/image/homeActive.png" alt="homeActive.png"><br/>
       <span class="tab-link">首页</span>
     </router-link>
-    <router-link tag="div" class="tab-item" to="/product">
+    <router-link tag="div" class="tab-item" to="/product" replace>
       <img @click.self="linkActive" title="1" src="~@/common/image/product.png" alt="productActive.png"><br/>
       <span class="tab-link">产品</span>
     </router-link>
-    <router-link tag="div" class="tab-item" to="/rank">
+    <router-link tag="div" class="tab-item" to="/rank" replace>
       <img @click.self="linkActive" title="2" src="~@/common/image/workRoom.png" alt="workRoomActive.png"><br/>
       <span class="tab-link">工作室</span>
     </router-link>
-    <router-link tag="div" class="tab-item" to="/search">
+    <router-link tag="div" class="tab-item" to="/search" replace>
       <img @click.self="linkActive" title="3" src="~@/common/image/userCenter.png" alt="userCenterActive.png"><br/>
       <span class="tab-link">我的</span>
     </router-link>

@@ -24,10 +24,7 @@ export default {
       type: Boolean,
       default: false
     },
-    data: {
-      type: Array,
-      default: null
-    },
+    data: null,
     /**
      * 是否派发滚动到底部的事件，用于上拉加载
      */

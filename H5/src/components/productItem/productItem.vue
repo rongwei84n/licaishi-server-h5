@@ -26,7 +26,7 @@
                 </div>
                 <div>
                     <span class="span-key">返佣比例</span>
-                    <span class="span-value">3%</span>
+                    <span class="span-value">{{pCommission}}</span>
                 </div>
             </div>
         </div>
@@ -40,7 +40,8 @@ export default {
     pSaleStatus: "", //产品销售状态 01：预热中 02：募集中 03：募集结束 04：产品成立
     pExpectAnnualRevenue: "", //年化率
     pDulTime: "", //投资期限
-    pInvestType: "" //投资领域
+    pInvestType: "", //投资领域
+    pCommission: "" //返佣比例
   },
   created() {},
   computed: {

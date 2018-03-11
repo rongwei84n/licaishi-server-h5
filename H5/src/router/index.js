@@ -38,6 +38,7 @@ export default new Router({
 
     },
     {
+      name: "pOrder",
       path: '/pOrder',
       component: pOrder
     },

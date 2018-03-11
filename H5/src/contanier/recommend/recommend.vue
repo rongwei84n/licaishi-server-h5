@@ -50,13 +50,13 @@
         </div>
         <!-- 热销产品区域 -->
         <module-title title="热销产品" iconUrl="../../../static/image/icon_17.jpg" @moreClick="to_moreClick()"></module-title>
-        <product-item v-for="(item,index) in recommendProductsList" :key="index" :pShortName="item.pShortName" :pExpectAnnualRevenue="item.pExpectAnnualRevenue" :pSaleStatus="item.pSaleStatus" :pDulTime="item.pDulTime" :pInvestType="item.pInvestType"></product-item>
+        <product-item v-for="(item,index) in recommendProductsList" :key="index" :pShortName="item.pShortName" :pExpectAnnualRevenue="item.pExpectAnnualRevenue" :pSaleStatus="item.pSaleStatus" :pDulTime="item.pDulTime" :pInvestType="item.pInvestType" :pCommission="item.pCommission"></product-item>
         <!-- 广告区域 -->
         <img src="../../common/image/body.png" alt="" class="advertising">
         <!-- 最新推荐产品区域 -->
         <div class="newRecommendProducts-content">
           <module-title title="最新推荐" iconUrl="../../../static/image/icon_17.jpg" @moreClick="to_moreClick()"></module-title>
-          <product-item v-for="(item,index) in newRecommendProductsList" :key="index" :pShortName="item.pShortName" :pExpectAnnualRevenue="item.pExpectAnnualRevenue" :pSaleStatus="item.pSaleStatus" :pDulTime="item.pDulTime" :pInvestType="item.pInvestType"></product-item>
+          <product-item v-for="(item,index) in newRecommendProductsList" :key="index" :pShortName="item.pShortName" :pExpectAnnualRevenue="item.pExpectAnnualRevenue" :pSaleStatus="item.pSaleStatus" :pDulTime="item.pDulTime" :pInvestType="item.pInvestType" :pCommission="item.pCommission"></product-item>
         </div>
       </div>
     </scroll>

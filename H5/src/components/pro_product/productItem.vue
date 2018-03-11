@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-04 23:04:51 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-11 10:19:59
+ * @Last Modified time: 2018-03-11 10:26:54
  * 产品页-产品组件
  */
 
@@ -27,7 +27,7 @@
         <span>投资领域</span>
       </div>
       <div>
-        <span class="span-red">1</span>
+        <span class="span-red">{{productItem.pCommission}}</span>
         <span>返佣比例</span>
       </div>
     </div>
