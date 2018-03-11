@@ -3,7 +3,7 @@
     <div class="header">
       <mt-header title="我的订单">
         <router-link to="/" slot="left">
-          <mt-button icon="back" v-on:click="handleClose"></mt-button>
+          <mt-button icon="back" v-on:click="back"></mt-button>
         </router-link>
         <mt-button icon="search" slot="right" v-on:click="handleSearch"></mt-button>
       </mt-header>
@@ -21,30 +21,61 @@
 
       <!-- tabcontainer -->
       <mt-tab-container v-model="selected" class="mt-tab-contailer">
-        <mt-tab-container-item id="1">
-          <mt-cell v-for="n in 20" :title="'内容 ' + n" />
+        <mt-tab-container-item id="1" v-if="allOrders.length">
+          <div class="slider-wrapper-1" v-for="(item,index) in allOrders" :key="index">
+            <OrderListItem    :orderId="item.orderNo"
+                              :prodName="item.productShortName"
+                              :orderAmount="item.amount"
+                              :rebatePresent="item.comRatio"
+                              :rebateAmount="item.commission"
+                              :payStatus="item.status"
+                              :customerName="item.customerName"/>
+          </div>
         </mt-tab-container-item>
-        <div v-if="allOrders.length" class="slider-wrapper" ref="sliderWrapper">
-          <mt-tab-container-item id="2" >
-            <OrderListItem   v-for="(item,index) in allOrders" :key="index"
-                             :orderId="item.orderNo"
-                             :prodName="item.productShortName"
-                             :orderAmount="item.amount"
-                             :rebatePresent="item.comRatio"
-                             :rebateAmount="item.commission"
-                             :payStatus="item.status"
-                             :customerName="item.customerName"/>
-          </mt-tab-container-item>
-        </div>
+        <mt-tab-container-item id="2" v-if="waitPayOrders.length">
+          <div class="slider-wrapper-2" v-for="(item,index) in waitPayOrders" :key="index">
+            <OrderListItem    :orderId="item.orderNo"
+                              :prodName="item.productShortName"
+                              :orderAmount="item.amount"
+                              :rebatePresent="item.comRatio"
+                              :rebateAmount="item.commission"
+                              :payStatus="item.status"
+                              :customerName="item.customerName"/>
+          </div>
+        </mt-tab-container-item>
 
-        <mt-tab-container-item id="3">
-          <mt-cell v-for="n in 6" :title="'选项 ' + n" />
+        <mt-tab-container-item id="3" >
+          <div class="slider-wrapper-3" v-for="(item,index) in waitCommission" :key="index">
+            <OrderListItem    :orderId="item.orderNo"
+                              :prodName="item.productShortName"
+                              :orderAmount="item.amount"
+                              :rebatePresent="item.comRatio"
+                              :rebateAmount="item.commission"
+                              :payStatus="item.status"
+                              :customerName="item.customerName"/>
+          </div>
         </mt-tab-container-item>
-        <mt-tab-container-item id="4">
-          <mt-cell :title="'选项 4'" />
+        <mt-tab-container-item id="4" v-if="alreadyCommission.length">
+          <!--<div class="slider-wrapper-4" v-for="(item,index) in alreadyCommission" :key="index">-->
+            <!--<OrderListItem    :orderId="item.orderNo"-->
+                              <!--:prodName="item.productShortName"-->
+                              <!--:orderAmount="item.amount"-->
+                              <!--:rebatePresent="item.comRatio"-->
+                              <!--:rebateAmount="item.commission"-->
+                              <!--:payStatus="item.status"-->
+                              <!--:customerName="item.customerName"/>-->
+          <!--</div>-->
         </mt-tab-container-item>
-        <mt-tab-container-item id="5">
-          <mt-cell :title="'选项 5'" />
+        <mt-tab-container-item id="5" v-if="alreadyFailed.length">
+          <!--<div class="slider-wrapper-5" v-for="(item,index) in alreadyFailed" :key="index">-->
+            <!--<OrderListItem    :orderId="item.orderNo"-->
+                              <!--:prodName="item.productShortName"-->
+                              <!--:orderAmount="item.amount"-->
+                              <!--:rebatePresent="item.comRatio"-->
+                              <!--:rebateAmount="item.commission"-->
+                              <!--:payStatus="item.status"-->
+                              <!--:customerName="item.customerName"/>-->
+          <!--</div>-->
         </mt-tab-container-item>
       </mt-tab-container>
     </div>
@@ -52,6 +83,7 @@
 </template>
 
 <script>
+  import Scroll from "base/scroll/scroll";
   import OrderListItem from "components/order/OrderListItem";
 
   export default {
@@ -68,6 +100,7 @@
         alreadyFailed: {} //已失败
       }
     },
+
     created() {
       //查询订单
       let _this = this;
@@ -85,15 +118,45 @@
           }
         }
       );
+      window.phihome.util.netRequest(
+        "get",
+        _this.neturl + "srv/v1/order/list?pageNo=1&pageSize=100&type=1",
+        "",
+        "",
+        function(response) {
+          response = JSON.parse(response);
+          if (response.status == 200) {
+            //获取订单成功
+            _this.waitPayOrders = response.result.list;
+          } else {
+          }
+        }
+      );
+      window.phihome.util.netRequest(
+        "get",
+        _this.neturl + "srv/v1/order/list?pageNo=1&pageSize=100&type=2",
+        "",
+        "",
+        function(response) {
+          response = JSON.parse(response);
+          if (response.status == 200) {
+            //获取订单成功
+            _this.waitCommission = response.result.list;
+          } else {
+          }
+        }
+      );
     },
     methods: {
-      handleClose: function(){
-      },
       handleSearch: function(){
+      },
+      back: function() {
+        this.$router.go(-1);
       }
-
     },
+
     components: {
+      Scroll,
       OrderListItem
     }
   }
@@ -112,14 +175,18 @@
 
   .page-navbar {
     .mt-tab-contailer {
-      .slider-wrapper {
+      .slider-wrapper-1 {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+      }
+      .slider-wrapper-2 {
         position: relative;
         width: 100%;
         overflow: hidden;
       }
     }
   }
-
 }
 
 

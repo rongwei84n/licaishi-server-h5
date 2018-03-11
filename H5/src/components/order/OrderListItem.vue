@@ -1,13 +1,13 @@
 <template>
-  <div>
-    <mt-cell :title="dorderId" value="待打款"/>
-    <mt-cell :title="dProdName"></mt-cell>
-    <mt-cell :title="dOrderAmount"></mt-cell>
-    <mt-cell :title="dRebatePresent"></mt-cell>
-    <mt-cell :title="dRebateAmount"></mt-cell>
-    <mt-cell :title="dPayStatus"></mt-cell>
-    <mt-cell :title="dCustomerName"></mt-cell>
-    <mt-cell value="取消订单"></mt-cell>
+  <div class="all-content">
+      <mt-cell :title="dorderId" value="待打款"/>
+      <mt-cell :title="dProdName"></mt-cell>
+      <mt-cell :title="dOrderAmount"></mt-cell>
+      <mt-cell :title="dRebatePresent"></mt-cell>
+      <mt-cell :title="dRebateAmount"></mt-cell>
+      <mt-cell :title="dPayStatus"></mt-cell>
+      <mt-cell :title="dCustomerName"></mt-cell>
+      <mt-cell value="取消订单"></mt-cell>
   </div>
 </template>
 
@@ -37,6 +37,9 @@
     }
 </script>
 
-<style scoped>
+<style lang="stylus" rel="stylesheet/stylus">
+  .all-content {
+
+  }
 
 </style>
