@@ -15,6 +15,7 @@ import Search from 'contanier/search/search'
 import Orderlist from 'contanier/search/orderlist'
 import Workroominfo from '@/components/workRoomInfo/workRoomInfo'
 import Mycustom from '@/components/myCustom/myCustom'
+import customOrder from '@/components/myCustom/customOrder'
 Vue.use(Router)
 
 export default new Router({
@@ -33,7 +34,12 @@ export default new Router({
           component: Workroominfo
         },
         { path: '/rank/mycustom',
-          component: Mycustom
+          component: Mycustom,
+          children: [
+            { path: '/rank/mycustom/customOrder',
+              component: customOrder
+            }
+          ]
         }
       ]
     },
