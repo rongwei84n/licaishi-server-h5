@@ -55,11 +55,11 @@
         width auto
         margin-left 10px
         .mint-cell-text
-          font-size 13px
+          font-size 14px
       .mint-cell-value
         margin-right 10px
       .mint-field-core
-        font-size 13px
+        font-size 14px
       .mint-cell-wrapper
         width 100%
         background-position bottom right
@@ -78,7 +78,7 @@
         margin 4px 0px
         border 1px solid sandybrown
         background-color rgb(255, 235, 225)
-        font-size 13px
+        font-size 14px
         line-height 36px
         text-align  center
 

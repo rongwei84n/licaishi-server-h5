@@ -16,6 +16,7 @@ import Orderlist from 'contanier/search/orderlist'
 import Workroominfo from '@/components/workRoomInfo/workRoomInfo'
 import Mycustom from '@/components/myCustom/myCustom'
 import customOrder from '@/components/myCustom/customOrder'
+import mycommission from '@/components/mycommission/mycommission'
 Vue.use(Router)
 
 export default new Router({
@@ -40,6 +41,9 @@ export default new Router({
               component: customOrder
             }
           ]
+        },
+        { path: '/rank/mycommission',
+          component: mycommission
         }
       ]
     },

@@ -43,10 +43,13 @@
     methods:{
       rankClick(e){
         let flag = parseInt(e.currentTarget.id);
+
         if(flag===1){
           this.$router.push("/rank/workroominfo")
         }else if(flag===2){
           this.$router.push("/rank/mycustom")
+        }else if(flag===3){
+          this.$router.push("/rank/mycommission")
         }
       }
     }
