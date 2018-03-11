@@ -20,7 +20,7 @@
     <!-- 我的订单模块 -->
     <div class="setting-order">
       <div class="view-all-orders" v-on:click="gotoOrderList">查看全部订单></div>
-      <img slot="icon" src="../../common/image/home.png" width="24" height="24" class="icon">
+      <img slot="icon" src="../../common/image/my_settings_order.png" width="24" height="24" class="icon">
       <div class="my-order">
         <hr color="#EDEEEF" />
         <span>我的订单</span>
@@ -28,21 +28,21 @@
       </div>
       <div class="order-items">
         <div class="order-items-tab">
-          <img slot="icon" src="../../common/image/home.png" width="24" height="27">
+          <img slot="icon" src="../../common/image/my_settings_waitpay.png" width="24" height="27">
           <span>
             待打款
           </span>
         </div>
         <div class="order-items-tab">
-          <img slot="icon" src="../../common/image/home.png" width="24" height="27">
+          <img slot="icon" src="../../common/image/my_settings_wait_commission.png" width="24" height="27">
           <span>待结佣</span>
         </div>
         <div class="order-items-tab">
-          <img slot="icon" src="../../common/image/home.png" width="24" height="27">
+          <img slot="icon" src="../../common/image/my_settings_already_commission.png" width="24" height="27">
           <span>已结佣</span>
         </div>
         <div class="order-items-tab">
-          <img slot="icon" src="../../common/image/home.png" width="24" height="27">
+          <img slot="icon" src="../../common/image/my_settings_failed.png" width="24" height="27">
           <span>已失败</span>
         </div>
       </div>
