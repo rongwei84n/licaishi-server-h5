@@ -20,13 +20,24 @@
       </mt-navbar>
 
       <!-- tabcontainer -->
-      <mt-tab-container v-model="selected">
+      <mt-tab-container v-model="selected" class="mt-tab-contailer">
         <mt-tab-container-item id="1">
           <mt-cell v-for="n in 20" :title="'内容 ' + n" />
         </mt-tab-container-item>
-        <mt-tab-container-item id="2">
-          <mt-cell v-for="n in 4" :title="'测试 ' + n" />
-        </mt-tab-container-item>
+        <div v-if="allOrders.length" class="slider-wrapper" ref="sliderWrapper">
+          <mt-tab-container-item id="2" >
+            <OrderListItem   v-for="(item,index) in allOrders" :key="index"
+                             :orderId="item.orderNo"
+                             :prodName="item.productName"
+                             :orderAmount="item.commission"
+                             :rebatePresent="item.commissionRatio"
+                             :rebateAmount="cc"
+                             :payStatus="item.payStatus"
+                             :customerName="item.customerName"
+                             :customerPhone="item.customerPhoneNum"/>
+          </mt-tab-container-item>
+        </div>
+
         <mt-tab-container-item id="3">
           <mt-cell v-for="n in 6" :title="'选项 ' + n" />
         </mt-tab-container-item>
@@ -38,29 +49,54 @@
         </mt-tab-container-item>
       </mt-tab-container>
     </div>
-
   </div>
 </template>
 
 <script>
+  import OrderListItem from "components/order/OrderListItem";
+
   export default {
     name: 'page-order-list',
     data () {
       return {
-        url: 'xxx',
-        selected: '1'
+        neturl: 'http://47.97.100.240/',
+        selected: '1',
+        allOrders: {}, //全部订单
+        waitPayOrders: {}, //待打款
+        waitCommission: {},//带结佣
+        alreadyCommission: {}, //已结佣
+        alreadyFailed: {} //已失败
       }
     },
-    mounted:function(){
-
+    created() {
+      //查询订单
+      let _this = this;
+      window.phihome.util.netRequest(
+        "get",
+        _this.neturl + "srv/v1/order/list?pageNo=1&pageSize=100&type=1",
+        "",
+        "",
+        function(response) {
+          response = JSON.parse(response);
+          if (response.status == 200) {
+            //获取订单成功
+            // _this.name = response.message;
+            alert(response.result.list.length)
+            _this.allOrders = response.result.list;
+          } else {
+          }
+        }
+      );
     },
     methods: {
       handleClose: function(){
-        alert('返回');
       },
       handleSearch: function(){
-        alert('搜索');
       }
+
+    },
+    components: {
+      OrderListItem
     }
   }
 </script>
@@ -76,15 +112,13 @@
     border-bottom: solid 5px gainsboro;
   }
 
-  .tab-container-w {
-    .tab-item1 {
-      display: list-item
-    }
-    .tab-item2 {
-      display: list-item
-    }
-    .tab-item3 {
-      display: list-item
+  .page-navbar {
+    .mt-tab-contailer {
+      .slider-wrapper {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+      }
     }
   }
 
