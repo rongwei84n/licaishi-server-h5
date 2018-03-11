@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-05 10:11:06 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-11 22:37:37
+ * @Last Modified time: 2018-03-11 22:51:27
  * 产品--集合信托--子组件
  */
 
@@ -76,28 +76,46 @@ export default {
      * @param index 条件筛选栏的索引
      */
     get_tabsIndex(index) {
+      let url;
       switch (index) {
         case 0:
           this.pageNo = 1;
           this.pullup = true;
+          this.initList = [0, 0, 0, 0, 0, 0, 0];
           this.productList = [];
           this.get_proList();
           break;
         case 1:
           this.pageNo = 1;
           this.pullup = true;
-          this.pRabateProfitParameter = true;
-          this.pAnnualRevenueExpectParameter = false;
           this.productList = [];
-          this.get_proList();
+          url = `/srv/v1/product/list?pageNo=${this.pageNo}&pageSize=${
+            this.$store.state.pageSize
+          }&type=01&saleStatus=0${this.initList[0]}&dueTime=0${
+            this.initList[1]
+          }&annualRevenue=0${this.initList[2]}&pPaymentInterestType=0${
+            this.initList[3]
+          }&pInvestType=0${this.initList[4]}&minimumAmount=0${
+            this.initList[5]
+          }&pSizeRatioType=0${this.initList[6]}&pRabateProfitParameter=true`;
+          this.get_proList(url);
           break;
         case 2:
           this.pageNo = 1;
           this.pullup = true;
-          this.pRabateProfitParameter = false;
-          this.pAnnualRevenueExpectParameter = true;
           this.productList = [];
-          this.get_proList();
+          url = `/srv/v1/product/list?pageNo=${this.pageNo}&pageSize=${
+            this.$store.state.pageSize
+          }&type=01&saleStatus=0${this.initList[0]}&dueTime=0${
+            this.initList[1]
+          }&annualRevenue=0${this.initList[2]}&pPaymentInterestType=0${
+            this.initList[3]
+          }&pInvestType=0${this.initList[4]}&minimumAmount=0${
+            this.initList[5]
+          }&pSizeRatioType=0${
+            this.initList[6]
+          }&pAnnualRevenueExpectParameter=true`;
+          this.get_proList(url);
           break;
         // 打开条件筛选框
         case 3:
@@ -110,17 +128,19 @@ export default {
     /**
      *  获取产品列表
      */
-    get_proList() {
+    get_proList(
+      url = `/srv/v1/product/list?pageNo=${this.pageNo}&pageSize=${
+        this.$store.state.pageSize
+      }&type=01&saleStatus=0${this.initList[0]}&dueTime=0${
+        this.initList[1]
+      }&annualRevenue=0${this.initList[2]}&pPaymentInterestType=0${
+        this.initList[3]
+      }&pInvestType=0${this.initList[4]}&minimumAmount=0${
+        this.initList[5]
+      }&pSizeRatioType=0${this.initList[6]}`
+    ) {
       ajax({
-        url: `/srv/v1/product/list?pageNo=${this.pageNo}&pageSize=${
-          this.$store.state.pageSize
-        }&type=01&saleStatus=0${this.initList[0]}&dueTime=0${
-          this.initList[1]
-        }&annualRevenue=0${this.initList[2]}&pPaymentInterestType=0${
-          this.initList[3]
-        }&pInvestType=0${this.initList[4]}&minimumAmount=0${
-          this.initList[5]
-        }&pSizeRatioType=0${this.initList[6]}`,
+        url,
         method: "GET"
       }).then(res => {
         if (res.status === 200) {

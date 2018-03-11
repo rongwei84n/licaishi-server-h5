@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-11 22:33:59
+ * @Last Modified time: 2018-03-11 23:29:54
  *
  * 基础布局组件
  * 带头部与底部布局
@@ -17,7 +17,7 @@
       <div class="body">
         <mt-field label="产品名称" disabled v-model="pName"></mt-field>
         <!-- TODO:此处客户另外会提供接口获取 -->
-        <mt-field label="客户姓名" placeholder="请输入客户姓名" v-model="userName"></mt-field>
+        <mt-field label="客户姓名" placeholder="请输入客户姓名" v-model="customerName"></mt-field>
         <mt-field label="身份证号" placeholder="请输入身份证号" v-model="cardId"></mt-field>
         <!-- <mt-field label="手机号" placeholder="请输入手机号" v-model="phone"></mt-field> -->
         <mt-field label="银行卡账号" placeholder="请输入手机号" v-model="bankCard"></mt-field>
@@ -53,21 +53,23 @@ export default {
   data() {
     return {
       //产品编号
-      pCode: "",
+      pId: "",
       //产品名称
       pName: "",
-      userId: "", //客户id
+      customerId: "", //客户id
       /**
        *
        */
-      userName: "", //客户姓名
+      customerName: "", //客户姓名
       cardId: "", //身份证号
       bankCard: "", //银行卡
       amount: "", //预约金额
       lastPayDate: "", //最迟打款日期
       pickerValue: "",
       note: "", //备注
-      bankName: "" //打卡行
+      bankName: "", //打卡行
+      comRatio: "", //佣金比例
+      proRatio: "" //预期收益率
     };
   },
   created() {
@@ -76,7 +78,7 @@ export default {
       ymd: true
     });
     // 此处router获取失败
-    this.pCode = this.$route.params.pCode;
+    this.pId = this.$route.params.pId;
     this.pName = this.$route.params.pShortName;
   },
   methods: {
@@ -86,15 +88,30 @@ export default {
       ajax({
         url: "/srv/v1/order/createOrder",
         params: {
-          pCode: this.pCode,
-          pName: this.pName,
-          userId: this.userId,
-          userName: this.userName,
-          cardId: this.cardId,
-          amount: this.amount,
-          lastPayDate: this.lastPayDate,
+          productId: this.pId,
+          customerId: 1,
+          customerName: 1,
+          cardId: 421022199305270035,
+          amount: 220,
+          lastPayDate: "2018-03-12",
+          comRatio: "0.2",
+          proRatio: "9",
+          issuingBank: "光大银行",
+          bankCardNo: "3124325435",
           note: this.note
         },
+        // params: {
+        //   productId: this.pId,
+        //   pName: this.pName,
+        //   customerId: this.customerId,
+        //   customerName: this.customerName,
+        //   cardId: this.cardId,
+        //   amount: this.amount,
+        //   lastPayDate: this.lastPayDate,
+        //   comRatio: thhis.comRatio,
+        //   proRatio: this.proRatio,
+        //   note: this.note
+        // },
         method: "POST"
       }).then(res => {
         if (res.status === 200) {

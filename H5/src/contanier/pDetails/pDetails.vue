@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-11 22:24:37
+ * @Last Modified time: 2018-03-11 23:24:12
  *
  * 产品详情组件
  */
@@ -31,11 +31,11 @@
               </div>
               <div>
                 <span class="title">预期年华收益</span>
-                <span v-for="(item,index) of pDetailsObj.profitRebates" :key="index">{{item.prAmountDisplay}}</span>
+                <span v-for="(item,index) of pDetailsObj.profitRebates" :key="index">{{item.prExpectAnnualRevenue}}</span>
               </div>
               <div>
                 <span class="title">返佣比例</span>
-                <span v-for="(item,index) of pDetailsObj.profitRebates" :key="index">{{item.prExpectAnnualRevenue}}</span>
+                <span v-for="(item,index) of pDetailsObj.profitRebates" :key="index">{{item.prCommission}}</span>
               </div>
             </div>
             <p class="annotation">
@@ -247,7 +247,7 @@ export default {
       this.$router.push({
         name: "pOrder",
         params: {
-          pCode: this.pDetailsObj.pCode,
+          pId: this.pDetailsObj.pId,
           pShortName: this.pDetailsObj.pShortName
         }
       });
