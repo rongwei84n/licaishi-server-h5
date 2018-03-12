@@ -3,7 +3,7 @@
     <workRoomHeader @back="back"  mytitle="我的客户" ></workRoomHeader>
     <Scroll class="scroll-conntent" :data="customs" :pullup="pullup" @scrollToEnd="scrollToEnd">
       <div>
-        <div v-for="(custom,index) in customs" :key="index" @click="customOrderFun(custom.userId)">
+        <div v-for="(custom,index) in customs" :key="index" @click="customOrderFun(custom.uid)">
           <split :sh="8"></split>
           <customBaseInfo :customName="custom.name" :customTel="custom.phone"
                           :customOrderCount="custom.orderCounts" :customSignDate="custom.createtime"></customBaseInfo>
@@ -51,7 +51,6 @@
         this.$router.go(-1)
       },
       customOrderFun(userId){
-
         this.$router.push({path:"/rank/mycustom/customOrder",query:{customId:userId}})
       },
       scrollToEnd() {
