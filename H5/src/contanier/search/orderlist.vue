@@ -60,7 +60,6 @@ export default {
   name: "page-order-list",
   data() {
     return {
-      neturl: "http://47.97.100.240/",
       selected: "1",
 
       /**
@@ -119,21 +118,17 @@ export default {
     get_orderList(order) {
       let _this = this;
       let _url = "/srv/v1/order/list?pageNo=1&pageSize=5&type=" + order;
-      window.phihome.util.netRequest(
-        "get",
-        _this.neturl + _url,
-        "",
-        "",
-        function(response) {
-          response = JSON.parse(response);
-          if (response.status == 200) {
-            //获取订单成功
-            _this.arrOrderList = response.result.list;
-          } else {
-            _this.arrOrderList = '';
-          }
+
+      ajax({
+        url: _url,
+        method: "GET"
+      }).then(res => {
+        if (res.status === 200) {
+          this.arrOrderList = res.data.result.list;
+        } else {
+          this.arrOrderList = '';
         }
-      );
+      });
     }
   },
 
