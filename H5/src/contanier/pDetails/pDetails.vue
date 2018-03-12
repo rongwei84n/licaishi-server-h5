@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-11 23:24:12
+ * @Last Modified time: 2018-03-12 23:54:31
  *
  * 产品详情组件
  */
@@ -30,7 +30,7 @@
                 <span>100-300万元</span> -->
               </div>
               <div>
-                <span class="title">预期年华收益</span>
+                <span class="title">预期年化收益</span>
                 <span v-for="(item,index) of pDetailsObj.profitRebates" :key="index">{{item.prExpectAnnualRevenue}}</span>
               </div>
               <div>
@@ -246,9 +246,10 @@ export default {
       // 跳转到预约页面，目前不知是否需要接口
       this.$router.push({
         name: "pOrder",
-        params: {
+        query: {
           pId: this.pDetailsObj.pId,
-          pShortName: this.pDetailsObj.pShortName
+          pShortName: this.pDetailsObj.pShortName,
+          profitRebates: JSON.stringify(this.pDetailsObj.profitRebates)
         }
       });
       // this.$router.push("/pOrder");

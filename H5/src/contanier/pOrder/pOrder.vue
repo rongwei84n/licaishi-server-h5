@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-11 23:29:54
+ * @Last Modified time: 2018-03-13 00:13:47
  *
  * 基础布局组件
  * 带头部与底部布局
@@ -14,14 +14,16 @@
       <mt-button icon="back" @click="back" slot="left"></mt-button>
     </mt-header>
     <Scroll id="scroll">
-      <div class="body">
+      <div class="scroll-content">
         <mt-field label="产品名称" disabled v-model="pName"></mt-field>
         <!-- TODO:此处客户另外会提供接口获取 -->
-        <mt-field label="客户姓名" placeholder="请输入客户姓名" v-model="customerName"></mt-field>
+        <mt-field label="客户姓名" disabled placeholder="请输入客户姓名" v-model="customerName" @click.native="openCustomersModal">
+          <i class="fa fa-address-book extend-click"></i>
+        </mt-field>
         <mt-field label="身份证号" placeholder="请输入身份证号" v-model="cardId"></mt-field>
         <!-- <mt-field label="手机号" placeholder="请输入手机号" v-model="phone"></mt-field> -->
-        <mt-field label="银行卡账号" placeholder="请输入手机号" v-model="bankCard"></mt-field>
-        <mt-field label="打卡行" placeholder="点击右侧图标选择银行" v-model="bankName">
+        <mt-field label="银行卡号" placeholder="请输入银行卡号" v-model="bankCardNo"></mt-field>
+        <mt-field label="打卡行" disabled placeholder="点击右侧图标选择银行" v-model="bankName">
           <i class="fa fa-credit-card"></i>
         </mt-field>
         <mt-field label="预约金额" placeholder="请输入预约金额" v-model="amount">
@@ -39,6 +41,9 @@
     </footer>
     <mt-datetime-picker type="date" ref="picker" v-model="pickerValue" year-format="{value} 年" month-format="{value} 月" date-format="{value} 日" @confirm="handleConfirm">
     </mt-datetime-picker>
+    <mt-popup v-model="CustomersModal" position="bottom">
+      <mt-picker ref='pickerObj' @change="onValuesChange" :slots="Customers" valueKey="name"></mt-picker>
+    </mt-popup>
   </div>
 </template>
 
@@ -49,6 +54,8 @@ import ajax from "api/ajax";
 import Scroll from "base/scroll/scroll";
 import whiteSpace from "base/whiteSpace/whiteSpace";
 
+import { isCardNo } from "common/js/isCardNo";
+
 export default {
   data() {
     return {
@@ -56,32 +63,75 @@ export default {
       pId: "",
       //产品名称
       pName: "",
-      customerId: "", //客户id
+      /**
+       *  客户列表选择用
+       */
+      Customers: [
+        {
+          values: [
+            "2015-01",
+            "2015-02",
+            "2015-03",
+            "2015-04",
+            "2015-05",
+            "2015-06"
+          ]
+        }
+      ], //客户列表
+      CustomersModal: false,
       /**
        *
        */
+      profitRebates: [], //产品佣金收益间隔
+      customerId: "", //客户UID
       customerName: "", //客户姓名
       cardId: "", //身份证号
-      bankCard: "", //银行卡
+      bankCardNo: "", //银行卡号
+      bankName: "", //打卡行
       amount: "", //预约金额
       lastPayDate: "", //最迟打款日期
       pickerValue: "",
       note: "", //备注
-      bankName: "", //打卡行
-      comRatio: "", //佣金比例
-      proRatio: "" //预期收益率
+      proRatio: "", // 预期收益率
+      comRatio: "" // 佣金比例
     };
   },
   created() {
+    this.get_Customers();
     this.lastPayDate = this.pickerValue = formatDateTime({
       time: new Date(),
       ymd: true
     });
     // 此处router获取失败
-    this.pId = this.$route.params.pId;
-    this.pName = this.$route.params.pShortName;
+    this.pId = this.$route.query.pId;
+    this.pName = this.$route.query.pShortName;
+    this.profitRebates = JSON.parse(this.$route.query.profitRebates);
+    console.log(this.profitRebates);
   },
   methods: {
+    onValuesChange(picker, list) {
+      // this.$refs.picker.getSlotValue();
+      this.customerName = list[0].name;
+      this.customerId = list[0].uid;
+    },
+    openCustomersModal() {
+      this.CustomersModal = true;
+    },
+    /**
+     * 获取客户列表
+     */
+    get_Customers() {
+      ajax({
+        url: "/srv/v1/order/queryCustomersForOrder",
+        method: "GET"
+      }).then(res => {
+        if (res.status === 200) {
+          this.Customers[0].values = res.data.result.list;
+        }
+      });
+    },
+    /* 校验身份证是否规范 */
+    check_cardId() {},
     // 提交
     submit() {
       // TODO:首先得判断当前登录状态
@@ -89,29 +139,17 @@ export default {
         url: "/srv/v1/order/createOrder",
         params: {
           productId: this.pId,
-          customerId: 1,
-          customerName: 1,
-          cardId: 421022199305270035,
-          amount: 220,
-          lastPayDate: "2018-03-12",
-          comRatio: "0.2",
-          proRatio: "9",
+          customerId: this.customerId,
+          customerName: this.customerName,
+          cardId: this.cardId,
+          amount: this.amount,
+          lastPayDate: this.lastPayDate,
+          comRatio: this.comRatio,
+          proRatio: this.proRatio,
           issuingBank: "光大银行",
           bankCardNo: "3124325435",
           note: this.note
         },
-        // params: {
-        //   productId: this.pId,
-        //   pName: this.pName,
-        //   customerId: this.customerId,
-        //   customerName: this.customerName,
-        //   cardId: this.cardId,
-        //   amount: this.amount,
-        //   lastPayDate: this.lastPayDate,
-        //   comRatio: thhis.comRatio,
-        //   proRatio: this.proRatio,
-        //   note: this.note
-        // },
         method: "POST"
       }).then(res => {
         if (res.status === 200) {
@@ -142,6 +180,44 @@ export default {
       this.$refs.picker.open();
     }
   },
+  computed: {
+    // // 佣金比例
+    // comRatio() {
+    //   this.profitRebates.forEach(item => {
+    //     if (
+    //       parseInt(this.amount) > parseInt(item.prStartAmount) &&
+    //       parseInt(this.amount) < parseInt(item.prEndAmount)
+    //     ) {
+    //       return item.prCommission;
+    //     }
+    //   });
+    // },
+    // // 预期收益率
+    // proRatio() {
+    //   this.profitRebates.forEach(item => {
+    //     if (
+    //       parseInt(this.amount) > parseInt(item.prStartAmount) &&
+    //       parseInt(this.amount) < parseInt(item.prEndAmount)
+    //     ) {
+    //       return item.prExpectAnnualRevenue;
+    //     }
+    //   });
+    // }
+  },
+  watch: {
+    amount() {
+      const unit = 10000;
+      this.profitRebates.forEach(item => {
+        if (
+          parseInt(this.amount) > parseInt(item.prStartAmount) / unit &&
+          parseInt(this.amount) < parseInt(item.prEndAmount) / unit
+        ) {
+          this.comRatio = item.prCommission;
+          this.proRatio = item.prExpectAnnualRevenue;
+        }
+      });
+    }
+  },
   components: {
     Scroll,
     whiteSpace
@@ -166,10 +242,16 @@ export default {
     left: 0;
     right: 0;
 
-    .body {
+    .scroll-content {
       margin-top: 6px;
       background-color: $color-background-d;
     }
+  }
+
+  // 客户姓名选择弹出框
+  .mint-popup-bottom:not(.mint-datetime) {
+    width: 100%;
+    height: auto;
   }
 
   .footer {

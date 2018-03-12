@@ -14,6 +14,7 @@ import {
   Button,
   Navbar,
   TabItem,
+  Picker,
   TabContainer,
   TabContainerItem,
   DatetimePicker
@@ -35,6 +36,7 @@ Vue.component(Popup.name, Popup)
 Vue.component(Header.name, Header)
 Vue.component(Button.name, Button)
 Vue.component(Navbar.name, Navbar)
+Vue.component(Picker.name, Picker)
 Vue.component(TabItem.name, TabItem)
 Vue.component(DatetimePicker.name, DatetimePicker)
 Vue.component(TabContainer.name, TabContainer)

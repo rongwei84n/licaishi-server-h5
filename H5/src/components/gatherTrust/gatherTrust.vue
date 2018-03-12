@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-05 10:11:06 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-11 22:51:27
+ * @Last Modified time: 2018-03-12 22:17:03
  * 产品--集合信托--子组件
  */
 
@@ -160,6 +160,7 @@ export default {
       this.initList = parmas;
       this.popupVisible = false;
       this.pageNo = 1;
+      this.productList = [];
       this.get_proList();
     },
     /**
