@@ -29,42 +29,20 @@
 
           <!-- <div v-for="(n,index) of 100" :key="index" class="textDiv">{{n}}</div> -->
           <mt-tab-container v-model="selected" class="mt-tab-contailer">
-            <mt-tab-container-item id="1" v-if="allOrders.length">
-              <div class="slider-wrapper-1" v-for="(item,index) in allOrders" :key="index">
-                <OrderListItem :orderId="item.orderNo" :prodName="item.productShortName" :orderAmount="item.amount" :rebatePresent="item.comRatio" :rebateAmount="item.commission" :payStatus="item.status" :customerName="item.customerName" />
-              </div>
+            <mt-tab-container-item id="1" v-if="arrOrderList.length<=0">
+              没有全部产品
             </mt-tab-container-item>
-            <mt-tab-container-item id="2" v-if="waitPayOrders.length">
-              <div class="slider-wrapper-2" v-for="(item,index) in waitPayOrders" :key="index">
-                <OrderListItem :orderId="item.orderNo" :prodName="item.productShortName" :orderAmount="item.amount" :rebatePresent="item.comRatio" :rebateAmount="item.commission" :payStatus="item.status" :customerName="item.customerName" />
-              </div>
+            <mt-tab-container-item id="2" v-if="arrOrderList.length<=0">
+              没有待打款产品
             </mt-tab-container-item>
-            <mt-tab-container-item id="3">
-              <div class="slider-wrapper-3" v-for="(item,index) in waitCommission" :key="index">
-                <OrderListItem :orderId="item.orderNo" :prodName="item.productShortName" :orderAmount="item.amount" :rebatePresent="item.comRatio" :rebateAmount="item.commission" :payStatus="item.status" :customerName="item.customerName" />
-              </div>
+            <mt-tab-container-item id="3" v-if="arrOrderList.length<=0">
+              没有待结佣产品
             </mt-tab-container-item>
-            <mt-tab-container-item id="4" v-if="alreadyCommission.length">
-              <!--<div class="slider-wrapper-4" v-for="(item,index) in alreadyCommission" :key="index">-->
-              <!--<OrderListItem    :orderId="item.orderNo"-->
-              <!--:prodName="item.productShortName"-->
-              <!--:orderAmount="item.amount"-->
-              <!--:rebatePresent="item.comRatio"-->
-              <!--:rebateAmount="item.commission"-->
-              <!--:payStatus="item.status"-->
-              <!--:customerName="item.customerName"/>-->
-              <!--</div>-->
+            <mt-tab-container-item id="4" v-if="arrOrderList.length<=0">
+              没有已结佣产品
             </mt-tab-container-item>
-            <mt-tab-container-item id="5" v-if="alreadyFailed.length">
-              <!--<div class="slider-wrapper-5" v-for="(item,index) in alreadyFailed" :key="index">-->
-              <!--<OrderListItem    :orderId="item.orderNo"-->
-              <!--:prodName="item.productShortName"-->
-              <!--:orderAmount="item.amount"-->
-              <!--:rebatePresent="item.comRatio"-->
-              <!--:rebateAmount="item.commission"-->
-              <!--:payStatus="item.status"-->
-              <!--:customerName="item.customerName"/>-->
-              <!--</div>-->
+            <mt-tab-container-item id="5" v-if="arrOrderList.length<=0">
+              没有已失败产品
             </mt-tab-container-item>
           </mt-tab-container>
         </div>
@@ -84,14 +62,9 @@ export default {
     return {
       neturl: "http://47.97.100.240/",
       selected: "1",
-      allOrders: {}, //全部订单
-      waitPayOrders: {}, //待打款
-      waitCommission: {}, //带结佣
-      alreadyCommission: {}, //已结佣
-      alreadyFailed: {}, //已失败
 
       /**
-       * 测试用 
+       * 测试用
        * 订单总对象
        */
       arrOrderList: {
@@ -106,54 +79,32 @@ export default {
       }
     };
   },
+  watch: {
+    selected: function (val, oldVal) {
+      // 这里就可以通过 val 的值变更来确定
+      let order = "0";
+      if(val == 1) {
+        order = "0";
+      }else if(val == 2) {
+        order = "01";
+      }else if(val == 3) {
+        order = "02";
+      }else if(val == 4) {
+        order = "03";
+      }else if(val == 5) {
+        order = "99";
+      }
+      this.get_orderList(order);
+    }
+  },
 
   created() {
-    this.get_orderList();
-    //查询订单
     let _this = this;
     _this.selected = this.$route.params.tab_id;
-    window.phihome.util.netRequest(
-      "get",
-      _this.neturl + "srv/v1/order/list?pageNo=1&pageSize=100&type=1",
-      "",
-      "",
-      function(response) {
-        response = JSON.parse(response);
-        if (response.status == 200) {
-          //获取订单成功
-          _this.allOrders = response.result.list;
-        } else {
-        }
-      }
-    );
-    window.phihome.util.netRequest(
-      "get",
-      _this.neturl + "srv/v1/order/list?pageNo=1&pageSize=100&type=1",
-      "",
-      "",
-      function(response) {
-        response = JSON.parse(response);
-        if (response.status == 200) {
-          //获取订单成功
-          _this.waitPayOrders = response.result.list;
-        } else {
-        }
-      }
-    );
-    window.phihome.util.netRequest(
-      "get",
-      _this.neturl + "srv/v1/order/list?pageNo=1&pageSize=100&type=2",
-      "",
-      "",
-      function(response) {
-        response = JSON.parse(response);
-        if (response.status == 200) {
-          //获取订单成功
-          _this.waitCommission = response.result.list;
-        } else {
-        }
-      }
-    );
+    //查询订单
+    if(_this.selected == 1) {
+      _this.get_orderList("0");
+    }
   },
   methods: {
     handleSearch() {},
@@ -165,15 +116,24 @@ export default {
      * 请求全部订单
      * 用于测试滑动组件
      */
-    get_orderList() {
-      ajax({
-        url: "/srv/v1/order/list?pageNo=1&pageSize=5",
-        method: "GET"
-      }).then(res => {
-        if (res.status === 200) {
-          this.arrOrderList = res.data.result.list;
+    get_orderList(order) {
+      let _this = this;
+      let _url = "/srv/v1/order/list?pageNo=1&pageSize=5&type=" + order;
+      window.phihome.util.netRequest(
+        "get",
+        _this.neturl + _url,
+        "",
+        "",
+        function(response) {
+          response = JSON.parse(response);
+          if (response.status == 200) {
+            //获取订单成功
+            _this.arrOrderList = response.result.list;
+          } else {
+            _this.arrOrderList = '';
+          }
         }
-      });
+      );
     }
   },
 
