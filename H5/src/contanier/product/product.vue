@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-04 22:28:31 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-11 10:01:12
+ * @Last Modified time: 2018-03-13 23:26:25
  * 产品模块布局组件
  */
 
@@ -14,8 +14,8 @@
     <gatherTrust v-if="activeIndex===0"></gatherTrust>
     <gatherZG v-if="activeIndex===1"></gatherZG>
     <bondFund v-if="activeIndex===2"></bondFund>
-    <sunPrivate v-if="activeIndex===3"></sunPrivate>
-    <equityFund v-if="activeIndex===4"></equityFund>
+    <equityFund v-if="activeIndex===3"></equityFund>
+    <sunPrivate v-if="activeIndex===4"></sunPrivate>
 
   </div>
 </template>
@@ -37,17 +37,26 @@ export default {
         "集合信托",
         "集合资管",
         "债权基金",
-        "阳光私募",
+        // "阳光私募",
         "股权基金"
       ],
       activeIndex: 0 //初始化选中的tab项
     };
   },
+  created() {
+    console.log(this.$route.query.activeIndex);
+    this.activeIndex = parseInt(this.$route.query.activeIndex);
+  },
   methods: {
     // 选项卡模块点击事件
     set_tabs(e) {
+      // 此处在更改tabs的index时应该注意history
       // 获取当前点击的对象的索引
       const currobjKey = e.target.getAttribute("data-index");
+      this.$router.replace({
+        path: `/product`,
+        query: { activeIndex: currobjKey }
+      });
       this.activeIndex = parseInt(currobjKey);
     }
   },
@@ -85,12 +94,13 @@ export default {
 
     >span {
       display: inline-block;
-      height: 40px;
-      line-height: 40px;
+      height: 50px;
+      line-height: 50px;
       flex: 1;
       text-align: center;
       font-size: 14px;
-      color: #333333;
+      margin-bottom: -10px;
+      color: #333;
     }
 
     .currSpan {

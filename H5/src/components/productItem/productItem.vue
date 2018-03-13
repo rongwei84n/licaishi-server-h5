@@ -1,5 +1,13 @@
+/*
+ * @Author: 张浩然 
+ * @Date: 2018-03-13 22:45:10 
+ * @Last Modified by: 张浩然
+ * @Last Modified time: 2018-03-13 22:46:49
+ * 首页--产品组件
+ */
+
 <template>
-    <div class="pro-content">
+    <div class="pro-content" @click="to_pDetails">
         <div class="pro-header-content">
             <div class="title-content">
                 <span class="type">集合资管</span>
@@ -36,6 +44,11 @@
 <script type="es6">
 export default {
   props: {
+    pCode: {
+      type: String,
+      default: "",
+      required: true
+    },
     pShortName: "", //产品简称
     pSaleStatus: "", //产品销售状态 01：预热中 02：募集中 03：募集结束 04：产品成立
     pExpectAnnualRevenue: "", //年化率
@@ -43,7 +56,14 @@ export default {
     pInvestType: "", //投资领域
     pCommission: "" //返佣比例
   },
-  created() {},
+  methods: {
+    to_pDetails() {
+      this.$router.push({
+        name: "pDetails",
+        query: { pCode: this.pCode }
+      });
+    }
+  },
   computed: {
     get_pSaleStatus() {
       switch (this.pSaleStatus) {

@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-05 10:11:06 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-12 22:17:03
+ * @Last Modified time: 2018-03-13 20:17:30
  * 产品--集合信托--子组件
  */
 
@@ -195,7 +195,7 @@ export default {
   >.scroll-conntent {
     position: absolute;
     top: 34px;
-    bottom: 46px;
+    bottom: 0;
     overflow: hidden;
     width: 100%;
   }

@@ -33,21 +33,26 @@ export default new Router({
       path: '/rank',
       component: Rank,
       children: [
-        { path: '/rank/workroominfo',
+        {
+          path: '/rank/workroominfo',
           component: Workroominfo
         },
-        { path: '/rank/mycustom',
+        {
+          path: '/rank/mycustom',
           component: Mycustom,
           children: [
-            { path: '/rank/mycustom/customOrder',
+            {
+              path: '/rank/mycustom/customOrder',
               component: customOrder
             },
-            { path: '/rank/mycustom/customOrderDetail',
+            {
+              path: '/rank/mycustom/customOrderDetail',
               component: customOrderDetail
             }
           ]
         },
-        { path: '/rank/mycommission',
+        {
+          path: '/rank/mycommission',
           component: mycommission
         }
       ]
@@ -57,9 +62,9 @@ export default new Router({
       component: Recommend
     },
     {
+      name: "product",
       path: '/product',
       component: Product
-
     },
     {
       name: "pOrder",

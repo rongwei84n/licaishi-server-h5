@@ -14,49 +14,51 @@
         <!-- 首页功能导航菜单 -->
         <div class="nav-func">
           <ul class="ofh">
-            <li @click="toFuncPage" class="fl">
+            <li class="fl">
               <img src="~@/common/image/icon_17.jpg" alt=""><br>
               <span>热销产品</span>
             </li>
-            <li @click="toFuncPage" class="fl">
+            <li class="fl">
               <img src="~@/common/image/icon_19.jpg" alt=""><br/>
               <span>最新推荐</span>
             </li>
-            <li @click="toFuncPage" class="fl">
+            <li @click.native="toFuncPage('product',0)" class="fl">
               <img src="~@/common/image/icon_21.jpg" alt=""><br/>
               <span>集合信托</span>
             </li>
-            <li @click="toFuncPage" class="fl">
+            <!--  -->
+            <li @click.native="toFuncPage('product',1)" class="fl">
               <img src="~@/common/image/icon_23.jpg" alt=""><br/>
               <span>集合资管</span>
             </li>
-            <li @click="toFuncPage" class="fl">
+            <li @click.native="toFuncPage('product',2)" class="fl">
               <img src="~@/common/image/icon_29.jpg" alt=""><br>
               <span>债券基金</span>
             </li>
-            <li @click="toFuncPage" class="fl">
+            <!-- <li @click="toFuncPage" class="fl">
               <img src="~@/common/image/icon_30.jpg" alt=""><br/>
               <span>阳光私募</span>
-            </li>
-            <li @click="toFuncPage" class="fl">
+            </li> -->
+            <li @click.native="toFuncPage('product',3)" class="fl">
               <img src="~@/common/image/icon_31.jpg" alt=""><br/>
               <span>股权基金</span>
             </li>
+            <!-- 
             <li @click="toFuncPage" class="fl">
               <img src="~@/common/image/icon_32.jpg" alt=""><br/>
               <span>视频路演</span>
-            </li>
+            </li> -->
           </ul>
         </div>
         <!-- 热销产品区域 -->
         <module-title title="热销产品" iconUrl="../../../static/image/icon_17.jpg" @moreClick="to_moreClick()"></module-title>
-        <product-item v-for="(item,index) in recommendProductsList" :key="index" :pShortName="item.pShortName" :pExpectAnnualRevenue="item.pExpectAnnualRevenue" :pSaleStatus="item.pSaleStatus" :pDulTime="item.pDulTime" :pInvestType="item.pInvestType" :pCommission="item.pCommission"></product-item>
+        <product-item v-for="(item,index) in recommendProductsList" :key="index" :pCode="item.pCode" :pShortName="item.pShortName" :pExpectAnnualRevenue="item.pExpectAnnualRevenue" :pSaleStatus="item.pSaleStatus" :pDulTime="item.pDulTime" :pInvestType="item.pInvestType" :pCommission="item.pCommission"></product-item>
         <!-- 广告区域 -->
         <img src="../../common/image/body.png" alt="" class="advertising">
         <!-- 最新推荐产品区域 -->
         <div class="newRecommendProducts-content">
           <module-title title="最新推荐" iconUrl="../../../static/image/icon_17.jpg" @moreClick="to_moreClick()"></module-title>
-          <product-item v-for="(item,index) in newRecommendProductsList" :key="index" :pShortName="item.pShortName" :pExpectAnnualRevenue="item.pExpectAnnualRevenue" :pSaleStatus="item.pSaleStatus" :pDulTime="item.pDulTime" :pInvestType="item.pInvestType" :pCommission="item.pCommission"></product-item>
+          <product-item v-for="(item,index) in newRecommendProductsList" :key="index" :pCode="item.pCode" :pShortName="item.pShortName" :pExpectAnnualRevenue="item.pExpectAnnualRevenue" :pSaleStatus="item.pSaleStatus" :pDulTime="item.pDulTime" :pInvestType="item.pInvestType" :pCommission="item.pCommission"></product-item>
         </div>
       </div>
     </scroll>
@@ -92,10 +94,25 @@ export default {
   methods: {
     // 更多按钮跳转事件
     to_moreClick(url) {
-      console.log("to_moreClick");
+      console.log(url);
       // this.$router.push(url);
+      // this.$router.push({
+      //   path: "/product",
+      //   query: { pCode: this.pCode }
+      // });
     },
-    toFuncPage() {},
+    /**
+     * 导航栏点击事件
+     */
+    toFuncPage(url, params) {
+      console.log(url);
+      // if (url) {
+      //   this.$router.push({
+      //     path: `/${url}`,
+      //     query: { activeIndex: params }
+      //   });
+      // }
+    },
     loadImage() {
       if (!this.checkloaded) {
         this.checkloaded = true;
@@ -175,7 +192,8 @@ export default {
         width: 100%;
 
         li {
-          width: 25%;
+          width: 33%;
+          // width: 25%;
           text-align: center;
           margin-bottom: 19px;
           font-size: 14px;
