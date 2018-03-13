@@ -102,7 +102,7 @@ export default {
     _this.selected = this.$route.params.tab_id;
     //查询订单
     if(_this.selected == 1) {
-      _this.get_orderList("0");
+      _this.get_orderList("00");
     }
   },
   methods: {
