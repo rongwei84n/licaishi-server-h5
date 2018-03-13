@@ -8,7 +8,6 @@
 
 <template>
   <div id="product">
-
     <header ref="tabsContent" class="tabs-content" @click="set_tabs">
       <span v-for="(item,index) in headerTabList" :class="{currSpan:activeIndex===index}" :data-index="index" :key="index">{{item}}</span>
     </header>
@@ -68,7 +67,8 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
-  top: 40px;
+  // top: 40px;
+  top: 0;
   bottom: 46px;
   background: #fff;
   overflow: hidden;

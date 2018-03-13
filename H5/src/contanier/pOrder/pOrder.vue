@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-13 00:13:47
+ * @Last Modified time: 2018-03-13 18:57:28
  *
  * 基础布局组件
  * 带头部与底部布局
@@ -17,20 +17,20 @@
       <div class="scroll-content">
         <mt-field label="产品名称" disabled v-model="pName"></mt-field>
         <!-- TODO:此处客户另外会提供接口获取 -->
-        <mt-field label="客户姓名" disabled placeholder="请输入客户姓名" v-model="customerName" @click.native="openCustomersModal">
-          <i class="fa fa-address-book extend-click"></i>
+        <mt-field label="客户姓名" disabled placeholder="请输入客户姓名" v-model="customerName" @click.native="updatePickerStatus('CustomersModal')">
+          <i class="fa fa-address-card"></i>
         </mt-field>
         <mt-field label="身份证号" placeholder="请输入身份证号" v-model="cardId"></mt-field>
         <!-- <mt-field label="手机号" placeholder="请输入手机号" v-model="phone"></mt-field> -->
         <mt-field label="银行卡号" placeholder="请输入银行卡号" v-model="bankCardNo"></mt-field>
-        <mt-field label="打卡行" disabled placeholder="点击右侧图标选择银行" v-model="bankName">
+        <mt-field label="打卡行" disabled placeholder="点击右侧图标选择银行" v-model="bankName" @click.native="updatePickerStatus('bankCardPickStatus')">
           <i class="fa fa-credit-card"></i>
         </mt-field>
         <mt-field label="预约金额" placeholder="请输入预约金额" v-model="amount">
           <span>万元</span>
         </mt-field>
-        <mt-field label="最迟打款日期" placeholder="点击右侧图标选择日期" disabled v-model="lastPayDate">
-          <i class="fa fa-calendar extend-click" @click="openDatePicker"></i>
+        <mt-field label="最迟打款日期" placeholder="点击右侧图标选择日期" disabled v-model="lastPayDate" @click.native="openDatePicker">
+          <i class="fa fa-calendar"></i>
         </mt-field>
         <mt-field label="备注" placeholder="备注" type="textarea" rows="4" v-model="note"></mt-field>
       </div>
@@ -41,18 +41,23 @@
     </footer>
     <mt-datetime-picker type="date" ref="picker" v-model="pickerValue" year-format="{value} 年" month-format="{value} 月" date-format="{value} 日" @confirm="handleConfirm">
     </mt-datetime-picker>
-    <mt-popup v-model="CustomersModal" position="bottom">
+    <!-- <mt-popup v-model="CustomersModal" position="bottom">
       <mt-picker ref='pickerObj' @change="onValuesChange" :slots="Customers" valueKey="name"></mt-picker>
-    </mt-popup>
+    </mt-popup> -->
+    <!-- 下拉选择菜单 -->
+    <pulldown-select :values="Customers" valueKey="name" @confirm="onValuesChange" @cancel="updatePickerStatus('CustomersModal')" v-if="CustomersModal"></pulldown-select>
+    <!-- 银行卡选择器 -->
+    <pulldown-select :values="bankcard_picker_data" @confirm="bankConfirm" @cancel="updatePickerStatus('bankCardPickStatus')" v-if="bankCardPickStatus"></pulldown-select>
   </div>
 </template>
 
  <script type="es6">
 import formatDateTime from "common/js/date";
-// import moment from "moment";
 import ajax from "api/ajax";
 import Scroll from "base/scroll/scroll";
 import whiteSpace from "base/whiteSpace/whiteSpace";
+import PulldownSelect from "base/pulldownSelect/PulldownSelect";
+import { MessageBox } from "mint-ui";
 
 import { isCardNo } from "common/js/isCardNo";
 
@@ -64,20 +69,36 @@ export default {
       //产品名称
       pName: "",
       /**
-       *  客户列表选择用
+       * 银行卡弹窗选择事件
        */
-      Customers: [
+      bankCardPickStatus: false,
+      bankcard_picker_data: [
         {
           values: [
-            "2015-01",
-            "2015-02",
-            "2015-03",
-            "2015-04",
-            "2015-05",
-            "2015-06"
-          ]
+            "招商银行",
+            "中国银行",
+            "工商银行",
+            "建设银行",
+            "交通银行",
+            "农业银行",
+            "中国邮政",
+            "光大银行",
+            "广发银行",
+            "华夏银行",
+            "民生银行",
+            "平安银行",
+            "浦发银行",
+            "中信银行"
+          ],
+          className: "slot",
+          textAlign: "center",
+          flex: 1
         }
-      ], //客户列表
+      ],
+      /**
+       *  客户列表选择用
+       */
+      Customers: [{ values: [] }], //客户列表
       CustomersModal: false,
       /**
        *
@@ -109,13 +130,23 @@ export default {
     console.log(this.profitRebates);
   },
   methods: {
-    onValuesChange(picker, list) {
-      // this.$refs.picker.getSlotValue();
-      this.customerName = list[0].name;
-      this.customerId = list[0].uid;
+    /* 银行选择组件确定事件 */
+    bankConfirm(param) {
+      if (param === undefined) {
+        param = "工商银行";
+      }
+      this.bankName = param;
+      this.updatePickerStatus("bankCardPickStatus");
     },
-    openCustomersModal() {
-      this.CustomersModal = true;
+    // 打开银行卡选择栏
+    updatePickerStatus(params) {
+      this[params] = !this[params];
+    },
+    // 选择客户姓名
+    onValuesChange(parmas) {
+      this.customerName = parmas.name;
+      this.customerId = parmas.uid;
+      this.updatePickerStatus("CustomersModal");
     },
     /**
      * 获取客户列表
@@ -131,37 +162,55 @@ export default {
       });
     },
     /* 校验身份证是否规范 */
-    check_cardId() {},
+    check_reg(param, msg) {
+      if (this[param]) {
+        return true;
+      } else {
+        MessageBox("提示", msg);
+        return false;
+      }
+    },
     // 提交
     submit() {
-      // TODO:首先得判断当前登录状态
-      ajax({
-        url: "/srv/v1/order/createOrder",
-        params: {
-          productId: this.pId,
-          customerId: this.customerId,
-          customerName: this.customerName,
-          cardId: this.cardId,
-          amount: this.amount,
-          lastPayDate: this.lastPayDate,
-          comRatio: this.comRatio,
-          proRatio: this.proRatio,
-          issuingBank: "光大银行",
-          bankCardNo: "3124325435",
-          note: this.note
-        },
-        method: "POST"
-      }).then(res => {
-        if (res.status === 200) {
-          if (res.data.result.pager) {
-            this.pullup = res.data.result.pager.hasNaxtPage;
-            this.productList = [...this.productList, ...res.data.result.list];
-          } else {
-            this.pullup = false;
+      // TODO:
+      /**
+       * 1。首先得判断当前登录状态
+       */
+
+      /**
+       * 2。判断当前是否全部输入
+       */
+      if (
+        this.check_reg("customerName", "客户姓名未选择") &&
+        this.check_reg("cardId", "身份证号未填写") &&
+        this.check_reg("bankCardNo", "银行卡号未填写") &&
+        this.check_reg("bankName", "打卡行未选择") &&
+        this.check_reg("amount", "预约金额未填写") &&
+        this.check_reg("lastPayDate", "最迟打款日期未选择")
+      ) {
+        // this.check_reg("customerName", "客户姓名未选择");
+        ajax({
+          url: "/srv/v1/order/createOrder",
+          params: {
+            productId: this.pId,
+            customerId: this.customerId,
+            customerName: this.customerName,
+            cardId: this.cardId,
+            amount: this.amount,
+            lastPayDate: this.lastPayDate,
+            comRatio: this.comRatio,
+            proRatio: this.proRatio,
+            issuingBank: this.bankName,
+            bankCardNo: this.bankCardNo,
+            note: this.note
+          },
+          method: "POST"
+        }).then(res => {
+          if (res.status === 200) {
+            this.$router.push("/pOrderSuccess");
           }
-        }
-      });
-      this.$router.push("/pOrderSuccess");
+        });
+      }
     },
     /**
      * 返回按钮单机事件
@@ -220,7 +269,8 @@ export default {
   },
   components: {
     Scroll,
-    whiteSpace
+    whiteSpace,
+    PulldownSelect
   }
 };
 </script>
