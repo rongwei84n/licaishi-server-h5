@@ -83,7 +83,7 @@ export default {
       // 这里就可以通过 val 的值变更来确定
       let order = "0";
       if(val == 1) {
-        order = "0";
+        order = "00";
       }else if(val == 2) {
         order = "01";
       }else if(val == 3) {
@@ -117,7 +117,7 @@ export default {
      */
     get_orderList(order) {
       let _this = this;
-      let _url = "/srv/v1/order/list?pageNo=1&pageSize=5&type=" + order;
+      let _url = "/srv/v1/order/list?pageNo=1&pageSize=5&status=" + order;
 
       ajax({
         url: _url,
