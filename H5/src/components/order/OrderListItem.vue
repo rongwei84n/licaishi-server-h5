@@ -1,12 +1,12 @@
 <template>
   <div class="all-content">
-      <mt-cell :title="dorderId" value="待打款"/>
-      <mt-cell :title="dProdName"></mt-cell>
-      <mt-cell :title="dOrderAmount"></mt-cell>
-      <mt-cell :title="dRebatePresent"></mt-cell>
-      <mt-cell :title="dRebateAmount"></mt-cell>
-      <mt-cell :title="dPayStatus"></mt-cell>
-      <mt-cell :title="dCustomerName"></mt-cell>
+      <mt-cell :title="cDisplayOrderId" value="待打款"/>
+      <mt-cell :title="cDisplayProdName"></mt-cell>
+      <mt-cell :title="cDisplayOrderAmount"></mt-cell>
+      <mt-cell :title="cDisplayRebatePresent"></mt-cell>
+      <mt-cell :title="cDisplayRebateAmount"></mt-cell>
+      <mt-cell :title="cDisplayPayStatus"></mt-cell>
+      <mt-cell :title="cDisplayCustomerName"></mt-cell>
       <mt-cell v-if="payStatus==='01'" value="取消订单"></mt-cell>
   </div>
 </template>
@@ -23,16 +23,40 @@
       payStatus: "", //支付状态(待打款可以取消订单)
       customerName: "" //客户姓名
     },
-    data () {
-      return {
-        dorderId: "订单号: " + this.orderId,
-        dProdName: "产品名称: " + this.prodName,
-        dOrderAmount: "订单金额: " + this.orderAmount,
-        dRebatePresent: "返佣比例: " + this.rebatePresent,
-        dRebateAmount: "返佣金额: " + this.rebateAmount,
-        dPayStatus: "支付状态: " + this.payStatus,
-        dCustomerName: "客户姓名: " + this.customerName,
-      }
+    data() {
+      return {}
+    },
+    computed:{
+      cDisplayOrderId(){
+        return "订单号: " + this.orderId;
+      },
+      cDisplayProdName(){
+        return "产品名称: " + this.prodName;
+      },
+      cDisplayOrderAmount(){
+        return "订单金额: " + this.orderAmount;
+      },
+      cDisplayRebatePresent(){
+        return "返佣比例: " + this.rebatePresent;
+      },
+      cDisplayRebateAmount(){
+        return "返佣金额: " + this.rebateAmount;
+      },
+      cDisplayPayStatus(){
+        if(this.payStatus === "01") {
+          return "支付状态: 待打款";
+        }else if(this.payStatus === "02") {
+          return "支付状态: 待结佣";
+        }else if(this.payStatus === "03") {
+          return "支付状态: 已结佣";
+        }else if(this.payStatus === "99") {
+          return "支付状态: 已失效";
+        }
+        return "支付状态: " + this.payStatus;
+      },
+      cDisplayCustomerName(){
+        return "客户姓名: " + this.customerName;
+      },
     },
   }
 </script>
