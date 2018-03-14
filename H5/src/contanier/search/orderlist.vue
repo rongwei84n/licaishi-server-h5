@@ -25,7 +25,7 @@
           <div v-show="arrOrderList.length>0">
             <div v-for="(item,index) of arrOrderList" :key="index" >
               <split :sh="8"></split>
-              <OrderListItem :orderId="item.cardNo" :prodName="item.productShortName" :orderAmount="item.amount" :rebatePresent="item.comRatio" :rebateAmount="item.commission" :payStatus="item.status" :customerName="item.customerName" />
+              <OrderListItem :orderId="item.cardNo" :voucharStatus="item.voucherStatus" :prodName="item.productShortName" :orderAmount="item.amount" :rebatePresent="item.comRatio" :rebateAmount="item.commission" :status="item.status" :customerName="item.customerName" />
             </div>
           </div>
           <loading v-if="pullup"></loading>
