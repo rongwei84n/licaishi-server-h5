@@ -1,6 +1,11 @@
 <template>
   <div class="all-content">
-    <mt-cell :title="cDisplayOrderId">{{cDisplayStatus}}</mt-cell>
+    <mt-cell :title="cDisplayOrderId">
+      <div class="order_status_waitpay" v-if="status==='01'">{{cDisplayStatus}}</div>
+      <div class="order_status_waitrebate" v-if="status==='02'">{{cDisplayStatus}}</div>
+      <div class="order_status_already_rebate" v-if="status==='03'">{{cDisplayStatus}}</div>
+      <div class="order_status_already_failed" v-if="status==='99'">{{cDisplayStatus}}</div>
+    </mt-cell>
     <mt-cell :title="cDisplayProdName"></mt-cell>
     <mt-cell :title="cDisplayOrderAmount"></mt-cell>
     <mt-cell :title="cDisplayRebatePresent"></mt-cell>
@@ -71,6 +76,22 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
   .all-content {
+    .order_status_waitpay {
+      font-size: 14px;
+      color: #e10101;
+    }
+    .order_status_waitrebate {
+      color: #00C5E9;
+      font-size: 14px;
+    }
+    .order_status_already_rebate {
+      color: #08B200;
+      font-size: 14px;
+    }
+    .order_status_already_failed {
+      color: #666666;
+      font-size: 14px;
+    }
   }
 
 </style>
