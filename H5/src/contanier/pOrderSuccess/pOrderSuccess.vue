@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-11 09:59:23
+ * @Last Modified time: 2018-03-14 20:12:57
  *
  * 产品预约成功
  */
@@ -39,12 +39,14 @@ export default {
   mounted() {},
   methods: {
     // 跳转到我的订单
-    checkOrder() {},
+    checkOrder() {
+      this.$router.replace({ name: "Orderlist", params: { tab_id: "1" } });
+    },
 
     // 跳转到产品列表
     goOrder() {
+      this.$router.replace({ name: "product", params: { activeIndex: 0 } });
       // 此处跳转到产品列表不能添加历史记录
-      
     },
     /**
      * 返回按钮单机事件

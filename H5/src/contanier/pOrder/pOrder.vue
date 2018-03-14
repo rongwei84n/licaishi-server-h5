@@ -207,7 +207,7 @@ export default {
           method: "POST"
         }).then(res => {
           if (res.status === 200) {
-            this.$router.push("/pOrderSuccess");
+            this.$router.replace("/pOrderSuccess");
           }
         });
       }
