@@ -12,7 +12,9 @@
     <mt-cell :title="cDisplayRebateAmount"></mt-cell>
     <mt-cell :title="cDisplayVoucherStatus"></mt-cell>
     <mt-cell :title="cDisplayCustomerName"></mt-cell>
-    <mt-cell v-if="status==='01'" value="取消订单"></mt-cell>
+    <mt-cell v-if="status==='01'">
+      <div class="cancel_order">取消订单</div>
+    </mt-cell>
   </div>
 </template>
 
@@ -91,6 +93,10 @@
     .order_status_already_failed {
       color: #666666;
       font-size: 14px;
+    }
+    .cancel_order {
+      color: #212121;
+      font-size:14px;
     }
   }
 
