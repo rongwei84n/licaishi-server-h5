@@ -13,12 +13,14 @@
     <mt-cell :title="cDisplayVoucherStatus"></mt-cell>
     <mt-cell :title="cDisplayCustomerName"></mt-cell>
     <mt-cell v-if="status==='01'">
-      <div class="cancel_order">取消订单</div>
+      <div class="item_cancel_order" v-on:click="cancelOrder">取消订单</div>
     </mt-cell>
   </div>
 </template>
 
 <script>
+  import ajax from "api/ajax";
+
   export default {
     name: "order-list-item",
     props: {
@@ -73,6 +75,19 @@
         return "客户姓名: " + this.customerName;
       },
     },
+
+    methods: {
+      cancelOrder() {
+        ajax({
+          url: `/srv/v1/order/cancelOrder?orderNo=${this.orderId}`,
+          method: "POST"
+        }).then(res => {
+          if(res.status === 200) {
+            alert("cancel 成功");
+          }
+        });
+      }
+    }
   }
 </script>
 
@@ -94,7 +109,7 @@
       color: #666666;
       font-size: 14px;
     }
-    .cancel_order {
+    .item_cancel_order {
       color: #212121;
       font-size:14px;
     }
