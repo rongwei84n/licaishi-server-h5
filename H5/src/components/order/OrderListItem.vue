@@ -7,7 +7,7 @@
       <mt-cell :title="dRebateAmount"></mt-cell>
       <mt-cell :title="dPayStatus"></mt-cell>
       <mt-cell :title="dCustomerName"></mt-cell>
-      <mt-cell value="取消订单"></mt-cell>
+      <mt-cell v-show="payStatus==='01'" value="取消订单"></mt-cell>
   </div>
 </template>
 

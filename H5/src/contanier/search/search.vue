@@ -5,7 +5,7 @@
       <div class="content-wrapper" v-on:click="gotoLogin">
         <div class="avatar">
           <img width="64" height="64" v-if="headerAvatar.length <= 0" src="~@/common/image/head_portrait.png" />
-          <img width="64" height="64" v-else :src="headerAvatar" />
+          <img width="64" height="64" v-else :src="headerAvatar" class="header_avatar" />
         </div>
         <div class="content">
           <div class="av-name" >{{name}}</div>
@@ -176,6 +176,9 @@ export default {
       .avatar {
         vertical-align: top;
         display: inline-block;
+        .header_avatar {
+          border-radius: 40px;
+        }
       }
 
       .content {
