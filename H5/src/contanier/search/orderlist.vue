@@ -18,13 +18,15 @@
       </mt-navbar>
 
       <!-- tabcontainer -->
-      <scroll class="scroll-content" :data="arrOrderList">
+      <scroll class="scroll-content" :data="arrOrderList" :pullup="pullup" @scrollToEnd="scrollToEnd">
         <div>
           <!-- 此处建议先按状态分成5个子组件。再5个子组件内去分别处理逻辑，类似于产品模块 -->
           <!-- TODO:测试组件--开始 -->
           <div v-show="arrOrderList.length>0">
             <OrderListItem v-for="(item,index) of arrOrderList" :key="index" :orderId="item.cardNo" :prodName="item.productShortName" :orderAmount="item.amount" :rebatePresent="item.comRatio" :rebateAmount="item.commission" :payStatus="item.status" :customerName="item.customerName" />
           </div>
+          <loading v-if="pullup"></loading>
+          <to-end v-else></to-end>
           <!-- TODO:测试组件--结束 -->
 
           <!-- <div v-for="(n,index) of 100" :key="index" class="textDiv">{{n}}</div> -->
@@ -54,6 +56,8 @@
 <script>
 import ajax from "api/ajax";
 import Scroll from "base/scroll/scroll";
+import loading from "base/loading/loading";
+import toEnd from "base/toEnd/toEnd";
 import OrderListItem from "components/order/OrderListItem";
 
 export default {
@@ -61,6 +65,14 @@ export default {
   data() {
     return {
       selected: "1",
+      pageNo: 1, //当前页
+      pageNoAttr:[1,1,1,1,1,1],
+      pullup: true, //开启上拉加载
+      pullup1: true,
+      pullup2: true,
+      pullup3: true,
+      pullup4: true,
+      pullup5: true,
 
       /**
        * 测试用
@@ -75,25 +87,23 @@ export default {
         "03": [],
         /* 已失败 */
         "99": []
+      },
+      arrOrderList1: {
+      },
+      arrOrderList2: {
+      },
+      arrOrderList3: {
+      },
+      arrOrderList4: {
+      },
+      arrOrderList5: {
       }
     };
   },
   watch: {
     selected: function (val, oldVal) {
       // 这里就可以通过 val 的值变更来确定
-      let order = "0";
-      if(val == 1) {
-        order = "00";
-      }else if(val == 2) {
-        order = "01";
-      }else if(val == 3) {
-        order = "02";
-      }else if(val == 4) {
-        order = "03";
-      }else if(val == 5) {
-        order = "99";
-      }
-      this.get_orderList(order);
+      this.get_orderList();
     }
   },
 
@@ -102,7 +112,7 @@ export default {
     _this.selected = this.$route.params.tab_id;
     //查询订单
     if(_this.selected == 1) {
-      _this.get_orderList("00");
+      _this.get_orderList();
     }
   },
   methods: {
@@ -110,30 +120,113 @@ export default {
     back() {
       this.$router.go(-1);
     },
+
+    scrollToEnd() {
+      this.pageNo++;
+      this.pageNoAttr[this.selected]++;
+      this.get_orderList();
+    },
+
     /**
      * 测试用
      * 请求全部订单
      * 用于测试滑动组件
      */
-    get_orderList(order) {
-      let _this = this;
-      let _url = "/srv/v1/order/list?pageNo=1&pageSize=5&status=" + order;
+    get_orderList() {
+      let canPull = false;
+      if(this.selected == 1) {
+        canPull = this.pullup1;
+      }else if(this.selected == 2) {
+        canPull = this.pullup2;
+      }else if(this.selected == 3) {
+        canPull = this.pullup3;
+      }else if(this.selected == 4) {
+        canPull = this.pullup4;
+      }else if(this.selected == 5) {
+        canPull = this.pullup5;
+      }
 
-      ajax({
-        url: _url,
-        method: "GET"
-      }).then(res => {
-        if (res.status === 200) {
-          this.arrOrderList = res.data.result.list;
-        } else {
-          this.arrOrderList = '';
+      if(canPull) {
+        let status = "00";
+        if(this.selected == 1) {
+          status = "00";
+        } else if(this.selected == 2) {
+          status = "01";
+        } else if(this.selected == 3) {
+          status = "02";
+        } else if(this.selected == 4) {
+          status = "03";
+        } else if(this.selected == 5) {
+          status = "99";
         }
-      });
-    }
+        ajax({
+          url: `/srv/v1/order/list?pageNo=${this.pageNoAttr[this.selected]}&pageSize=2&status=${status}`,
+          method: "GET"
+        }).then(res => {
+          if (res.status === 200) {
+            if(this.selected == 1) {
+              this.arrOrderList1 = [...this.arrOrderList1, ...res.data.result.list];
+            }else if(this.selected == 2) {
+              this.arrOrderList2 = [...this.arrOrderList2, ...res.data.result.list];
+            }else if(this.selected == 3) {
+              this.arrOrderList3 = [...this.arrOrderList3, ...res.data.result.list];
+            }else if(this.selected == 4) {
+              this.arrOrderList4 = [...this.arrOrderList4, ...res.data.result.list];
+            }else if(this.selected == 5) {
+              this.arrOrderList5 = [...this.arrOrderList5, ...res.data.result.list];
+            }
+            if (res.data.result.pager) {
+              if(this.selected == 1) {
+                this.pullup1 = res.data.result.pager.hasNaxtPage;
+              }else if(this.selected == 2) {
+                this.pullup2 = res.data.result.pager.hasNaxtPage;
+              }else if(this.selected == 3) {
+                this.pullup3 = res.data.result.pager.hasNaxtPage;
+              }else if(this.selected == 4) {
+                this.pullup4 = res.data.result.pager.hasNaxtPage;
+              }else if(this.selected == 5) {
+                this.pullup5 = res.data.result.pager.hasNaxtPage;
+              }
+            }
+          }
+          this.copyValue();
+        });
+      } else {
+        this.copyValue();
+      }
+    }, //End get_orderList
+
+    copyValue() {
+      if(this.selected == 1) {
+        this.arrOrderList = this.arrOrderList1;
+      }else if(this.selected == 2) {
+        this.arrOrderList = this.arrOrderList2;
+      }else if(this.selected == 3) {
+        this.arrOrderList = this.arrOrderList3;
+      }else if(this.selected == 4) {
+        this.arrOrderList = this.arrOrderList4;
+      }else if(this.selected == 5) {
+        this.arrOrderList = this.arrOrderList5;
+      }
+      if(this.selected == 1) {
+        this.pullup = this.pullup1;
+      }else if(this.selected == 2) {
+        this.pullup = this.pullup2;
+      }else if(this.selected == 3) {
+        this.pullup = this.pullup3;
+      }else if(this.selected == 4) {
+        this.pullup = this.pullup4;
+      }else if(this.selected == 5) {
+        this.pullup = this.pullup5;
+      }
+    },
   },
+
 
   components: {
     Scroll,
+    loading,
+    toEnd,
     OrderListItem
   }
 };

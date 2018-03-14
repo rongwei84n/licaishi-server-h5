@@ -4,7 +4,8 @@
     <div class="setting-header" >
       <div class="content-wrapper" v-on:click="gotoLogin">
         <div class="avatar">
-          <img width="64" height="64" src="~@/common/image/head_portrait.png" />
+          <img width="64" height="64" v-if="headerAvatar.length <= 0" src="~@/common/image/head_portrait.png" />
+          <img width="64" height="64" v-else src="headerAvatar" />
         </div>
         <div class="content">
           <div class="av-name" >{{name}}</div>
@@ -77,6 +78,7 @@ export default {
   data() {
     return {
       isLogin: false,
+      headerAvatar: "",
       name: "未登录",
       neturl: "http://47.97.100.240/"
     };
@@ -96,12 +98,15 @@ export default {
         function(response) {
           response = JSON.parse(response);
           if (response.error == 0) {
+            alert(response.data.img);
             //获取账号成功
             _this.name = response.data.nickname;
+            _this.headerAvatar = response.data.img;
             _this.isLogin = true;
           } else {
             _this.name = "未设置";
             _this.isLogin = false;
+            _this.headerAvatar = '';
           }
         }
       );
