@@ -1,13 +1,13 @@
 <template>
   <div class="all-content">
-      <mt-cell :title="cDisplayOrderId" value="待打款"/>
-      <mt-cell :title="cDisplayProdName"></mt-cell>
-      <mt-cell :title="cDisplayOrderAmount"></mt-cell>
-      <mt-cell :title="cDisplayRebatePresent"></mt-cell>
-      <mt-cell :title="cDisplayRebateAmount"></mt-cell>
-      <mt-cell :title="cDisplayPayStatus"></mt-cell>
-      <mt-cell :title="cDisplayCustomerName"></mt-cell>
-      <mt-cell v-if="payStatus==='01'" value="取消订单"></mt-cell>
+    <mt-cell :title="cDisplayOrderId">{{cDisplayStatus}}</mt-cell>
+    <mt-cell :title="cDisplayProdName"></mt-cell>
+    <mt-cell :title="cDisplayOrderAmount"></mt-cell>
+    <mt-cell :title="cDisplayRebatePresent"></mt-cell>
+    <mt-cell :title="cDisplayRebateAmount"></mt-cell>
+    <mt-cell :title="cDisplayVoucherStatus"></mt-cell>
+    <mt-cell :title="cDisplayCustomerName"></mt-cell>
+    <mt-cell v-if="status==='01'" value="取消订单"></mt-cell>
   </div>
 </template>
 
@@ -20,7 +20,8 @@
       orderAmount: "", //订单金额
       rebatePresent: "", //返佣比例
       rebateAmount: "",  //返佣金额
-      payStatus: "", //支付状态(待打款可以取消订单)
+      status: "", //订单状态(待打款可以取消订单)
+      voucharStatus: "",
       customerName: "" //客户姓名
     },
     data() {
@@ -42,17 +43,24 @@
       cDisplayRebateAmount(){
         return "返佣金额: " + this.rebateAmount;
       },
-      cDisplayPayStatus(){
-        if(this.payStatus === "01") {
-          return "支付状态: 待打款";
-        }else if(this.payStatus === "02") {
-          return "支付状态: 待结佣";
-        }else if(this.payStatus === "03") {
-          return "支付状态: 已结佣";
-        }else if(this.payStatus === "99") {
-          return "支付状态: 已失效";
+      cDisplayVoucherStatus(){ //支付状态
+        if(this.voucharStatus === "1") {
+          return "支付状态: 已支付";
+        }else {
+          return "支付状态: 未支付";
         }
-        return "支付状态: " + this.payStatus;
+      },
+      cDisplayStatus(){ //订单状态
+        if(this.status === "01") {
+          return "待打款";
+        }else if(this.status === "02") {
+          return "待结佣";
+        }else if(this.status === "03") {
+          return "已结佣";
+        }else if(this.status === "99") {
+          return "已失效";
+        }
+        return this.status;
       },
       cDisplayCustomerName(){
         return "客户姓名: " + this.customerName;
