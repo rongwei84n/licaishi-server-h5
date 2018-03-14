@@ -13,6 +13,7 @@ import {
   Header,
   Button,
   Navbar,
+  Tabbar,
   TabItem,
   MessageBox,
   Picker,
@@ -38,7 +39,8 @@ Vue.component(Header.name, Header)
 Vue.component(Button.name, Button)
 Vue.component(Navbar.name, Navbar)
 Vue.component(Picker.name, Picker)
-Vue.component(TabItem.name, TabItem)
+Vue.component(Tabbar.name, Tabbar);
+Vue.component(TabItem.name, TabItem);
 Vue.component(MessageBox.name, MessageBox)
 Vue.component(DatetimePicker.name, DatetimePicker)
 Vue.component(TabContainer.name, TabContainer)

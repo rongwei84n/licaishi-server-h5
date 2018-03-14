@@ -14,24 +14,24 @@
         <!-- 首页功能导航菜单 -->
         <div class="nav-func">
           <ul class="ofh">
-            <li class="fl">
+            <li class="fl" @click="to_NanProducts(1)">
               <img src="~@/common/image/icon_17.jpg" alt=""><br>
               <span>热销产品</span>
             </li>
-            <li class="fl">
+            <li class="fl" @click="to_NanProducts(2)">
               <img src="~@/common/image/icon_19.jpg" alt=""><br/>
               <span>最新推荐</span>
             </li>
-            <li @click.native="toFuncPage('product',0)" class="fl">
+            <li @click="toFuncPage('product',0)" class="fl">
               <img src="~@/common/image/icon_21.jpg" alt=""><br/>
               <span>集合信托</span>
             </li>
             <!--  -->
-            <li @click.native="toFuncPage('product',1)" class="fl">
+            <li @click="toFuncPage('product',1)" class="fl">
               <img src="~@/common/image/icon_23.jpg" alt=""><br/>
               <span>集合资管</span>
             </li>
-            <li @click.native="toFuncPage('product',2)" class="fl">
+            <li @click="toFuncPage('product',2)" class="fl">
               <img src="~@/common/image/icon_29.jpg" alt=""><br>
               <span>债券基金</span>
             </li>
@@ -39,7 +39,7 @@
               <img src="~@/common/image/icon_30.jpg" alt=""><br/>
               <span>阳光私募</span>
             </li> -->
-            <li @click.native="toFuncPage('product',3)" class="fl">
+            <li @click="toFuncPage('product',3)" class="fl">
               <img src="~@/common/image/icon_31.jpg" alt=""><br/>
               <span>股权基金</span>
             </li>
@@ -51,13 +51,13 @@
           </ul>
         </div>
         <!-- 热销产品区域 -->
-        <module-title title="热销产品" iconUrl="../../../static/image/icon_17.jpg" @moreClick="to_moreClick()"></module-title>
+        <module-title title="热销产品" iconUrl="../../../static/image/icon_17.jpg" right @moreClick="to_NanProducts(1)"></module-title>
         <product-item v-for="(item,index) in recommendProductsList" :key="index" :pCode="item.pCode" :pShortName="item.pShortName" :pExpectAnnualRevenue="item.pExpectAnnualRevenue" :pSaleStatus="item.pSaleStatus" :pDulTime="item.pDulTime" :pInvestType="item.pInvestType" :pCommission="item.pCommission"></product-item>
         <!-- 广告区域 -->
         <img src="../../common/image/body.png" alt="" class="advertising">
         <!-- 最新推荐产品区域 -->
         <div class="newRecommendProducts-content">
-          <module-title title="最新推荐" iconUrl="../../../static/image/icon_17.jpg" @moreClick="to_moreClick()"></module-title>
+          <module-title title="最新推荐" iconUrl="../../../static/image/icon_17.jpg" right @moreClick="to_NanProducts(2)"></module-title>
           <product-item v-for="(item,index) in newRecommendProductsList" :key="index" :pCode="item.pCode" :pShortName="item.pShortName" :pExpectAnnualRevenue="item.pExpectAnnualRevenue" :pSaleStatus="item.pSaleStatus" :pDulTime="item.pDulTime" :pInvestType="item.pInvestType" :pCommission="item.pCommission"></product-item>
         </div>
       </div>
@@ -105,13 +105,21 @@ export default {
      * 导航栏点击事件
      */
     toFuncPage(url, params) {
-      console.log(url);
-      // if (url) {
-      //   this.$router.push({
-      //     path: `/${url}`,
-      //     query: { activeIndex: params }
-      //   });
-      // }
+      if (url) {
+        this.$router.push({
+          path: `/${url}`,
+          query: { activeIndex: params }
+        });
+      }
+    },
+    //
+    to_NanProducts(recommendType) {
+      console.log("to_NanProducts");
+      console.log(recommendType);
+      this.$router.push({
+        path: "/hotProducts",
+        query: { recommendType: recommendType }
+      });
     },
     loadImage() {
       if (!this.checkloaded) {
@@ -126,7 +134,7 @@ export default {
         }
       });
     },
-    // 请求推荐产品列表
+    // 请求推荐热销产品列表
     recommendProducts() {
       ajax({
         url: "/srv/v1/product/recommendProducts",
@@ -136,7 +144,7 @@ export default {
         method: "GET"
       }).then(res => {
         if (res.status === 200) {
-          this.recommendProductsList = res.data.result;
+          this.recommendProductsList = res.data.result.slice(0, 2);
         }
       });
     },
@@ -150,7 +158,7 @@ export default {
         method: "GET"
       }).then(res => {
         if (res.status === 200) {
-          this.newRecommendProductsList = res.data.result;
+          this.newRecommendProductsList = res.data.result.slice(0, 2);
         }
       });
     }

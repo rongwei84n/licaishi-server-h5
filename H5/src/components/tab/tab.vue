@@ -4,7 +4,7 @@
       <img @click.self="linkActive" title="0" src="~@/common/image/homeActive.png" alt="homeActive.png"><br/>
       <span class="tab-link">首页</span>
     </router-link>
-    <router-link tag="div" class="tab-item" to="/product" replace>
+    <router-link tag="div" class="tab-item" to="/product?activeIndex=0" replace>
       <img @click.self="linkActive" title="1" src="~@/common/image/product.png" alt="productActive.png"><br/>
       <span class="tab-link">产品</span>
     </router-link>
@@ -16,6 +16,26 @@
       <img @click.self="linkActive" title="3" src="~@/common/image/userCenter.png" alt="userCenterActive.png"><br/>
       <span class="tab-link">我的</span>
     </router-link>
+    <!-- <mt-tabbar v-model="selected">
+      <mt-tab-item id="recommend">
+        <router-link tag="div" to="/recommend" replace>
+          <img slot="icon" src="~@/common/image/home.png"> 首页
+        </router-link>
+      </mt-tab-item>
+      <mt-tab-item id="product">
+        <router-link tag="div" to="/product" replace>
+          <img slot="icon" src="~@/common/image/product.png"> 产品
+        </router-link>
+      </mt-tab-item>
+      <mt-tab-item id="rank">
+        <router-link tag="div" to="/rank" replace>
+          <img slot="icon" src="~@/common/image/workRoom.png"> 工作室
+        </router-link>
+      </mt-tab-item>
+      <mt-tab-item id="search">
+        <img slot="icon" src="~@/common/image/userCenter.png"> 我的
+      </mt-tab-item>
+    </mt-tabbar> -->
   </div>
 </template>
 
@@ -34,10 +54,13 @@ export default {
       tabIcons: [home, product, workRoom, userCenter],
       tabIconsA: [homeActive, productActive, workRoomActive, userCenterActive],
       recommends: [],
-      discList: []
+      discList: [],
+      selected: "recommend"
     };
   },
-  props: {},
+  created() {
+    console.log(111);
+  },
   methods: {
     /**
      * tab路由点击事件
@@ -57,6 +80,12 @@ export default {
       }
       target.src = this.tabIconsA[index];
     }
+  },
+  watch: {
+    // selected() {
+    //   this.$router.push(`/${this.selected}`);
+    //   console.log(this.$route.path);
+    // }
   }
 };
 </script>
