@@ -5,7 +5,7 @@
       <div class="content-wrapper" v-on:click="gotoLogin">
         <div class="avatar">
           <img width="64" height="64" v-if="headerAvatar.length <= 0" src="~@/common/image/head_portrait.png" />
-          <img width="64" height="64" v-else src="headerAvatar" />
+          <img width="64" height="64" v-else :src="headerAvatar" />
         </div>
         <div class="content">
           <div class="av-name" >{{name}}</div>
@@ -98,7 +98,6 @@ export default {
         function(response) {
           response = JSON.parse(response);
           if (response.error == 0) {
-            alert(response.data.img);
             //获取账号成功
             _this.name = response.data.nickname;
             _this.headerAvatar = response.data.img;
