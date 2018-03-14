@@ -24,8 +24,8 @@
           <!-- TODO:测试组件--开始 -->
           <div v-show="arrOrderList.length>0">
             <div v-for="(item,index) of arrOrderList" :key="index" >
-              <split :sh="8"></split>
               <OrderListItem :orderId="item.cardNo" :voucharStatus="item.voucherStatus" :prodName="item.productShortName" :orderAmount="item.amount" :rebatePresent="item.comRatio" :rebateAmount="item.commission" :status="item.status" :customerName="item.customerName" />
+              <split :sh="8"></split>
             </div>
           </div>
           <loading v-if="pullup"></loading>
@@ -254,20 +254,6 @@
   .page-navbar {
     height: calc(100% - 55px);
     position: relative;
-
-    .mt-tab-contailer {
-      .slider-wrapper-1 {
-        position: relative;
-        width: 100%;
-        overflow: hidden;
-      }
-
-      .slider-wrapper-2 {
-        position: relative;
-        width: 100%;
-        overflow: hidden;
-      }
-    }
 
     /* 滑动块区域 */
     .scroll-content {
