@@ -52,7 +52,7 @@ function ajax({
   },
 } = {}) {
   return new Promise((resolve, reject) => {
-    // if (JSBridge.callHandler) {
+    // // if (JSBridge.callHandler) {
     let methodL = method.toLocaleLowerCase();
     window.phihome.util.netRequest(
       methodL,
@@ -61,9 +61,27 @@ function ajax({
       params,
       // 这个function是原生给我返回的回调
       function (res) {
-        resolve(JSON.parse(res))
+        // 原生对象包装一层模拟axios返回的对象结构
+        const temObj = {
+          data: JSON.parse(res),
+          status: JSON.parse(res).status
+        }
+        console.log(temObj);
+        resolve(temObj)
       }
     );
+    //   axios({
+    //     withCredentials: true,
+    //     // TOOD:路径前缀
+    //     url: IP_PORT.houtai + url,
+    //     data: qsStatus ? qs.stringify(Object.assign({}, params)) : params,
+    //     headers,
+    //     method,
+    //     timeout: 10000,
+    //   }).then(
+    //     (res) => resolve(res),
+    //     (err) => reject(err)
+    //   )
   })
 }
 

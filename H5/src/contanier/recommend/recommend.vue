@@ -89,7 +89,7 @@ export default {
 
     // this._getDiscList();
     this.recommendProducts();
-    // this.newRecommendProducts();
+    this.newRecommendProducts();
   },
   methods: {
     /**
@@ -129,10 +129,7 @@ export default {
         url: "/srv/v1/product/recommendProducts?recommendType=2",
         method: "get"
       }).then(res => {
-        console.log("进入业务回调");
-        console.log(res);
         if (res.status == 200) {
-          console.log("状态判断完毕");
           this.recommendProductsList = res.data.result.slice(0, 2);
         }
       });

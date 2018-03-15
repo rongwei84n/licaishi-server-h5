@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-04 22:28:31 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-13 23:26:25
+ * @Last Modified time: 2018-03-15 23:39:01
  * 产品模块布局组件
  */
 
@@ -44,7 +44,6 @@ export default {
     };
   },
   created() {
-    console.log(this.$route.query.activeIndex);
     this.activeIndex = parseInt(this.$route.query.activeIndex);
   },
   methods: {
