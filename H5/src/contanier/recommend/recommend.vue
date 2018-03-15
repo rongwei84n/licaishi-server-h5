@@ -137,10 +137,7 @@ export default {
     // 请求推荐热销产品列表
     recommendProducts() {
       ajax({
-        url: "/srv/v1/product/recommendProducts",
-        params: {
-          recommendType: 2
-        },
+        url: "/srv/v1/product/recommendProducts?recommendType=2",
         method: "GET"
       }).then(res => {
         if (res.status === 200) {
@@ -151,10 +148,7 @@ export default {
     // 获取最新推荐产品列表
     newRecommendProducts() {
       ajax({
-        url: "/srv/v1/product/recommendProducts",
-        params: {
-          recommendType: 1
-        },
+        url: "/srv/v1/product/recommendProducts?recommendType=1",
         method: "GET"
       }).then(res => {
         if (res.status === 200) {

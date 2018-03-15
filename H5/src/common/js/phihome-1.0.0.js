@@ -159,7 +159,6 @@
         requestHeader: requestHeader,
         requestBody: requestBody
       });
-      console.log(data);
       console.log("原生开始请求");
       JSBridge.callHandler('netRequest', data, function(response) {
         console.log("原生回调");

@@ -3,6 +3,7 @@
  */
 import qs from "qs"
 import axios from "axios"
+require("../common/js/phihome-1.0.0.js?n=1");
 
 const IP_PORT = {
   // 接口调试
@@ -55,9 +56,9 @@ function ajax({
     window.phihome.util.netRequest(
       method,
       IP_PORT.houtai + url,
-      "",
-      "",
-      function(res) {
+      headers,
+      params,
+      function (res) {
         console.log("回调函数返回成功");
         res => resolve(res)
       }
