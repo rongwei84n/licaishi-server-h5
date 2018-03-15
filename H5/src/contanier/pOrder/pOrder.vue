@@ -127,7 +127,6 @@ export default {
     this.pId = this.$route.query.pId;
     this.pName = this.$route.query.pShortName;
     this.profitRebates = JSON.parse(this.$route.query.profitRebates);
-    console.log(this.profitRebates);
   },
   methods: {
     /* 银行选择组件确定事件 */

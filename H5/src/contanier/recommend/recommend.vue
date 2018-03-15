@@ -89,18 +89,9 @@ export default {
 
     // this._getDiscList();
     this.recommendProducts();
-    this.newRecommendProducts();
+    // this.newRecommendProducts();
   },
   methods: {
-    // 更多按钮跳转事件
-    to_moreClick(url) {
-      console.log(url);
-      // this.$router.push(url);
-      // this.$router.push({
-      //   path: "/product",
-      //   query: { pCode: this.pCode }
-      // });
-    },
     /**
      * 导航栏点击事件
      */
@@ -114,8 +105,6 @@ export default {
     },
     //
     to_NanProducts(recommendType) {
-      console.log("to_NanProducts");
-      console.log(recommendType);
       this.$router.push({
         path: "/hotProducts",
         query: { recommendType: recommendType }
@@ -140,7 +129,10 @@ export default {
         url: "/srv/v1/product/recommendProducts?recommendType=2",
         method: "get"
       }).then(res => {
+        console.log("进入业务回调");
+        console.log(res);
         if (res.status === 200) {
+          console.log("状态判断完毕");
           this.recommendProductsList = res.data.result.slice(0, 2);
         }
       });

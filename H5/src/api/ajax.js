@@ -52,20 +52,33 @@ function ajax({
   },
 } = {}) {
   return new Promise((resolve, reject) => {
-    console.log("开始请求1 method " + method);
+    // if (JSBridge.callHandler) {
     let methodL = method.toLocaleLowerCase();
-    console.log("method " + methodL);
     window.phihome.util.netRequest(
       methodL,
       IP_PORT.houtai + url,
       headers,
       params,
+      // 这个function是原生给我返回的回调
       function (res) {
-        console.log("回调函数返回成功");
-        res => resolve(res)
+        resolve(res)
       }
     );
   })
 }
 
+// } else {
+// axios({
+//   withCredentials: true,
+//   // TOOD:路径前缀
+//   url: IP_PORT.houtai + url,
+//   data: qsStatus ? qs.stringify(Object.assign({}, params)) : params,
+//   headers,
+//   method,
+//   timeout: 10000,
+// }).then(
+//   (res) => resolve(res),
+//   (err) => reject(err)
+// )
+// }
 export default ajax
