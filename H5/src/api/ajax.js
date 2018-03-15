@@ -61,7 +61,7 @@ function ajax({
       params,
       // 这个function是原生给我返回的回调
       function (res) {
-        resolve(res)
+        resolve(JSON.parse(res))
       }
     );
   })
