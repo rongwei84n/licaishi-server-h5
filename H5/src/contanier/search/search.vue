@@ -1,21 +1,23 @@
 <template>
   <div class="settings-all-0">
     <!-- 头部功能模块 -->
-    <div class="setting-header" >
+    <div class="setting-header">
       <div class="content-wrapper" v-on:click="gotoLogin">
         <div class="avatar">
           <img width="64" height="64" v-if="headerAvatar.length <= 0" src="~@/common/image/head_portrait.png" />
           <img width="64" height="64" v-else :src="headerAvatar" class="header_avatar" />
         </div>
         <div class="content">
-          <div class="av-name" >{{name}}</div>
+          <div class="av-name">{{name}}</div>
           <div class="money-all">累计佣金: 10000元</div>
         </div>
       </div>
       <div class="right-icon">
-        <div class="ri-setting" v-on:click="gotoPersonInfo">设置</div>
+        <div class="ri-setting" v-on:click="gotoPersonInfo">
+          <img width="16px" height="18px" src="../../common/image/my_settings_ring.png" />
+        </div>
         <div class="ri-message">
-          <img width="16px" height="18px" src="../../common/image/my_settings_ring.png"/>
+          <img width="16px" height="18px" src="../../common/image/my_settings_ring.png" />
         </div>
       </div>
     </div>
@@ -68,7 +70,7 @@
     <router-view></router-view>
 
     <div>
-      <img width="100%" src="../../common/image/my_settings_bottom.png"/>
+      <img width="100%" src="../../common/image/my_settings_bottom.png" />
     </div>
   </div>
 </template>
@@ -105,7 +107,7 @@ export default {
           } else {
             _this.name = "未设置";
             _this.isLogin = false;
-            _this.headerAvatar = '';
+            _this.headerAvatar = "";
           }
         }
       );
@@ -113,7 +115,7 @@ export default {
     // 跳转到原生页面
     gotoLogin() {
       let _this = this;
-      if(_this.isLogin) {
+      if (_this.isLogin) {
         window.phihome.app.openPage("lcs.account.personinfo", null, function(
           response
         ) {
@@ -126,30 +128,31 @@ export default {
           _this.queryAccountDetail();
         });
       }
-
     },
     gotoPersonInfo() {
       window.phihome.app.openPage("lcs.account.personinfo", null, function(
         response
       ) {});
     },
+    /**
+     * 这5个可以封装成一个啊
+     */
     gotoAllOrderList() {
-      this.$router.push({ name: "Orderlist", params: { tab_id: "1"}});
+      this.$router.push({ name: "Orderlist", params: { tab_id: "1" } });
     },
     handleWaitpayOnclick() {
-      this.$router.push({ name: "Orderlist", params: { tab_id: "2"}});
+      this.$router.push({ name: "Orderlist", params: { tab_id: "2" } });
     },
     handleWaitCommissionOnclick() {
-      this.$router.push({ name: "Orderlist", params: { tab_id: "3"}});
+      this.$router.push({ name: "Orderlist", params: { tab_id: "3" } });
     },
     handleAlreadyCommissionOnclick() {
-      this.$router.push({ name: "Orderlist", params: { tab_id: "4"}});
+      this.$router.push({ name: "Orderlist", params: { tab_id: "4" } });
     },
     handleFailedOnclick() {
-      this.$router.push({ name: "Orderlist", params: { tab_id: "5"}});
+      this.$router.push({ name: "Orderlist", params: { tab_id: "5" } });
     }
-  },
-  components: {}
+  }
 };
 </script>
 
@@ -163,19 +166,22 @@ export default {
 
   /* 头部功能模块 */
   .setting-header {
+    width: 100%;
     height: calc(143px + 14px);
-    padding-left: 18px;
     position: relative;
-    background-image url("~@/common/image/my_settings_header_background.png")
+    background: url('../../common/image/my_settings_header_background.png') center center;
+    background-color: red;
+    background-size: cover;
     border-bottom: solid 1px gainsboro;
 
     .content-wrapper {
-      padding: 24px 12px 18px 0px;
+      padding: 24px 12px 18px 18px;
       font-size: 0;
 
       .avatar {
         vertical-align: top;
         display: inline-block;
+
         .header_avatar {
           border-radius: 40px;
         }
@@ -186,6 +192,7 @@ export default {
         display: inline-block;
         font-size: 14px;
         margin-left: 16px;
+        color: #ffffff;
 
         .av-name {
           margin-top: 10px;
@@ -195,6 +202,8 @@ export default {
 
         .money-all {
           font-size: 9px;
+          border: 1px solid #FFDE00;
+          border-radius: 8px;
         }
       }
     }
@@ -207,7 +216,8 @@ export default {
     font-size: 20px;
 
     .ri-setting {
-      visibility: hidden;
+      // visibility: hidden;
+      margin-right: 16px;
       display: inline-block;
     }
 
