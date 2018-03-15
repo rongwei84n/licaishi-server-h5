@@ -43,7 +43,7 @@
               <img src="~@/common/image/icon_31.jpg" alt=""><br/>
               <span>股权基金</span>
             </li>
-            <!-- 
+            <!--
             <li @click="toFuncPage" class="fl">
               <img src="~@/common/image/icon_32.jpg" alt=""><br/>
               <span>视频路演</span>
@@ -138,7 +138,7 @@ export default {
     recommendProducts() {
       ajax({
         url: "/srv/v1/product/recommendProducts?recommendType=2",
-        method: "GET"
+        method: "get"
       }).then(res => {
         if (res.status === 200) {
           this.recommendProductsList = res.data.result.slice(0, 2);
@@ -149,7 +149,7 @@ export default {
     newRecommendProducts() {
       ajax({
         url: "/srv/v1/product/recommendProducts?recommendType=1",
-        method: "GET"
+        method: "get"
       }).then(res => {
         if (res.status === 200) {
           this.newRecommendProductsList = res.data.result.slice(0, 2);
