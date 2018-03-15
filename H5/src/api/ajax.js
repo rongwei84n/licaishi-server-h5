@@ -45,17 +45,18 @@ const IP_PORT = {
 function ajax({
   url,
   params,
-  method = "POST",
+  method = "post",
   qsStatus = true,
   headers = {
     "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
   },
 } = {}) {
   return new Promise((resolve, reject) => {
-    console.log("开始请求1");
-    const method = method.toLocaleLowerCase()
+    console.log("开始请求1 method " + method);
+    let methodL = method.toLocaleLowerCase();
+    console.log("method " + methodL);
     window.phihome.util.netRequest(
-      method,
+      methodL,
       IP_PORT.houtai + url,
       headers,
       params,
