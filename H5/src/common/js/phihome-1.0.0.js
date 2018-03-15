@@ -129,10 +129,10 @@
     },
     /**
      * 有空把参数注释一下
-     * 
-     * @param {} pageName 
-     * @param {*} pageExtra 
-     * @param {*} successCallback 
+     *
+     * @param {} pageName
+     * @param {*} pageExtra
+     * @param {*} successCallback
      */
     openPage(pageName, pageExtra, successCallback) {
       var data = JSON.stringify({ pageName: pageName, pageExtra: pageExtra });
@@ -144,7 +144,7 @@
 
   /**
    * 工具类相关api
-   * 
+   *
    * @param {String} netAction  请求方式
    * @param {String} url 请求路径
    * @param {*} requestHeader 请求头
@@ -163,7 +163,7 @@
         var responseJson = JSON.parse(response);
         // 错误状态包括：设备处于离线状态
         if (responseJson.errorCode !== 0) {
-          window.phihome.app.toast(responseJson.errorMsg, function (response) { });
+          window.phihome.app.toast(responseJson.errorMsg, function(response) {});
         }
         successCallback(response);
       });
