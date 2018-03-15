@@ -6,7 +6,7 @@ import axios from "axios"
 
 const IP_PORT = {
   // 接口调试
-  houtai: "http://47.97.100.240", 
+  houtai: "http://47.97.100.240",
 }
 
 /**
@@ -16,6 +16,31 @@ const IP_PORT = {
  * @param {Object} params 请求参数
  * @param {String} method 请求方法
  */
+// function ajax({
+//   url,
+//   params,
+//   method = "POST",
+//   qsStatus = true,
+//   headers = {
+//     "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
+//   },
+// } = {}) {
+//   return new Promise((resolve, reject) => {
+//     axios({
+//       withCredentials: true,
+//       // TOOD:路径前缀
+//       url: IP_PORT.houtai + url,
+//       data: qsStatus ? qs.stringify(Object.assign({}, params)) : params,
+//       headers,
+//       method,
+//       timeout: 10000,
+//     }).then(
+//       (res) => resolve(res),
+//       (err) => reject(err)
+//     )
+//   })
+// }
+
 function ajax({
   url,
   params,
@@ -26,18 +51,17 @@ function ajax({
   },
 } = {}) {
   return new Promise((resolve, reject) => {
-    axios({
-      withCredentials: true,
-      // TOOD:路径前缀
-      url: IP_PORT.houtai + url,
-      data: qsStatus ? qs.stringify(Object.assign({}, params)) : params,
-      headers,
+    console.log("开始请求1");
+    window.phihome.util.netRequest(
       method,
-      timeout: 10000,
-    }).then(
-      (res) => resolve(res),
-      (err) => reject(err)
-    )
+      IP_PORT.houtai + url,
+      "",
+      "",
+      function(res) {
+        console.log("回调函数返回成功");
+        res => resolve(res)
+      }
+    );
   })
 }
 

@@ -242,7 +242,6 @@ export default {
      * 立即预约
      */
     subscribe() {
-      console.log(111);
       // 跳转到预约页面，目前不知是否需要接口
       this.$router.push({
         name: "pOrder",
