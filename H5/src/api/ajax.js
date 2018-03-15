@@ -53,6 +53,7 @@ function ajax({
 } = {}) {
   return new Promise((resolve, reject) => {
     console.log("开始请求1");
+    const method = method.toLocaleLowerCase()
     window.phihome.util.netRequest(
       method,
       IP_PORT.houtai + url,
