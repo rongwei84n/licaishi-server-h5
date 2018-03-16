@@ -216,7 +216,7 @@ export default {
     font-size: 20px;
 
     .ri-setting {
-      // visibility: hidden;
+      visibility: hidden;
       margin-right: 16px;
       display: inline-block;
     }
