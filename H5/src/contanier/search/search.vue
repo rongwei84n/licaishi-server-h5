@@ -123,7 +123,11 @@
             response = JSON.parse(response);
             if (response.error == 0) {
               //获取账号成功
-              _this.name = response.data.nickname;
+              if(response.data.nickname == '') {
+                _this.name = "未设置";
+              }else {
+                _this.name = response.data.nickname;
+              }
               _this.headerAvatar = response.data.img;
               _this.isLogin = true;
             } else {
