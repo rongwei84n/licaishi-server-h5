@@ -75,6 +75,8 @@
             } else {
               this.pullup = false;
             }
+          } else if(res.status === 2) { //未登录
+            this.back();
           }
         });
       }
