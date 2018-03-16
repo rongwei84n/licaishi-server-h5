@@ -194,6 +194,8 @@
                   this.pullup5 = res.data.result.pager.hasNaxtPage;
                 }
               }
+            }else if(res.status === 2) {//未登录
+              this.back();
             }
             this.copyValue();
           });
