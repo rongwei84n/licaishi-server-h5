@@ -66,6 +66,13 @@ function ajax({
           data: JSON.parse(res),
           status: JSON.parse(res).status
         }
+
+        if(temObj.status === 2) {//token校验失败，跳转登录
+          window.phihome.app.openPage("lcs.account.login", null, function(
+            response
+          ) {
+          });
+        }
         console.log(temObj);
         resolve(temObj)
       }
