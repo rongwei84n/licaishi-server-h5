@@ -4,20 +4,20 @@
     <div class="setting-header">
       <div class="content-wrapper" v-on:click="gotoLogin">
         <div class="avatar">
-          <img width="64" height="64" v-if="headerAvatar.length <= 0" src="~@/common/image/head_portrait.png" />
-          <img width="64" height="64" v-else :src="headerAvatar" class="header_avatar" />
+          <img width="64" height="64" v-if="headerAvatar.length <= 0" src="~@/common/image/head_portrait.png"/>
+          <img width="64" height="64" v-else :src="headerAvatar" class="header_avatar"/>
         </div>
         <div class="content">
           <div class="av-name">{{name}}</div>
-          <div class="money-all">累计佣金: 10000元</div>
+          <div class="money-all">累计佣金: {{commission}}元</div>
         </div>
       </div>
       <div class="right-icon">
         <div class="ri-setting" v-on:click="gotoPersonInfo">
-          <img width="16px" height="18px" src="../../common/image/my_settings_ring.png" />
+          <img width="16px" height="18px" src="../../common/image/my_settings_ring.png"/>
         </div>
         <div class="ri-message">
-          <img width="16px" height="18px" src="../../common/image/my_settings_ring.png" />
+          <img width="16px" height="18px" src="../../common/image/my_settings_ring.png"/>
         </div>
       </div>
     </div>
@@ -27,9 +27,9 @@
       <div class="view-all-orders" v-on:click="gotoAllOrderList">查看全部订单></div>
       <img slot="icon" src="../../common/image/my_settings_order.png" width="24" height="24" class="icon">
       <div class="my-order">
-        <hr color="#EDEEEF" />
+        <hr color="#EDEEEF"/>
         <span>我的订单</span>
-        <hr color="#EDEEEF" />
+        <hr color="#EDEEEF"/>
       </div>
       <div class="order-items">
         <div class="order-items-tab" v-on:click="handleWaitpayOnclick">
@@ -70,249 +70,260 @@
     <router-view></router-view>
 
     <div>
-      <img width="100%" src="../../common/image/my_settings_bottom.png" />
+      <img width="100%" src="../../common/image/my_settings_bottom.png"/>
     </div>
   </div>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      isLogin: false,
-      headerAvatar: "",
-      name: "未登录",
-      neturl: "http://47.97.100.240/"
-    };
-  },
-  created: function() {
-    this.queryAccountDetail();
-  },
+  import ajax from "api/ajax";
 
-  methods: {
-    queryAccountDetail() {
-      let _this = this;
-      window.phihome.util.netRequest(
-        "get",
-        _this.neturl + "srv/v1/accountDetail",
-        "",
-        "",
-        function(response) {
-          response = JSON.parse(response);
-          if (response.error == 0) {
-            //获取账号成功
-            _this.name = response.data.nickname;
-            _this.headerAvatar = response.data.img;
-            _this.isLogin = true;
-          } else {
-            _this.name = "未设置";
-            _this.isLogin = false;
-            _this.headerAvatar = "";
+  export default {
+    data() {
+      return {
+        commission: "未登录",
+        isLogin: false,
+        headerAvatar: "",
+        name: "未登录",
+        neturl: "http://47.97.100.240/"
+      };
+    },
+    created: function () {
+      this.queryAccountDetail();
+      this.queryCommission();
+    },
+
+    methods: {
+      queryCommission() { //查询佣金接口
+        ajax({
+          url: `/srv/v1/workshop/queryCommission`,
+          method: "GET"
+        }).then(res => {
+          if (res.status === 200) {//查询成功
+            this.commission = res.data.result.sumCommission;
+          } else {//未登录
+            this.commission = "未登录";
           }
+        });
+      },
+      queryAccountDetail() {
+        let _this = this;
+        window.phihome.util.netRequest(
+          "get",
+          _this.neturl + "srv/v1/accountDetail",
+          "",
+          "",
+          function (response) {
+            response = JSON.parse(response);
+            if (response.error == 0) {
+              //获取账号成功
+              _this.name = response.data.nickname;
+              _this.headerAvatar = response.data.img;
+              _this.isLogin = true;
+            } else {
+              _this.name = "未设置";
+              _this.isLogin = false;
+              _this.headerAvatar = "";
+            }
+          }
+        );
+      },
+      // 跳转到原生页面
+      gotoLogin() {
+        let _this = this;
+        if (_this.isLogin) {
+          window.phihome.app.openPage("lcs.account.personinfo", null, function (response) {
+            _this.queryAccountDetail();
+          });
+        } else {
+          window.phihome.app.openPage("lcs.account.login", null, function (response) {
+            _this.queryAccountDetail();
+          });
         }
-      );
-    },
-    // 跳转到原生页面
-    gotoLogin() {
-      let _this = this;
-      if (_this.isLogin) {
-        window.phihome.app.openPage("lcs.account.personinfo", null, function(
-          response
-        ) {
-          _this.queryAccountDetail();
+      },
+      gotoPersonInfo() {
+        window.phihome.app.openPage("lcs.account.personinfo", null, function (response) {
         });
-      } else {
-        window.phihome.app.openPage("lcs.account.login", null, function(
-          response
-        ) {
-          _this.queryAccountDetail();
-        });
+      },
+      /**
+       * 这5个可以封装成一个啊
+       */
+      gotoAllOrderList() {
+        this.$router.push({name: "Orderlist", params: {tab_id: "1"}});
+      },
+      handleWaitpayOnclick() {
+        this.$router.push({name: "Orderlist", params: {tab_id: "2"}});
+      },
+      handleWaitCommissionOnclick() {
+        this.$router.push({name: "Orderlist", params: {tab_id: "3"}});
+      },
+      handleAlreadyCommissionOnclick() {
+        this.$router.push({name: "Orderlist", params: {tab_id: "4"}});
+      },
+      handleFailedOnclick() {
+        this.$router.push({name: "Orderlist", params: {tab_id: "5"}});
       }
-    },
-    gotoPersonInfo() {
-      window.phihome.app.openPage("lcs.account.personinfo", null, function(
-        response
-      ) {});
-    },
-    /**
-     * 这5个可以封装成一个啊
-     */
-    gotoAllOrderList() {
-      this.$router.push({ name: "Orderlist", params: { tab_id: "1" } });
-    },
-    handleWaitpayOnclick() {
-      this.$router.push({ name: "Orderlist", params: { tab_id: "2" } });
-    },
-    handleWaitCommissionOnclick() {
-      this.$router.push({ name: "Orderlist", params: { tab_id: "3" } });
-    },
-    handleAlreadyCommissionOnclick() {
-      this.$router.push({ name: "Orderlist", params: { tab_id: "4" } });
-    },
-    handleFailedOnclick() {
-      this.$router.push({ name: "Orderlist", params: { tab_id: "5" } });
     }
-  }
-};
+  };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-// @import '~common/stylus/variable';
-.settings-all-0 {
-  position: relative;
-  width: 100%;
-  background: #EDF1F5;
-  z-index: 2;
-
-  /* 头部功能模块 */
-  .setting-header {
+  // @import '~common/stylus/variable';
+  .settings-all-0 {
+    position: relative;
     width: 100%;
-    height: calc(143px + 14px);
-    position: relative;
-    background: url('../../common/image/my_settings_header_background.png') center center;
-    background-color: red;
-    background-size: cover;
-    border-bottom: solid 1px gainsboro;
+    background: #EDF1F5;
+    z-index: 2;
 
-    .content-wrapper {
-      padding: 24px 12px 18px 18px;
-      font-size: 0;
-
-      .avatar {
-        vertical-align: top;
-        display: inline-block;
-
-        .header_avatar {
-          border-radius: 40px;
-        }
-      }
-
-      .content {
-        align-content: center;
-        display: inline-block;
-        font-size: 14px;
-        margin-left: 16px;
-        color: #ffffff;
-
-        .av-name {
-          margin-top: 10px;
-          font-size: 12px;
-          margin-bottom: 10px;
-        }
-
-        .money-all {
-          font-size: 9px;
-          border: 1px solid #FFDE00;
-          border-radius: 8px;
-        }
-      }
-    }
-  }
-
-  .right-icon {
-    position: absolute;
-    right: 18px;
-    top: 24px;
-    font-size: 20px;
-
-    .ri-setting {
-      visibility: hidden;
-      margin-right: 16px;
-      display: inline-block;
-    }
-
-    .ri-message {
-      display: inline-block;
-    }
-  }
-
-  /* 我的订单模块 */
-  .setting-order {
-    position: relative;
-    height: 128px;
-    width: 100vw;
-    background: #FFFFFF;
-
-    .view-all-orders {
-      position: absolute;
-      font-size: 10px;
-      color: #666666;
-      top: 6px;
-      right: 4px;
-    }
-
-    .icon {
-      position: absolute;
-      top: -13px;
-      left: calc(50% - 12px);
-      width: 24px;
-      height: 27px;
-    }
-
-    /* 我的订单 */
-    .my-order {
-      width: 100vw;
-      height: calc(128px - 84px);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      >hr {
-        flex: 1;
-        color: #EDEEEF;
-        // border-bottom: 1px solid #EDEEEF;
-      }
-
-      // >img {
-      // height: 22px;
-      // width: 22px;
-      // position: absolute;
-      // }
-      >span {
-        margin: 0 6px;
-        font-size: 14px;
-        color: #666666;
-      }
-    }
-
-    /* 订单导航模块 */
-    .order-items {
-      display: flex;
-      justify-content: space-around;
+    /* 头部功能模块 */
+    .setting-header {
       width: 100%;
-      height: 84px;
+      height: calc(143px + 14px);
+      position: relative;
+      background: url('../../common/image/my_settings_header_background.png') center center;
+      background-color: red;
+      background-size: cover;
+      border-bottom: solid 1px gainsboro;
 
-      .order-items-tab {
-        height: 80%;
-        flex: 1;
+      .content-wrapper {
+        padding: 24px 12px 18px 18px;
+        font-size: 0;
+
+        .avatar {
+          vertical-align: top;
+          display: inline-block;
+
+          .header_avatar {
+            border-radius: 40px;
+          }
+        }
+
+        .content {
+          align-content: center;
+          display: inline-block;
+          font-size: 14px;
+          margin-left: 16px;
+          color: #ffffff;
+
+          .av-name {
+            margin-top: 10px;
+            font-size: 12px;
+            margin-bottom: 10px;
+          }
+
+          .money-all {
+            font-size: 9px;
+            border: 1px solid #FFDE00;
+            border-radius: 8px;
+          }
+        }
+      }
+    }
+
+    .right-icon {
+      position: absolute;
+      right: 18px;
+      top: 24px;
+      font-size: 20px;
+
+      .ri-setting {
+        visibility: hidden;
+        margin-right: 16px;
+        display: inline-block;
+      }
+
+      .ri-message {
+        display: inline-block;
+      }
+    }
+
+    /* 我的订单模块 */
+    .setting-order {
+      position: relative;
+      height: 128px;
+      width: 100vw;
+      background: #FFFFFF;
+
+      .view-all-orders {
+        position: absolute;
+        font-size: 10px;
+        color: #666666;
+        top: 6px;
+        right: 4px;
+      }
+
+      .icon {
+        position: absolute;
+        top: -13px;
+        left: calc(50% - 12px);
+        width: 24px;
+        height: 27px;
+      }
+
+      /* 我的订单 */
+      .my-order {
+        width: 100vw;
+        height: calc(128px - 84px);
         display: flex;
-        flex-direction: column;
-        justify-content: space-around;
+        justify-content: space-between;
         align-items: center;
 
-        >span {
-          font-size: 10px;
-          color: #303030;
+        > hr {
+          flex: 1;
+          color: #EDEEEF;
+          // border-bottom: 1px solid #EDEEEF;
+        }
+
+        // >img {
+        // height: 22px;
+        // width: 22px;
+        // position: absolute;
+        // }
+        > span {
+          margin: 0 6px;
+          font-size: 14px;
+          color: #666666;
+        }
+      }
+
+      /* 订单导航模块 */
+      .order-items {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        height: 84px;
+
+        .order-items-tab {
+          height: 80%;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          align-items: center;
+
+          > span {
+            font-size: 10px;
+            color: #303030;
+          }
         }
       }
     }
-  }
 
-  /* 功能导航模块 */
-  .my-owns {
-    margin: 12px 0;
-    background: #FFFFFF;
-    height: 172px;
-    border-bottom: solid 1px gainsboro;
+    /* 功能导航模块 */
+    .my-owns {
+      margin: 12px 0;
+      background: #FFFFFF;
+      height: 172px;
+      border-bottom: solid 1px gainsboro;
 
-    >div {
-      border-bottom: 1px solid #EDEEEF;
+      > div {
+        border-bottom: 1px solid #EDEEEF;
+      }
+
+      /* 改变cell组件内的文字大小 */
+      .mint-cell-text {
+        font-size: 14px;
+      }
     }
-
-    /* 改变cell组件内的文字大小 */
-    .mint-cell-text {
-      font-size: 14px;
-    }
   }
-}
 </style>
