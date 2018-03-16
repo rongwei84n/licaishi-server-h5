@@ -161,10 +161,6 @@
       });
       JSBridge.callHandler('netRequest', data, function (response) {
         var responseJson = JSON.parse(response);
-        // 错误状态包括：设备处于离线状态
-        if (responseJson.errorCode !== 0) {
-          window.phihome.app.toast(responseJson.errorMsg, function(response) {});
-        }
         successCallback(response);
       });
     }
