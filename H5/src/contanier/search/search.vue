@@ -9,7 +9,7 @@
         </div>
         <div class="content">
           <div class="av-name">{{name}}</div>
-          <div class="money-all">累计佣金: {{commission}}元</div>
+          <div class="money-all">累计佣金: {{commission}}</div>
         </div>
       </div>
       <div class="right-icon">
@@ -95,16 +95,22 @@
 
     methods: {
       queryCommission() { //查询佣金接口
-        ajax({
-          url: `/srv/v1/workshop/queryCommission`,
-          method: "GET"
-        }).then(res => {
-          if (res.status === 200) {//查询成功
-            this.commission = res.data.result.sumCommission;
-          } else {//未登录
-            this.commission = "未登录";
+        let _this = this;
+        window.phihome.util.netRequest(
+          "get",
+          _this.neturl + "srv/v1/workshop/queryCommission",
+          "",
+          "",
+          function (response) {
+            response = JSON.parse(response);
+            console.debug("response.status:  " + response.status);
+            if (response.status === 200) {//查询成功
+              _this.commission = response.result.sumCommission + "元";
+            } else {//未登录
+              _this.commission = "未登录";
+            }
           }
-        });
+        );
       },
       queryAccountDetail() {
         let _this = this;
@@ -121,7 +127,7 @@
               _this.headerAvatar = response.data.img;
               _this.isLogin = true;
             } else {
-              _this.name = "未设置";
+              _this.name = "未登录";
               _this.isLogin = false;
               _this.headerAvatar = "";
             }
@@ -134,10 +140,12 @@
         if (_this.isLogin) {
           window.phihome.app.openPage("lcs.account.personinfo", null, function (response) {
             _this.queryAccountDetail();
+            _this.queryCommission();
           });
         } else {
           window.phihome.app.openPage("lcs.account.login", null, function (response) {
             _this.queryAccountDetail();
+            _this.queryCommission();
           });
         }
       },
