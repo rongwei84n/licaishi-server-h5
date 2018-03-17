@@ -5,6 +5,7 @@ import router from './router'
 import FastClick from 'FastClick'
 import VueLazyload from 'vue-lazyload'
 import store from './store'
+import moment from "moment";
 import {
   Cell,
   Field,
@@ -16,6 +17,7 @@ import {
   Tabbar,
   TabItem,
   MessageBox,
+  Swipe, SwipeItem,
   Picker,
   TabContainer,
   TabContainerItem,
@@ -39,6 +41,8 @@ Vue.component(Header.name, Header)
 Vue.component(Button.name, Button)
 Vue.component(Navbar.name, Navbar)
 Vue.component(Picker.name, Picker)
+Vue.component(Swipe.name, Swipe);
+Vue.component(SwipeItem.name, SwipeItem);
 Vue.component(Tabbar.name, Tabbar);
 Vue.component(TabItem.name, TabItem);
 Vue.component(MessageBox.name, MessageBox)
@@ -52,6 +56,7 @@ Vue.use(VueLazyload, {
   // loading: require('common/image/wangzai.jpg')
 })
 // Vue.use(ajax)
+moment.locale("zh-CN");
 
 /* eslint-disable no-new */
 new Vue({
@@ -62,3 +67,4 @@ new Vue({
 })
 
 Vue.prototype.$ajax = ajax
+Vue.prototype.$moment = moment
