@@ -20,6 +20,7 @@ import Mycustom from '@/components/myCustom/myCustom'
 import customOrder from '@/components/myCustom/customOrder'
 import customOrderDetail from '@/components/myCustom/customOrderDetail'
 import mycommission from '@/components/mycommission/mycommission'
+import generalize from '@/components/generalize/generalize'
 
 Vue.use(Router)
 
@@ -57,7 +58,11 @@ export default new Router({
         {
           path: '/rank/mycommission',
           component: mycommission
-        }
+        },
+        {
+          path: '/rank/generalize',
+          component: generalize
+        },
       ]
     },
     {

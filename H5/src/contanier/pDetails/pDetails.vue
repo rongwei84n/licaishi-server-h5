@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-17 13:11:50
+ * @Last Modified time: 2018-03-17 13:13:53
  *
  * 产品详情组件
  */

@@ -100,6 +100,15 @@ export default {
     this.newRecommendProducts();
   },
   methods: {
+    // 更多按钮跳转事件
+    to_moreClick(url) {
+      console.log(url);
+      // this.$router.push(url);
+      // this.$router.push({
+      //   path: "/product",
+      //   query: { pCode: this.pCode }
+      // });
+    },
     /**
      * 导航栏点击事件
      */
@@ -113,6 +122,8 @@ export default {
     },
     //
     to_NanProducts(recommendType) {
+      console.log("to_NanProducts");
+      console.log(recommendType);
       this.$router.push({
         path: "/hotProducts",
         query: { recommendType: recommendType }
@@ -147,10 +158,13 @@ export default {
     // 请求推荐热销产品列表
     recommendProducts() {
       ajax({
-        url: "/srv/v1/product/recommendProducts?recommendType=2",
-        method: "get"
+        url: "/srv/v1/product/recommendProducts",
+        params: {
+          recommendType: 2
+        },
+        method: "GET"
       }).then(res => {
-        if (res.status == 200) {
+        if (res.status === 200) {
           this.recommendProductsList = res.data.result.slice(0, 2);
         }
       });
@@ -158,8 +172,11 @@ export default {
     // 获取最新推荐产品列表
     newRecommendProducts() {
       ajax({
-        url: "/srv/v1/product/recommendProducts?recommendType=1",
-        method: "get"
+        url: "/srv/v1/product/recommendProducts",
+        params: {
+          recommendType: 1
+        },
+        method: "GET"
       }).then(res => {
         if (res.status === 200) {
           this.newRecommendProductsList = res.data.result.slice(0, 2);

@@ -7,27 +7,32 @@
         提交成功，请耐心等待审核
       </div>
     </div>
-    <mt-field label="名称：" placeholder="请输入名称" type="text" v-model="workname"></mt-field>
-    <mt-field label="网址：" placeholder="请输入网址" type="url" v-model="address"></mt-field>
-    <mt-field label="简介：" placeholder="请输入简介" type="textarea" v-model="dec"></mt-field>
-    <mt-field label="客服电话：" placeholder="请输入客服电话" type="number" v-model="tep"></mt-field>
+    <mt-field label="名称：" placeholder="请输入名称" type="text" v-model="workRoom.workshopName"></mt-field>
+    <mt-field label="网址：" placeholder="请输入网址" type="url" v-model="workRoom.workshopUrl"></mt-field>
+    <mt-field label="简介：" placeholder="请输入简介" type="textarea" v-model="workRoom.workshopIntro"></mt-field>
+    <mt-field label="客服电话：" placeholder="请输入客服电话" type="number" v-model="workRoom.phone"></mt-field>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import workRoomHeader from "components/workRoomHeader/workRoomHeader";
+  import ajax from "api/ajax";
   export default {
     data(){
       return{
-        workname:'理财师工作室名称',
+        /**workname:'理财师工作室名称',
         address:'http://baidu.com',
         dec:'欢迎来到理财师社区，阿斯兰的激发了就是看了就放大来看就是代理反馈',
-        tep:'15333336666',
-        proFlag:false
+        tep:'15333336666',*/
+        proFlag:false,
+        workRoom:""
       }
     },
     components:{
       workRoomHeader
+    },
+    created() {
+      this.get_work_room_info();
     },
     methods:{
       modif(){
@@ -35,6 +40,17 @@
       },
       back(){
         this.$router.go(-1)
+      },
+      get_work_room_info(){
+        ajax({
+          url: `/srv/v1/Workshop/queryWorkshop`,
+          method: "GET"
+        }).then(res => {
+
+          if (res.status === 200) {
+            this.workRoom = res.data.result;
+          }
+        });
       }
     }
   }
