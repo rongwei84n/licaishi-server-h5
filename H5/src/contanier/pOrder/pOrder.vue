@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-17 13:04:45
+ * @Last Modified time: 2018-03-17 19:35:06
  *
  * 基础布局组件
  * 带头部与底部布局
@@ -29,8 +29,9 @@
         <mt-field label="预约金额" placeholder="请输入预约金额" v-model="amount">
           <span>万元</span>
         </mt-field>
-        <mt-field label="最迟打款日期" placeholder="点击右侧图标选择日期" disabled v-model="lastPayDate" @click.native="openDatePicker">
-          <i class="fa fa-calendar"></i>
+        <mt-field label="最迟打款日期" placeholder="最迟打款日期" disabled v-model="pLatestPayNum">
+          <!-- <mt-field label="最迟打款日期" placeholder="最迟打款日期" disabled v-model="pLatestPayNum" @click.native="openDatePicker"> -->
+          <!-- <i class="fa fa-calendar"></i> -->
         </mt-field>
         <mt-field label="备注" placeholder="备注" type="textarea" rows="4" v-model="note"></mt-field>
       </div>
@@ -110,7 +111,7 @@ export default {
       bankCardNo: "", //银行卡号
       bankName: "", //打卡行
       amount: "", //预约金额
-      lastPayDate: "", //最迟打款日期
+      pLatestPayNum: "", //最迟打款日期
       pickerValue: "",
       note: "", //备注
       proRatio: "", // 预期收益率
@@ -119,10 +120,7 @@ export default {
   },
   created() {
     this.get_Customers();
-    this.lastPayDate = this.pickerValue = formatDateTime({
-      time: new Date(),
-      ymd: true
-    });
+    this.pLatestPayNum = this.$route.query.pLatestPayNum;
     // 此处router获取失败
     this.pId = this.$route.query.pId;
     this.pName = this.$route.query.pShortName;
@@ -186,7 +184,7 @@ export default {
         this.check_reg("bankCardNo", "银行卡号未填写") &&
         this.check_reg("bankName", "打卡行未选择") &&
         this.check_reg("amount", "预约金额未填写") &&
-        this.check_reg("lastPayDate", "最迟打款日期未选择")
+        this.check_reg("pLatestPayNum", "最迟打款日期未选择")
       ) {
         const promise = new Promise(function(resolve, reject) {
           ajax({
@@ -210,7 +208,7 @@ export default {
                 customerName: this.customerName,
                 cardId: this.cardId,
                 amount: this.amount,
-                lastPayDate: this.lastPayDate,
+                pLatestPayNum: this.pLatestPayNum,
                 comRatio: this.comRatio,
                 proRatio: this.proRatio,
                 issuingBank: this.bankName,
@@ -225,9 +223,7 @@ export default {
             });
           },
           // 此处应该跳转登录页
-          err => {
-            
-          }
+          err => {}
         );
       }
     },
@@ -239,7 +235,7 @@ export default {
     },
     // 获取当前时间
     handleConfirm(date) {
-      this.lastPayDate = this.pickerValue = formatDateTime({
+      this.pLatestPayNum = this.pickerValue = formatDateTime({
         time: date,
         ymd: true
       });

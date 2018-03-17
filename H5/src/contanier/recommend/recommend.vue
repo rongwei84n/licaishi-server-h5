@@ -77,6 +77,7 @@
 
 <script type="text/ecmascript-6">
 import ajax from "api/ajax";
+import axios from "axios";
 import Loading from "base/loading/loading";
 import Scroll from "base/scroll/scroll";
 import { getRecommend } from "api/recommend";
@@ -157,12 +158,13 @@ export default {
     },
     // 请求推荐热销产品列表
     recommendProducts() {
-      ajax({
-        url: "/srv/v1/product/recommendProducts",
-        params: {
-          recommendType: 2
-        },
-        method: "GET"
+      axios({
+        withCredentials: true,
+        // TOOD:路径前缀
+        url:
+          "http://47.97.100.240/srv/v1/product/recommendProducts?recommendType=2",
+        method: "get",
+        timeout: 10000
       }).then(res => {
         if (res.status === 200) {
           this.recommendProductsList = res.data.result.slice(0, 2);
@@ -171,12 +173,13 @@ export default {
     },
     // 获取最新推荐产品列表
     newRecommendProducts() {
-      ajax({
-        url: "/srv/v1/product/recommendProducts",
-        params: {
-          recommendType: 1
-        },
-        method: "GET"
+      axios({
+        withCredentials: true,
+        // TOOD:路径前缀
+        url:
+          "http://47.97.100.240/srv/v1/product/recommendProducts?recommendType=1",
+        method: "get",
+        timeout: 10000
       }).then(res => {
         if (res.status === 200) {
           this.newRecommendProductsList = res.data.result.slice(0, 2);

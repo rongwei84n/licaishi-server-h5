@@ -2,13 +2,13 @@
  * @Author: 张浩然 
  * @Date: 2018-03-06 19:27:24 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-08 23:54:37
+ * @Last Modified time: 2018-03-17 17:39:01
  * 产品条件查询组件--此组件用于产品模块
  */
 
  <template>
   <div id="prodQueryModal">
-    <Scroll class="scroll-conntent" :data="ActiveIndexList">
+    <Scroll class="scroll-conntent" :data="status">
       <div>
         <div>
           <p class="title">募集状态</p>
@@ -69,7 +69,7 @@ export default {
     initList: {
       type: Array,
       default: function() {
-        return [0, 0, 0,0,0,0,0];
+        return [0, 0, 0, 0, 0, 0, 0];
       }
     },
     // 初始化key值
@@ -80,7 +80,7 @@ export default {
           /* 募集状态 */
           /* 目前产品成立状态放置 */
           // ["不限","预热中","募集中","募集结束","产品成立"],
-          ["不限","预热中","募集中","募集结束"],
+          ["不限", "预热中", "募集中", "募集结束"],
           /* 产品期限 */
           ["不限", "12个月以内", "12个月", "13-23个月", "24个月", "24个月以上"],
           /* 预期年化收益 */
@@ -110,36 +110,22 @@ export default {
             "基础设施",
             "资金池",
             "工商企业",
-            "其他",
+            "其他"
           ],
           /* 起购金额 */
-          [
-            "不限",
-            "50万以上",
-            "100万以上",
-            "200万以上",
-            "300万以上",
-          ],
+          ["不限", "50万以上", "100万以上", "200万以上", "300万以上"],
           /* 大小配比 */
-          [
-            "不限",
-            "小额畅打",
-            "已配出小额",
-            "严格配比",
-            "全大额",
-          ],
+          ["不限", "小额畅打", "已配出小额", "严格配比", "全大额"]
         ];
       }
-    }
+    },
+    status: ""
   },
   data() {
     return {
-      ActiveIndexList: [0, 0, 0,0,0,0,0], //初始化的选择项
-      KeyList: []
+      ActiveIndexList: [0, 0, 0, 0, 0, 0, 0] //初始化的选择项
+      // KeyList: []
     };
-  },
-  mounted() {
-    this.KeyList = [...this.pKeyList];
   },
   methods: {
     //   确定事件
@@ -161,7 +147,7 @@ export default {
       this.ActiveIndexList = [...this.initList];
     }
   },
-  components : {
+  components: {
     Scroll
   }
 };

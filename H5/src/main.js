@@ -5,6 +5,7 @@ import router from './router'
 import FastClick from 'FastClick'
 import VueLazyload from 'vue-lazyload'
 import store from './store'
+import moment from "moment";
 import {
   Cell,
   Field,
@@ -55,6 +56,7 @@ Vue.use(VueLazyload, {
   // loading: require('common/image/wangzai.jpg')
 })
 // Vue.use(ajax)
+moment.locale("zh-CN");
 
 /* eslint-disable no-new */
 new Vue({
@@ -65,3 +67,4 @@ new Vue({
 })
 
 Vue.prototype.$ajax = ajax
+Vue.prototype.$moment = moment

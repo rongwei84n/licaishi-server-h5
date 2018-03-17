@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-04 23:04:51 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-11 10:26:54
+ * @Last Modified time: 2018-03-17 20:08:11
  * 产品页-产品组件
  */
 
@@ -54,15 +54,19 @@ export default {
   },
   computed: {
     get_pSaleStatus() {
-      switch (this.productItem.pSaleStatus) {
-        case "01":
-          return "../../../static/image/product_status/preparing.png";
-        case "02":
-          return "../../../static/image/product_status/funding.png";
-        case "03":
-          return "../../../static/image/product_status/finish.png";
-        // case "04":
-        //   return "../../../static/image/product_status/complete.png";
+      // 非私募产品
+      if (this.productItem.pType !== "04") {
+        switch (this.productItem.pSaleStatus) {
+          case "01":
+            return "../../../static/image/product_status/preparing.png";
+          case "02":
+            return "../../../static/image/product_status/funding.png";
+          case "03":
+            return "../../../static/image/product_status/finish.png";
+          // case "04":
+          //   return "../../../static/image/product_status/complete.png";
+        }
+      } else {
       }
     },
     get_pInvestType() {
@@ -86,14 +90,29 @@ export default {
   },
   methods: {
     /**
+     *
      * @event 跳转到产品详情
      */
     to_pDetails() {
-      // TODO:点击之后带参数跳转到某一页面
-      this.$router.push({
-        name: "pDetails",
-        query: { pCode: this.productItem.pCode }
-      });
+      // 如果是私募产品则必须登录
+      if (this.productItem.pType === "04") {
+        this.$ajax({
+          url: `/srv/v1/login_status`,
+          method: "GET"
+        }).then(res => {
+          if (res.data.status === this.$store.state.status) {
+            this.$router.push({
+              name: "pDetails",
+              query: { pCode: this.productItem.pCode }
+            });
+          }
+        });
+      } else {
+        this.$router.push({
+          name: "pDetails",
+          query: { pCode: this.productItem.pCode }
+        });
+      }
     }
   }
 };

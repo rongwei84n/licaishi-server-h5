@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-17 13:13:53
+ * @Last Modified time: 2018-03-17 20:09:02
  *
  * 产品详情组件
  */
@@ -47,11 +47,11 @@
         <div class="p-basic-information">
           <div class="pro-header-content">
             <span>基础信息</span>
-            <span class="copy">
+            <span class="copy" data-clipboard-target="#information" data-clipboard-action="copy" id="information_btn" @click="copy('information_btn','#information')">
               <i></i>复制
             </span>
           </div>
-          <div class="body-content">
+          <div class="body-content" id="information">
             <div v-if="pDetailsObj.pFullName">
               <span class="title">产品全称</span>
               <span>{{pDetailsObj.pFullName}}</span>
@@ -83,6 +83,10 @@
             <div v-if="pDetailsObj.pSaleStartTime">
               <span class="title">发行时间</span>
               <span>{{pDetailsObj.pSaleStartTime}}</span>
+            </div>
+            <div v-if="pDetailsObj.pLatestPayNum">
+              <span class="title">最迟打款日期</span>
+              <span>{{pDetailsObj.pLatestPayNum}}</span>
             </div>
           </div>
         </div>
@@ -193,7 +197,7 @@ import {
   pPaymentInterestType,
   pSizeRatioType
 } from "common/js/pEnumerate";
-import ajax from "api/ajax";
+import Clipboard from "clipboard";
 import moduleTitle from "components/moduleTitle/moduleTitle";
 import Scroll from "base/scroll/scroll";
 import productItem from "components/productItem/productItem";
@@ -213,10 +217,27 @@ export default {
       pSizeRatioType_str: ""
     };
   },
-  mounted() {
+  created() {
     this.get_pDetails();
   },
   methods: {
+    /**
+     * @param btnId 按钮id
+     * @param targetId 目标块id
+     */
+    copy(btnId, targetId) {
+      var targetText = document.querySelector(targetId).innerHTML;
+      var clipboard = new Clipboard(btnId);
+      clipboard.on("success", function(e) {
+        alert("复制成功");
+        // alert(e);
+        e.clearSelection();
+      });
+      clipboard.on("error", function(e) {
+        console.error("Action:", e.action);
+        console.error("Trigger:", e.trigger);
+      });
+    },
     /**
      * 获取产品详情
      */
@@ -224,12 +245,15 @@ export default {
       if (this.$route.query) {
         this.pCode = this.$route.query.pCode;
       }
-      ajax({
+      this.$ajax({
         url: `/srv/v1/product/productDetail?pCode=${this.pCode}`,
         method: "GET"
       }).then(res => {
         if (res.status === this.$store.state.status) {
           this.pDetailsObj = res.data.result;
+          this.pDetailsObj.pLatestPayNum = this.$moment()
+            .add(this.pDetailsObj.pLatestPayNum, "d")
+            .format("YYYY-MM-DD");
           this.pInvestType_str = pInvestType[this.pDetailsObj.pInvestType];
           this.pPaymentInterestType_str =
             pPaymentInterestType[this.pDetailsObj.pPaymentInterestType];
@@ -243,19 +267,29 @@ export default {
      */
     subscribe() {
       // 判断当前是否登录
-      ajax({
-        url: `/srv/v1/login_status`,
-        method: "GET"
-      }).then(res => {
-        if (res.status === this.$store.state.status) {
-          this.$router.push({
-            name: "pOrder",
-            query: {
-              pId: this.pDetailsObj.pId,
-              pShortName: this.pDetailsObj.pShortName,
-              profitRebates: JSON.stringify(this.pDetailsObj.profitRebates)
-            }
-          });
+      // this.$ajax({
+      //   url: `/srv/v1/login_status`,
+      //   method: "GET"
+      // }).then(res => {
+      //   if (res.data.status === this.$store.state.status) {
+      //     this.$router.push({
+      //       name: "pOrder",
+      //       query: {
+      //         pId: this.pDetailsObj.pId,
+      //         pShortName: this.pDetailsObj.pShortName,
+      //         profitRebates: JSON.stringify(this.pDetailsObj.profitRebates),
+      //         pLatestPayNum: this.pDetailsObj.pLatestPayNum
+      //       }
+      //     });
+      //   }
+      // });
+      this.$router.push({
+        name: "pOrder",
+        query: {
+          pId: this.pDetailsObj.pId,
+          pShortName: this.pDetailsObj.pShortName,
+          profitRebates: JSON.stringify(this.pDetailsObj.profitRebates),
+          pLatestPayNum: this.pDetailsObj.pLatestPayNum
         }
       });
     },
@@ -265,25 +299,29 @@ export default {
   },
   computed: {
     pStatus() {
-      switch ("01") {
-        // 预热中
-        case "01":
-          return require("../../common/image/p-warm-up.png");
-          break;
-        // 募集中
-        case "02":
-          return require("../../common/image/p-funding.png");
-          break;
-        // 募集结束
-        case "03":
-          return require("../../common/image/p-finish.png");
-          break;
-        // 产品成立
-        case "04":
-          return require("../../common/image/p-complete.png");
-          break;
-        default:
-          break;
+      // 04代表是私募产品，以下是除去私募产品以外的产品状态
+      if (this.pDetailsObj.pType !== "04") {
+        switch ("01") {
+          // 预热中
+          case "01":
+            return require("../../common/image/p-warm-up.png");
+            break;
+          // 募集中
+          case "02":
+            return require("../../common/image/p-funding.png");
+            break;
+          // 募集结束
+          case "03":
+            return require("../../common/image/p-finish.png");
+            break;
+          // 产品成立
+          case "04":
+            return require("../../common/image/p-complete.png");
+            break;
+          default:
+            break;
+        }
+      } else {
       }
     }
   },
