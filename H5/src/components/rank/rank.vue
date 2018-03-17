@@ -50,6 +50,8 @@
           this.$router.push("/rank/mycustom")
         }else if(flag===3){
           this.$router.push("/rank/mycommission")
+        }else if(flag===4){
+          this.$router.push("/rank/generalize")
         }
       }
     }

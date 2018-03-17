@@ -7,18 +7,26 @@
       <div class="order_status_already_failed" v-if="status==='99'">{{cDisplayStatus}}</div>
     </mt-cell>
     <mt-cell :title="cDisplayProdName"></mt-cell>
-    <mt-cell :title="cDisplayOrderAmount"></mt-cell>
-    <mt-cell :title="cDisplayRebatePresent"></mt-cell>
-    <mt-cell :title="cDisplayRebateAmount"></mt-cell>
+    <mt-cell>
+      <div slot="title" class="title_prodname">{{cDisplayOrderAmount}}</div>
+    </mt-cell>
+    <mt-cell>
+      <div slot="title" class="title_prodname">{{cDisplayRebatePresent}}</div>
+    </mt-cell>
+    <mt-cell>
+      <div slot="title" class="title_prodname">{{cDisplayRebateAmount}}</div>
+    </mt-cell>
     <mt-cell :title="cDisplayVoucherStatus"></mt-cell>
     <mt-cell :title="cDisplayCustomerName"></mt-cell>
     <mt-cell v-if="status==='01'">
-      <div class="cancel_order">取消订单</div>
+      <div class="item_cancel_order" v-on:click="cancelOrder">取消订单</div>
     </mt-cell>
   </div>
 </template>
 
 <script>
+  import ajax from "api/ajax";
+
   export default {
     name: "order-list-item",
     props: {
@@ -42,13 +50,13 @@
         return "产品名称: " + this.prodName;
       },
       cDisplayOrderAmount(){
-        return "订单金额: " + this.orderAmount;
+        return "订单金额: " + this.orderAmount + "元";
       },
       cDisplayRebatePresent(){
         return "返佣比例: " + this.rebatePresent;
       },
       cDisplayRebateAmount(){
-        return "返佣金额: " + this.rebateAmount;
+        return "返佣金额: " + this.rebateAmount + "元";
       },
       cDisplayVoucherStatus(){ //支付状态
         if(this.voucharStatus === "1") {
@@ -73,11 +81,28 @@
         return "客户姓名: " + this.customerName;
       },
     },
+
+    methods: {
+      cancelOrder() {
+        ajax({
+          url: `/srv/v1/order/cancelOrder?orderNo=${this.orderId}`,
+          method: "POST"
+        }).then(res => {
+          if(res.status === 200) {
+            alert("cancel 成功");
+          }
+        });
+      }
+    }
   }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
   .all-content {
+    .title_prodname {
+      font-size: 14px;
+      color: #e10101;
+    }
     .order_status_waitpay {
       font-size: 14px;
       color: #e10101;
@@ -94,7 +119,7 @@
       color: #666666;
       font-size: 14px;
     }
-    .cancel_order {
+    .item_cancel_order {
       color: #212121;
       font-size:14px;
     }
