@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-13 18:57:28
+ * @Last Modified time: 2018-03-17 13:04:45
  *
  * 基础布局组件
  * 带头部与底部布局
@@ -187,28 +187,47 @@ export default {
         this.check_reg("amount", "预约金额未填写") &&
         this.check_reg("lastPayDate", "最迟打款日期未选择")
       ) {
-        // this.check_reg("customerName", "客户姓名未选择");
-        ajax({
-          url: "/srv/v1/order/createOrder",
-          params: {
-            productId: this.pId,
-            customerId: this.customerId,
-            customerName: this.customerName,
-            cardId: this.cardId,
-            amount: this.amount,
-            lastPayDate: this.lastPayDate,
-            comRatio: this.comRatio,
-            proRatio: this.proRatio,
-            issuingBank: this.bankName,
-            bankCardNo: this.bankCardNo,
-            note: this.note
-          },
-          method: "POST"
-        }).then(res => {
-          if (res.status === 200) {
-            this.$router.replace("/pOrderSuccess");
-          }
+        const promise = new Promise(function(resolve, reject) {
+          ajax({
+            url: `/srv/v1/login_status`,
+            method: "GET"
+          }).then(res => {
+            if (res.status === this.$store.state.status) {
+              resolve(res);
+            } else {
+              reject(err);
+            }
+          });
         });
+        promise.then(
+          res => {
+            ajax({
+              url: "/srv/v1/order/createOrder",
+              params: {
+                productId: this.pId,
+                customerId: this.customerId,
+                customerName: this.customerName,
+                cardId: this.cardId,
+                amount: this.amount,
+                lastPayDate: this.lastPayDate,
+                comRatio: this.comRatio,
+                proRatio: this.proRatio,
+                issuingBank: this.bankName,
+                bankCardNo: this.bankCardNo,
+                note: this.note
+              },
+              method: "POST"
+            }).then(res => {
+              if (res.status === 200) {
+                this.$router.replace("/pOrderSuccess");
+              }
+            });
+          },
+          // 此处应该跳转登录页
+          err => {
+            
+          }
+        );
       }
     },
     /**

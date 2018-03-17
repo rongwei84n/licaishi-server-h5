@@ -3,13 +3,22 @@
     <scroll ref="scroll" class="recommend-content" :data="newRecommendProductsList">
       <div>
         <div v-if="recommends.length" class="slider-wrapper" ref="sliderWrapper">
-          <slider>
+          <!-- <slider>
             <div v-for="(item,index) in recommends" :key="index">
               <a :href="item.linkUrl">
                 <img class="needsclick" @load="loadImage" :src="item.picUrl">
               </a>
             </div>
-          </slider>
+          </slider> -->
+          <mt-swipe :auto="4000">
+            <mt-swipe-item v-for="(item,index) in recommends" :key="index">
+              <a :href="item.link_url">
+                <img class="needsclick" @load="loadImage" :src="item.url">
+              </a>
+            </mt-swipe-item>
+            <!-- <mt-swipe-item>2</mt-swipe-item>
+            <mt-swipe-item>3</mt-swipe-item> -->
+          </mt-swipe>
         </div>
         <!-- 首页功能导航菜单 -->
         <div class="nav-func">
@@ -35,14 +44,14 @@
               <img src="~@/common/image/icon_29.jpg" alt=""><br>
               <span>债券基金</span>
             </li>
-            <!-- <li @click="toFuncPage" class="fl">
+            <li @click="toFuncPage('product',3)" class="fl">
               <img src="~@/common/image/icon_30.jpg" alt=""><br/>
               <span>阳光私募</span>
-            </li> -->
-            <li @click="toFuncPage('product',3)" class="fl">
+            </li>
+            <!-- <li @click="toFuncPage('product',4)" class="fl">
               <img src="~@/common/image/icon_31.jpg" alt=""><br/>
               <span>股权基金</span>
-            </li>
+            </li> -->
             <!--
             <li @click="toFuncPage" class="fl">
               <img src="~@/common/image/icon_32.jpg" alt=""><br/>
@@ -68,7 +77,6 @@
 
 <script type="text/ecmascript-6">
 import ajax from "api/ajax";
-import Slider from "base/slider/slider";
 import Loading from "base/loading/loading";
 import Scroll from "base/scroll/scroll";
 import { getRecommend } from "api/recommend";
@@ -85,8 +93,8 @@ export default {
     };
   },
   created() {
-    this._getRecommend();
-
+    // this._getRecommend();
+    this.get_banners();
     // this._getDiscList();
     this.recommendProducts();
     this.newRecommendProducts();
@@ -116,10 +124,23 @@ export default {
         this.$refs.scroll.refresh();
       }
     },
-    _getRecommend() {
-      getRecommend().then(res => {
-        if (res.code === ERR_OK) {
-          this.recommends = res.data.slider;
+    // _getRecommend() {
+    //   getRecommend().then(res => {
+    //     if (res.code === ERR_OK) {
+    //       this.recommends = res.data.slider;
+    //     }
+    //   });
+    // },
+    /**
+     * 获取首页banner
+     */
+    get_banners() {
+      ajax({
+        url: "/srv/v1/get_banners",
+        method: "get"
+      }).then(res => {
+        if (res.status == 200) {
+          this.recommends = res.data.result.list;
         }
       });
     },
@@ -147,7 +168,7 @@ export default {
     }
   },
   components: {
-    Slider,
+    // Slider,
     Loading,
     Scroll,
     moduleTitle,
@@ -214,9 +235,14 @@ export default {
     }
 
     .slider-wrapper {
-      position: relative;
+      height: 200px;
       width: 100%;
       overflow: hidden;
+
+      img {
+        height: 200px;
+        width: 100%;
+      }
     }
 
     .recommend-list {

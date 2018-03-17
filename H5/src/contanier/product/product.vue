@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-04 22:28:31 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-15 23:39:01
+ * @Last Modified time: 2018-03-17 11:43:01
  * 产品模块布局组件
  */
 
@@ -14,9 +14,8 @@
     <gatherTrust v-if="activeIndex===0"></gatherTrust>
     <gatherZG v-if="activeIndex===1"></gatherZG>
     <bondFund v-if="activeIndex===2"></bondFund>
-    <equityFund v-if="activeIndex===3"></equityFund>
-    <sunPrivate v-if="activeIndex===4"></sunPrivate>
-
+    <sunPrivate v-if="activeIndex===3"></sunPrivate>
+    <equityFund v-if="activeIndex===4"></equityFund>
   </div>
 </template>
 
@@ -37,8 +36,8 @@ export default {
         "集合信托",
         "集合资管",
         "债权基金",
-        // "阳光私募",
-        "股权基金"
+        "阳光私募"
+        // "股权基金"
       ],
       activeIndex: 0 //初始化选中的tab项
     };

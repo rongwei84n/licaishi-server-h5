@@ -16,6 +16,7 @@ import {
   Tabbar,
   TabItem,
   MessageBox,
+  Swipe, SwipeItem,
   Picker,
   TabContainer,
   TabContainerItem,
@@ -39,6 +40,8 @@ Vue.component(Header.name, Header)
 Vue.component(Button.name, Button)
 Vue.component(Navbar.name, Navbar)
 Vue.component(Picker.name, Picker)
+Vue.component(Swipe.name, Swipe);
+Vue.component(SwipeItem.name, SwipeItem);
 Vue.component(Tabbar.name, Tabbar);
 Vue.component(TabItem.name, TabItem);
 Vue.component(MessageBox.name, MessageBox)

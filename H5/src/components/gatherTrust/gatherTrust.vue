@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-05 10:11:06 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-13 20:17:30
+ * @Last Modified time: 2018-03-17 11:41:11
  * 产品--集合信托--子组件
  */
 
@@ -168,7 +168,7 @@ export default {
      */
     pQueryReset() {
       this.initList = [0, 0, 0, 0, 0, 0, 0];
-      this.popupVisible = false;
+      // this.popupVisible = false;
     }
   },
   components: {

@@ -52,7 +52,9 @@ function ajax({
   },
 } = {}) {
   return new Promise((resolve, reject) => {
-    // // if (JSBridge.callHandler) {
+    /**
+     * 真机调试
+     */
     let methodL = method.toLocaleLowerCase();
     window.phihome.util.netRequest(
       methodL,
@@ -66,22 +68,35 @@ function ajax({
           data: JSON.parse(res),
           status: JSON.parse(res).status
         }
-        console.log(temObj);
-        resolve(temObj)
+        /**
+         * 判断当前是否登录
+         */
+        if (JSON.parse(res).status === 2) {
+          window.phihome.app.openPage("lcs.account.login", null, function (
+            response
+          ) {
+            // _this.queryAccountDetail();
+          });
+        } else if (JSON.parse(res).status === 200) {
+          resolve(temObj)
+        }
       }
     );
-    //   axios({
-    //     withCredentials: true,
-    //     // TOOD:路径前缀
-    //     url: IP_PORT.houtai + url,
-    //     data: qsStatus ? qs.stringify(Object.assign({}, params)) : params,
-    //     headers,
-    //     method,
-    //     timeout: 10000,
-    //   }).then(
-    //     (res) => resolve(res),
-    //     (err) => reject(err)
-    //   )
+    /**
+     * 本地调试
+     */
+    // axios({
+    //   withCredentials: true,
+    //   // TOOD:路径前缀
+    //   url: IP_PORT.houtai + url,
+    //   data: qsStatus ? qs.stringify(Object.assign({}, params)) : params,
+    //   headers,
+    //   method,
+    //   timeout: 10000,
+    // }).then(
+    //   (res) => resolve(res),
+    //   (err) => reject(err)
+    // )
   })
 }
 

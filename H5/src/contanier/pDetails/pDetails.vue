@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-12 23:54:31
+ * @Last Modified time: 2018-03-17 13:11:50
  *
  * 产品详情组件
  */
@@ -22,7 +22,7 @@
             <img :src="pStatus" alt="">
           </div>
           <div class="body-content">
-            <div class="data-content">
+            <div class="data-content" v-if="pDetailsObj.profitRebates">
               <div>
                 <span class="title">投资金额</span>
                 <span v-for="(item,index) of pDetailsObj.profitRebates" :key="index">{{item.prAmountDisplay}}</span>
@@ -38,7 +38,7 @@
                 <span v-for="(item,index) of pDetailsObj.profitRebates" :key="index">{{item.prCommission}}</span>
               </div>
             </div>
-            <p class="annotation">
+            <p class="annotation" v-if="pDetailsObj.pRecruitmentSummary">
               {{pDetailsObj.pRecruitmentSummary}}
             </p>
           </div>
@@ -52,42 +52,42 @@
             </span>
           </div>
           <div class="body-content">
-            <div>
+            <div v-if="pDetailsObj.pFullName">
               <span class="title">产品全称</span>
               <span>{{pDetailsObj.pFullName}}</span>
             </div>
-            <div>
+            <div v-if="pDetailsObj.pAllIssuingScale">
               <span class="title">募集规模</span>
               <span>{{pDetailsObj.pAllIssuingScale}}</span>
             </div>
-            <div>
+            <div v-if="pInvestType_str">
               <span class="title">投资领域</span>
               <span>{{pInvestType_str}}</span>
             </div>
-            <div>
+            <div v-if="pPaymentInterestType_str">
               <span class="title">付息方式</span>
               <span>{{pPaymentInterestType_str}}</span>
             </div>
-            <div>
+            <div v-if="pSizeRatioType_str">
               <span class="title">大小配比</span>
               <span>{{pSizeRatioType_str}}</span>
             </div>
-            <div>
+            <div v-if="pDetailsObj.pInvestName">
               <span class="title">发行机构</span>
               <span>{{pDetailsObj.pInvestName}}</span>
             </div>
-            <div>
+            <div v-if="pDetailsObj.pDulTime">
               <span class="title">投资期限</span>
               <span>{{pDetailsObj.pDulTime}}</span>
             </div>
-            <div>
+            <div v-if="pDetailsObj.pSaleStartTime">
               <span class="title">发行时间</span>
               <span>{{pDetailsObj.pSaleStartTime}}</span>
             </div>
           </div>
         </div>
         <!-- 产品优势 -->
-        <div class="p-superiority">
+        <div class="p-superiority" v-if="pDetailsObj.pCpys">
           <div class="pro-header-content">
             <span>产品优势</span>
             <span class="copy">
@@ -101,7 +101,7 @@
           </div>
         </div>
         <!-- 募集账号 -->
-        <div class="p-collect-account">
+        <div class="p-collect-account" v-if="pDetailsObj.pMjzh">
           <div class="pro-header-content">
             <span>募集账号</span>
             <span class="copy">
@@ -115,7 +115,7 @@
           </div>
         </div>
         <!-- 风险控制 -->
-        <div class="risk-control">
+        <div class="risk-control" v-if="pDetailsObj.pFxkz">
           <div class="pro-header-content">
             <span>风险控制</span>
           </div>
@@ -125,7 +125,7 @@
           </div>
         </div>
         <!-- 还款来源 -->
-        <div class="source-repayment">
+        <div class="source-repayment" v-if="pDetailsObj.pHkly">
           <div class="pro-header-content">
             <span>还款来源</span>
           </div>
@@ -135,7 +135,7 @@
           </div>
         </div>
         <!-- 资金用途 -->
-        <div class="purpose">
+        <div class="purpose" v-if="pDetailsObj.pZjyt">
           <div class="pro-header-content">
             <span>资金用途</span>
           </div>
@@ -145,7 +145,7 @@
           </div>
         </div>
         <!-- 融资方 -->
-        <div class="financing">
+        <div class="financing" v-if="pDetailsObj.pRrzf">
           <div class="pro-header-content">
             <span>融资方</span>
           </div>
@@ -242,16 +242,22 @@ export default {
      * 立即预约
      */
     subscribe() {
-      // 跳转到预约页面，目前不知是否需要接口
-      this.$router.push({
-        name: "pOrder",
-        query: {
-          pId: this.pDetailsObj.pId,
-          pShortName: this.pDetailsObj.pShortName,
-          profitRebates: JSON.stringify(this.pDetailsObj.profitRebates)
+      // 判断当前是否登录
+      ajax({
+        url: `/srv/v1/login_status`,
+        method: "GET"
+      }).then(res => {
+        if (res.status === this.$store.state.status) {
+          this.$router.push({
+            name: "pOrder",
+            query: {
+              pId: this.pDetailsObj.pId,
+              pShortName: this.pDetailsObj.pShortName,
+              profitRebates: JSON.stringify(this.pDetailsObj.profitRebates)
+            }
+          });
         }
       });
-      // this.$router.push("/pOrder");
     },
     back() {
       this.$router.go(-1);
