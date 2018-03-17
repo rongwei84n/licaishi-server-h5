@@ -67,7 +67,6 @@
             }`,
           method: "GET"
         }).then(res => {
-
           if (res.status === 200) {
             this.customs = [...this.customs, ...res.data.result.list];
             if (res.data.result.pager) {
