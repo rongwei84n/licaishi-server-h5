@@ -129,6 +129,10 @@
               _this.isLogin = false;
               _this.headerAvatar = '';
             }
+            if(_this.name == null || _this.name=='') {
+              _this.name = "未设置";
+            }
+
           }
         );
       },
