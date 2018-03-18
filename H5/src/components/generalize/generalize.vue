@@ -1,50 +1,60 @@
 <template>
   <div class="generalize-wrapper">
-    <div class="icon-back" @click="back"></div>
+    <workRoomHeader @back="back"  mytitle="" ></workRoomHeader>
     <div class="logo">
     </div>
     <div class="generalize-avatar">
       <img width="64" height="64" :src="headerAvatar"  />
     </div>
-    <div>
-      {{name}}
-    </div>
-    <div>
-      {{tel}}
-    </div>
-    <div>
-      {{des}}
-    </div>
-    <div>
-      推广方式
-    </div>
-    <div>
-      <ul>
-        <li>
-          1、向客户出示二维码，通过扫码注册
-        </li>
-        <li>
-          2、向客户出示二维码，通
-        </li>
-      </ul>
+    <div class="generalize-content">
+      <div class="name-class">
+        {{name}}
+      </div>
+      <div class="tel-class">
+        {{tel}}
+      </div>
+      <div class="des-class">
+        &nbsp;&nbsp;&nbsp;&nbsp;{{des}}
+      </div>
+      <div class="tuiguang-class">
+        推广方式
+      </div>
+      <div class="tuiguangfangshi">
+        <table>
+          <tr>
+            <td>
+              1、向客户出示二维码，通过扫码注册
+            </td>
+          </tr>
+          <tr>
+            <td>
+              2、分享链接给客户，通过链接注册
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import workRoomHeader from "components/workRoomHeader/workRoomHeader";
   export default {
     data() {
       return {
         headerAvatar:"",
         name:"理财师姓名",
         tel:"18682052180",
-        des:"理财师社区理财师社区理财师社区理财师社区理财师社区理财师社区理财师社区理财师社区理财师社区理财师社区"
+        des:"是考虑到交付时间过来看世界各类考试结果历史来看过还是考虑的健康围殴提偶我还不能"
       }
     },
     methods: {
       back() {
         this.$router.go(-1)
       }
+    },
+    components: {
+      workRoomHeader
     }
   }
 
@@ -61,7 +71,6 @@
     background-image url("~@/common/image/lcs_tuiguang.png")
     background-size 100% 100%
     background-repeat no-repeat
-    text-align center
     .logo
       position absolute
       width: 14%;
@@ -74,8 +83,39 @@
     .generalize-avatar
       width 90px
       height 90px
-      margin: 5vh  auto 10px auto
+      margin: 0px  auto 10px auto
       border-radius  50%
       background #FFF
       overflow hidden
+    .generalize-content
+      text-align center
+      color #FFF
+      div
+        margin-top 14px
+      .name-class
+        font-size 15px
+      .tel-class
+        font-size 15px
+      .des-class
+        font-size 13px
+        line-height 22px
+        text-align left
+        padding 0px 10px
+      .tuiguangfangshi
+        table
+          margin auto
+          tr
+            td
+              height 44px
+              line-height 44px
+              text-align left
+              font-size 14px
+
+    .mint-header
+      background none
+      height 45px
+    .mint-header-button.is-left
+      color:#FFF
+
+
 </style>

@@ -77,14 +77,14 @@
       },
       get_mycommission_info() {
         ajax({
-          url: `/srv/v1/workshop/queryOrdersByCustomerId?pageNo=${this.pageNo}&pageSize=${
+          url: `/v1/workshop/queryOrdersByfinancerId?pageNo=${this.pageNo}&pageSize=${
             this.$store.state.pageSize
-            }&customerId=${this.customId}`,
+            }`,
           method: "GET"
         }).then(res => {
 
           if (res.status === 200) {
-            this.customs = [...this.customs, ...res.data.result.list];
+            this.comList = [...this.comList, ...res.data.result.list];
             if (res.data.result.pager) {
               this.pullup = res.data.result.pager.hasNaxtPage;
             } else {
