@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-18 11:09:09
+ * @Last Modified time: 2018-03-19 00:49:49
  *
  * 产品详情组件
  */
@@ -58,7 +58,7 @@
             </div>
             <div v-if="pDetailsObj.pAllIssuingScale">
               <span class="title">募集规模</span>
-              <span>{{pDetailsObj.pAllIssuingScale}}</span>
+              <span>{{pDetailsObj.pAllIssuingScale}}元</span>
             </div>
             <div v-if="pInvestType_str">
               <span class="title">投资领域</span>
@@ -78,16 +78,16 @@
             </div>
             <div v-if="pDetailsObj.pDulTime">
               <span class="title">投资期限</span>
-              <span>{{pDetailsObj.pDulTime}}</span>
+              <span>{{pDetailsObj.pDulTime}}个月</span>
             </div>
             <div v-if="pDetailsObj.pSaleStartTime">
               <span class="title">发行时间</span>
               <span>{{pDetailsObj.pSaleStartTime}}</span>
             </div>
-            <div v-if="pDetailsObj.pLatestPayNum">
+            <!-- <div v-if="pDetailsObj.pLatestPayNum">
               <span class="title">最迟打款日期</span>
               <span>{{pDetailsObj.pLatestPayNum}}</span>
-            </div>
+            </div> -->
           </div>
         </div>
         <!-- 产品优势 -->

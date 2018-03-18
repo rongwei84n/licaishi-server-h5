@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-04 23:04:51 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-17 20:08:11
+ * @Last Modified time: 2018-03-18 11:46:11
  * 产品页-产品组件
  */
 
@@ -55,18 +55,15 @@ export default {
   computed: {
     get_pSaleStatus() {
       // 非私募产品
-      if (this.productItem.pType !== "04") {
-        switch (this.productItem.pSaleStatus) {
-          case "01":
-            return "../../../static/image/product_status/preparing.png";
-          case "02":
-            return "../../../static/image/product_status/funding.png";
-          case "03":
-            return "../../../static/image/product_status/finish.png";
-          // case "04":
-          //   return "../../../static/image/product_status/complete.png";
-        }
-      } else {
+      switch (this.productItem.pSaleStatus) {
+        case "01":
+          return "../../../static/image/product_status/preparing.png";
+        case "02":
+          return "../../../static/image/product_status/funding.png";
+        case "03":
+          return "../../../static/image/product_status/finish.png";
+        // case "04":
+        //   return "../../../static/image/product_status/complete.png";
       }
     },
     get_pInvestType() {
