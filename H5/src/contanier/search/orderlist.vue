@@ -24,7 +24,7 @@
           <!-- TODO:测试组件--开始 -->
           <div v-show="arrOrderList.length>0">
             <div v-for="(item,index) of arrOrderList" :key="index" >
-              <OrderListItem :orderId="item.cardNo" :voucharStatus="item.voucherStatus" :prodName="item.productShortName" :orderAmount="item.amount" :rebatePresent="item.comRatio" :rebateAmount="item.commission" :status="item.status" :customerName="item.customerName" />
+              <OrderListItem :selectedOrder=selected :orderId="item.orderNo" :voucharStatus="item.voucherStatus" :prodName="item.productShortName" :orderAmount="item.amount" :rebatePresent="item.comRatio" :rebateAmount="item.commission" :status="item.status" :customerName="item.customerName" />
               <split :sh="8"></split>
             </div>
           </div>
