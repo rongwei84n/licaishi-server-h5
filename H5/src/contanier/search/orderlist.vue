@@ -29,25 +29,25 @@
             </div>
           </div>
           <loading v-if="pullup"></loading>
-          <to-end v-else></to-end>
+          <to-end v-else-if="arrOrderList.length > 0"></to-end>
           <!-- TODO:测试组件--结束 -->
 
           <!-- <div v-for="(n,index) of 100" :key="index" class="textDiv">{{n}}</div> -->
           <mt-tab-container v-model="selected" class="mt-tab-contailer">
             <mt-tab-container-item id="1" v-if="arrOrderList.length<=0">
-              没有全部产品
+              <Emptyorder></Emptyorder>
             </mt-tab-container-item>
             <mt-tab-container-item id="2" v-if="arrOrderList.length<=0">
-              没有待打款产品
+              <Emptyorder></Emptyorder>
             </mt-tab-container-item>
             <mt-tab-container-item id="3" v-if="arrOrderList.length<=0">
-              没有待结佣产品
+              <Emptyorder></Emptyorder>
             </mt-tab-container-item>
             <mt-tab-container-item id="4" v-if="arrOrderList.length<=0">
-              没有已结佣产品
+              <Emptyorder></Emptyorder>
             </mt-tab-container-item>
             <mt-tab-container-item id="5" v-if="arrOrderList.length<=0">
-              没有已失败产品
+              <Emptyorder></Emptyorder>
             </mt-tab-container-item>
           </mt-tab-container>
         </div>
@@ -57,12 +57,14 @@
 </template>
 
 <script>
+  import Emptyorder from "components/order/Emptyorder";
   import split from "components/split/split";
   import ajax from "api/ajax";
   import Scroll from "base/scroll/scroll";
   import loading from "base/loading/loading";
   import toEnd from "base/toEnd/toEnd";
   import OrderListItem from "components/order/OrderListItem";
+
 
   export default {
     name: "page-order-list",
@@ -193,6 +195,18 @@
                 }else if(this.selected == 5) {
                   this.pullup5 = res.data.result.pager.hasNaxtPage;
                 }
+              } else {
+                if(this.selected == 1) {
+                  this.pullup1 = false;
+                }else if(this.selected == 2) {
+                  this.pullup2 = false;
+                }else if(this.selected == 3) {
+                  this.pullup3 = false;
+                }else if(this.selected == 4) {
+                  this.pullup4 = false;
+                }else if(this.selected == 5) {
+                  this.pullup5 = false;
+                }
               }
             }
             this.copyValue();
@@ -230,6 +244,7 @@
 
 
     components: {
+      Emptyorder,
       split,
       Scroll,
       loading,
@@ -265,6 +280,10 @@
 
       .textDiv {
         height: 100px;
+      }
+      .mt-tab-contailer {
+        left:50%;
+        margin-left:-100px;
       }
     }
   }
