@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-17 19:35:06
+ * @Last Modified time: 2018-03-18 09:28:20
  *
  * 基础布局组件
  * 带头部与底部布局
@@ -170,6 +170,7 @@ export default {
     },
     // 提交
     submit() {
+      console.log("触发提交");
       // TODO:
       /**
        * 1。首先得判断当前登录状态
@@ -187,11 +188,13 @@ export default {
         this.check_reg("pLatestPayNum", "最迟打款日期未选择")
       ) {
         const promise = new Promise(function(resolve, reject) {
+          console.log("请求登录状态");
           ajax({
             url: `/srv/v1/login_status`,
             method: "GET"
           }).then(res => {
             if (res.status === this.$store.state.status) {
+              console.log("触发登录状态的回调");
               resolve(res);
             } else {
               reject(err);
@@ -200,6 +203,7 @@ export default {
         });
         promise.then(
           res => {
+            console.log("创建预约订单");
             ajax({
               url: "/srv/v1/order/createOrder",
               params: {
@@ -215,9 +219,10 @@ export default {
                 bankCardNo: this.bankCardNo,
                 note: this.note
               },
-              method: "POST"
+              method: "post"
             }).then(res => {
               if (res.status === 200) {
+                console.log("预约订单返回成功");
                 this.$router.replace("/pOrderSuccess");
               }
             });

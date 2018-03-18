@@ -147,11 +147,14 @@ export default {
      * 获取首页banner
      */
     get_banners() {
-      ajax({
-        url: "/srv/v1/get_banners",
-        method: "get"
+      axios({
+        withCredentials: true,
+        // TOOD:路径前缀
+        url: "http://47.97.100.240//srv/v1/get_banners",
+        method: "get",
+        timeout: 10000
       }).then(res => {
-        if (res.status == 200) {
+        if (res.status === 200) {
           this.recommends = res.data.result.list;
         }
       });
@@ -254,13 +257,16 @@ export default {
       top: -4px;
     }
 
+    /*
+     * 轮播图组件
+     */
     .slider-wrapper {
       height: 200px;
       width: 100%;
       overflow: hidden;
 
       img {
-        height: 200px;
+        height: 190px;
         width: 100%;
       }
     }
