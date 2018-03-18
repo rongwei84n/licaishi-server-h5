@@ -30,12 +30,14 @@ function ajax({
      * 真机调试
      */
     let methodL = method.toLocaleLowerCase();
+    console.log("进入了全局方法");
     window.phihome.util.netRequest(
       methodL,
       IP_PORT.houtai + url,
       headers,
       params = qs.stringify(Object.assign({}, params)),
       function (res) {
+        console.log("进入了全局回调");
         // 原生对象包装一层模拟axios返回的对象结构
         const temObj = {
           data: JSON.parse(res),

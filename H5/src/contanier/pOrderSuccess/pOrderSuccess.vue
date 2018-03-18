@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-18 10:41:57
+ * @Last Modified time: 2018-03-18 11:03:09
  *
  * 产品预约成功
  */
@@ -31,9 +31,6 @@ import Scroll from "base/scroll/scroll";
 import whiteSpace from "base/whiteSpace/whiteSpace";
 
 export default {
-  created() {
-    console.log(111);
-  },
   methods: {
     // 跳转到我的订单
     checkOrder() {
@@ -96,7 +93,7 @@ export default {
 
       .btn-content {
         display: flex;
-        justify-content: space-evenly;
+        justify-content: space-around;
         height: 34px;
         width: 80%;
         margin-top: 40px;

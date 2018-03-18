@@ -29,6 +29,7 @@ import 'common/stylus/cover_mint.styl' // mint-ui覆盖文件
 
 
 import ajax from "api/ajax"
+import axios from 'axios'
 
 /* eslint-disable no-unused-vars */
 import vConsole from 'vconsole'
@@ -67,4 +68,5 @@ new Vue({
 })
 
 Vue.prototype.$ajax = ajax
+Vue.prototype.$axios = axios
 Vue.prototype.$moment = moment

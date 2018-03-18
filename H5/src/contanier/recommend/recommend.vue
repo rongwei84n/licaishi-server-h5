@@ -101,15 +101,6 @@ export default {
     this.newRecommendProducts();
   },
   methods: {
-    // 更多按钮跳转事件
-    to_moreClick(url) {
-      console.log(url);
-      // this.$router.push(url);
-      // this.$router.push({
-      //   path: "/product",
-      //   query: { pCode: this.pCode }
-      // });
-    },
     /**
      * 导航栏点击事件
      */
@@ -123,8 +114,7 @@ export default {
     },
     //
     to_NanProducts(recommendType) {
-      console.log("to_NanProducts");
-      console.log(recommendType);
+      console.log("点击更多");
       this.$router.push({
         path: "/hotProducts",
         query: { recommendType: recommendType }
@@ -147,6 +137,7 @@ export default {
      * 获取首页banner
      */
     get_banners() {
+      console.log("获取首页banner");
       axios({
         withCredentials: true,
         // TOOD:路径前缀
@@ -154,6 +145,7 @@ export default {
         method: "get",
         timeout: 10000
       }).then(res => {
+        console.log("进入banner回调");
         if (res.status === 200) {
           this.recommends = res.data.result.list;
         }
