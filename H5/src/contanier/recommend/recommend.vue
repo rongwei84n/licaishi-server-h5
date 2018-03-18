@@ -101,15 +101,6 @@ export default {
     this.newRecommendProducts();
   },
   methods: {
-    // 更多按钮跳转事件
-    to_moreClick(url) {
-      console.log(url);
-      // this.$router.push(url);
-      // this.$router.push({
-      //   path: "/product",
-      //   query: { pCode: this.pCode }
-      // });
-    },
     /**
      * 导航栏点击事件
      */
@@ -123,8 +114,7 @@ export default {
     },
     //
     to_NanProducts(recommendType) {
-      console.log("to_NanProducts");
-      console.log(recommendType);
+      console.log("点击更多");
       this.$router.push({
         path: "/hotProducts",
         query: { recommendType: recommendType }
@@ -147,11 +137,16 @@ export default {
      * 获取首页banner
      */
     get_banners() {
-      ajax({
-        url: "/srv/v1/get_banners",
-        method: "get"
+      console.log("获取首页banner");
+      axios({
+        withCredentials: true,
+        // TOOD:路径前缀
+        url: "http://47.97.100.240//srv/v1/get_banners",
+        method: "get",
+        timeout: 10000
       }).then(res => {
-        if (res.status == 200) {
+        console.log("进入banner回调");
+        if (res.status === 200) {
           this.recommends = res.data.result.list;
         }
       });
@@ -254,13 +249,16 @@ export default {
       top: -4px;
     }
 
+    /*
+     * 轮播图组件
+     */
     .slider-wrapper {
       height: 200px;
       width: 100%;
       overflow: hidden;
 
       img {
-        height: 200px;
+        height: 190px;
         width: 100%;
       }
     }

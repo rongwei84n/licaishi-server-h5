@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-17 19:35:06
+ * @Last Modified time: 2018-03-18 10:46:17
  *
  * 基础布局组件
  * 带头部与底部布局
@@ -20,13 +20,13 @@
         <mt-field label="客户姓名" disabled placeholder="请输入客户姓名" v-model="customerName" @click.native="updatePickerStatus('CustomersModal')">
           <i class="fa fa-address-card"></i>
         </mt-field>
-        <mt-field label="身份证号" placeholder="请输入身份证号" v-model="cardId"></mt-field>
+        <mt-field label="身份证号" type="number" placeholder="请输入身份证号" v-model="cardId"></mt-field>
         <!-- <mt-field label="手机号" placeholder="请输入手机号" v-model="phone"></mt-field> -->
-        <mt-field label="银行卡号" placeholder="请输入银行卡号" v-model="bankCardNo"></mt-field>
+        <mt-field label="银行卡号" type="number" placeholder="请输入银行卡号" v-model="bankCardNo"></mt-field>
         <mt-field label="打卡行" disabled placeholder="点击右侧图标选择银行" v-model="bankName" @click.native="updatePickerStatus('bankCardPickStatus')">
           <i class="fa fa-credit-card"></i>
         </mt-field>
-        <mt-field label="预约金额" placeholder="请输入预约金额" v-model="amount">
+        <mt-field label="预约金额" type="number" placeholder="请输入预约金额" v-model="amount">
           <span>万元</span>
         </mt-field>
         <mt-field label="最迟打款日期" placeholder="最迟打款日期" disabled v-model="pLatestPayNum">
@@ -59,7 +59,7 @@ import Scroll from "base/scroll/scroll";
 import whiteSpace from "base/whiteSpace/whiteSpace";
 import PulldownSelect from "base/pulldownSelect/PulldownSelect";
 import { MessageBox } from "mint-ui";
-
+import qs from "qs";
 import { isCardNo } from "common/js/isCardNo";
 
 export default {
@@ -170,13 +170,8 @@ export default {
     },
     // 提交
     submit() {
-      // TODO:
       /**
-       * 1。首先得判断当前登录状态
-       */
-
-      /**
-       * 2。判断当前是否全部输入
+       * 1。判断当前是否全部输入
        */
       if (
         this.check_reg("customerName", "客户姓名未选择") &&
@@ -187,11 +182,14 @@ export default {
         this.check_reg("pLatestPayNum", "最迟打款日期未选择")
       ) {
         const promise = new Promise(function(resolve, reject) {
+          /**
+           * 2。首先得判断当前登录状态
+           */
           ajax({
             url: `/srv/v1/login_status`,
             method: "GET"
           }).then(res => {
-            if (res.status === this.$store.state.status) {
+            if (res.status == 200) {
               resolve(res);
             } else {
               reject(err);
@@ -200,27 +198,53 @@ export default {
         });
         promise.then(
           res => {
-            ajax({
-              url: "/srv/v1/order/createOrder",
-              params: {
+            window.phihome.util.netRequest(
+              "post",
+              `http://47.97.100.240/srv/v1/order/createOrder`,
+              "",
+              {
                 productId: this.pId,
                 customerId: this.customerId,
                 customerName: this.customerName,
                 cardId: this.cardId,
                 amount: this.amount,
-                pLatestPayNum: this.pLatestPayNum,
+                lastPayDate: this.pLatestPayNum,
                 comRatio: this.comRatio,
                 proRatio: this.proRatio,
                 issuingBank: this.bankName,
                 bankCardNo: this.bankCardNo,
                 note: this.note
               },
-              method: "POST"
-            }).then(res => {
-              if (res.status === 200) {
-                this.$router.replace("/pOrderSuccess");
+              res => {
+                res = JSON.parse(res);
+                // 原生对象包装一层模拟axios返回的对象结构
+                if (res.status == 200) {
+                  this.$router.replace("/pOrderSuccess");
+                }
               }
-            });
+            );
+            // ajax({
+            //   url: "/srv/v1/order/createOrder",
+            //   params: {
+            //     productId: this.pId,
+            //     customerId: this.customerId,
+            //     customerName: this.customerName,
+            //     cardId: this.cardId,
+            //     amount: this.amount,
+            //     lastPayDate: this.pLatestPayNum,
+            //     comRatio: this.comRatio,
+            //     proRatio: this.proRatio,
+            //     issuingBank: this.bankName,
+            //     bankCardNo: this.bankCardNo,
+            //     note: this.note
+            //   },
+            //   method: "post"
+            // }).then(res => {
+            //   if (res.status == 200) {
+            //     console.log("预约订单返回成功");
+            //     this.$router.replace("/pOrderSuccess");
+            //   }
+            // });
           },
           // 此处应该跳转登录页
           err => {}

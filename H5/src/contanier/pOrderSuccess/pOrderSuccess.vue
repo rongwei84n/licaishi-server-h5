@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-14 20:12:57
+ * @Last Modified time: 2018-03-18 11:03:09
  *
  * 产品预约成功
  */
@@ -27,16 +27,10 @@
 </template>
 
  <script type="es6">
-import ajax from "api/ajax";
 import Scroll from "base/scroll/scroll";
 import whiteSpace from "base/whiteSpace/whiteSpace";
 
 export default {
-  props: {},
-  data() {
-    return {};
-  },
-  mounted() {},
   methods: {
     // 跳转到我的订单
     checkOrder() {
@@ -89,7 +83,6 @@ export default {
       >img {
         width: 64px;
         height: 64px;
-        // margin-top: 50px;
         margin: 50px 0 20px 0;
       }
 
@@ -100,7 +93,7 @@ export default {
 
       .btn-content {
         display: flex;
-        justify-content: space-evenly;
+        justify-content: space-around;
         height: 34px;
         width: 80%;
         margin-top: 40px;

@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-17 20:09:02
+ * @Last Modified time: 2018-03-18 11:09:09
  *
  * 产品详情组件
  */
@@ -299,30 +299,30 @@ export default {
   },
   computed: {
     pStatus() {
-      // 04代表是私募产品，以下是除去私募产品以外的产品状态
-      if (this.pDetailsObj.pType !== "04") {
-        switch ("01") {
-          // 预热中
-          case "01":
-            return require("../../common/image/p-warm-up.png");
-            break;
-          // 募集中
-          case "02":
-            return require("../../common/image/p-funding.png");
-            break;
-          // 募集结束
-          case "03":
-            return require("../../common/image/p-finish.png");
-            break;
-          // 产品成立
-          case "04":
-            return require("../../common/image/p-complete.png");
-            break;
-          default:
-            break;
-        }
-      } else {
+      switch ("01") {
+        // 预热中
+        case "01":
+          return require("../../common/image/p-warm-up.png");
+          break;
+        // 募集中
+        case "02":
+          return require("../../common/image/p-funding.png");
+          break;
+        // 募集结束
+        case "03":
+          return require("../../common/image/p-finish.png");
+          break;
+        // 产品成立
+        case "04":
+          return require("../../common/image/p-complete.png");
+          break;
+        default:
+          break;
       }
+      // // 04代表是私募产品，以下是除去私募产品以外的产品状态
+      // if (this.pDetailsObj.pType !== "04") {
+      // } else {
+      // }
     }
   },
   components: {

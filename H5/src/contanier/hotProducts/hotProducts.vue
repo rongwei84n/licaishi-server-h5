@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-14 18:57:46
+ * @Last Modified time: 2018-03-18 11:35:24
  *
  * 热销产品||最新推荐
  */
@@ -27,7 +27,7 @@
 </template>
 
  <script type="es6">
-import ajax from "api/ajax";
+import axios from "axios";``
 import Scroll from "base/scroll/scroll";
 import loading from "base/loading/loading";
 import toEnd from "base/toEnd/toEnd";
@@ -70,12 +70,10 @@ export default {
     },
     // 请求推荐热销产品列表
     recommendProducts(recommendType) {
-      ajax({
-        url: "/srv/v1/product/recommendProducts",
-        params: {
-          recommendType
-        },
-        method: "GET"
+      axios({
+        url: `http://47.97.100.240/srv/v1/product/recommendProducts?recommendType=${recommendType}`,
+        method: "get",
+        timeout: 10000
       }).then(res => {
         if (res.status === 200) {
           this.recommendProductsList = res.data.result;

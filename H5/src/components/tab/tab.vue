@@ -58,9 +58,6 @@ export default {
       selected: "recommend"
     };
   },
-  created() {
-    console.log(111);
-  },
   methods: {
     /**
      * tab路由点击事件
