@@ -22,7 +22,7 @@ function ajax({
   method = "POST",
   qsStatus = true,
   headers = {
-    "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
+    "Content-Type": "application/json; charset=utf-8",
   },
 } = {}) {
   return new Promise((resolve, reject) => {
@@ -34,7 +34,7 @@ function ajax({
       methodL,
       IP_PORT.houtai + url,
       headers,
-      params,
+      params = qs.stringify(Object.assign({}, params)),
       function (res) {
         // 原生对象包装一层模拟axios返回的对象结构
         const temObj = {
