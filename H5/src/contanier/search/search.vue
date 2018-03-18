@@ -9,7 +9,7 @@
         </div>
         <div class="content">
           <div class="av-name" >{{name}}</div>
-          <div class="money-all">累计佣金: 10000元</div>
+          <div class="money-all">累计佣金: {{sumCommission}}</div>
         </div>
       </div>
       <div class="right-icon">
@@ -74,9 +74,12 @@
 </template>
 
 <script>
+  import ajax from "api/ajax";
+
 export default {
   data() {
     return {
+      sumCommission:"获取失败",
       isLogin: false,
       headerAvatar: "",
       name: "未登录",
@@ -85,9 +88,28 @@ export default {
   },
   created: function() {
     this.queryAccountDetail();
+    this.queryCommission();
   },
 
   methods: {
+    queryCommission() {
+      let _this = this;
+      ajax({
+        url: `/srv/v1/workshop/queryCommission`,
+        method: "GET"
+      }).then(res => {
+        console.debug("xxx");
+        if(res.status == 200) {
+          if(res.data.result.sumCommission === null) {
+            _this.sumCommission = '0元';
+          } else {
+            _this.sumCommission = res.data.result.sumCommission + '元';
+          }
+        } else {
+          _this.sumCommission = '获取失败';
+        }
+      });
+    },
     queryAccountDetail() {
       let _this = this;
       window.phihome.util.netRequest(
