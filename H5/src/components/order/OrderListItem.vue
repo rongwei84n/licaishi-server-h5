@@ -1,5 +1,5 @@
 <template>
-  <div class="all-content">
+  <div class="all-content" v-on:click="gotoDetail">
     <mt-cell :title="cDisplayOrderId">
       <div class="order_status_waitpay" v-if="status==='01'">{{cDisplayStatus}}</div>
       <div class="order_status_waitrebate" v-if="status==='02'">{{cDisplayStatus}}</div>
@@ -37,7 +37,8 @@
       rebateAmount: "",  //返佣金额
       status: "", //订单状态(待打款可以取消订单)
       voucharStatus: "",
-      customerName: "" //客户姓名
+      customerName: "", //客户姓名
+      selectedOrder: "" //选择的菜单
     },
     data() {
       return {}
@@ -89,8 +90,14 @@
           method: "POST"
         }).then(res => {
           if(res.status === 200) {
-            alert("cancel 成功");
+            console.debug("cancel 成功");
           }
+        });
+      },
+      gotoDetail() {
+        // this.$router.push({name: "myorderdetail", params: {selectedOrder: this.selectedOrder}});
+        // this.$router.push({path:"/rank/mycustom/customOrder"})
+        window.phihome.app.openPage("lcs.order.orderdetail", this.orderId, function (response) {
         });
       }
     }
