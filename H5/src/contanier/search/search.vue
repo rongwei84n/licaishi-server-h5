@@ -154,20 +154,31 @@
         window.phihome.app.openPage("lcs.account.personinfo", null, function (response) {
         });
       },
+
       gotoAllOrderList() {
-        this.$router.push({name: "Orderlist", params: {tab_id: "1"}});
+        this.handleOrderClick("1");
       },
       handleWaitpayOnclick() {
-        this.$router.push({name: "Orderlist", params: {tab_id: "2"}});
+        this.handleOrderClick("2");
       },
       handleWaitCommissionOnclick() {
-        this.$router.push({name: "Orderlist", params: {tab_id: "3"}});
+        this.handleOrderClick("3");
       },
       handleAlreadyCommissionOnclick() {
-        this.$router.push({name: "Orderlist", params: {tab_id: "4"}});
+        this.handleOrderClick("4");
       },
       handleFailedOnclick() {
-        this.$router.push({name: "Orderlist", params: {tab_id: "5"}});
+        this.handleOrderClick("5");
+      },
+
+      handleOrderClick(item) {
+        if(this.isLogin) {
+          this.$router.push({name: "Orderlist", params: {tab_id: item}});
+        }else {
+          window.phihome.app.openPage("lcs.account.login", null, function (response) {
+            _this.queryAccountDetail();
+          });
+        }
       }
     },
     components: {}
