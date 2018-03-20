@@ -126,7 +126,7 @@
               _this.headerAvatar = response.data.img;
               _this.isLogin = true;
             } else {
-              _this.name = "未设置";
+              _this.name = "未登录";
               _this.isLogin = false;
               _this.headerAvatar = '';
             }
