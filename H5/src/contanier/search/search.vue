@@ -74,8 +74,6 @@
 </template>
 
 <script>
-  import ajax from "api/ajax";
-
   export default {
     data() {
       return {
