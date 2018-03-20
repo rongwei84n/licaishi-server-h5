@@ -4,7 +4,7 @@
     <div class="logo">
     </div>
     <div class="generalize-avatar">
-      <img width="64" height="64" :src="headerAvatar"  />
+      <img width="100%" height="100%" :src="headerAvatar"  />
     </div>
     <div class="generalize-content">
       <div class="name-class">
@@ -45,12 +45,38 @@
         headerAvatar:"",
         name:"理财师姓名",
         tel:"18682052180",
-        des:"是考虑到交付时间过来看世界各类考试结果历史来看过还是考虑的健康围殴提偶我还不能"
+        des:"是考虑到交付时间过来看世界各类考试结果历史来看过还是考虑的健康围殴提偶我还不能",
+        neturl: "http://47.97.100.240/"
       }
+    },
+    created:function () {
+      this.queryAccountDetail();
     },
     methods: {
       back() {
         this.$router.go(-1)
+      },
+      queryAccountDetail() {
+        let _this = this;
+        window.phihome.util.netRequest(
+          "get",
+          _this.neturl + "srv/v1/accountDetail",
+          "",
+          "",
+          function (response) {
+            response = JSON.parse(response);
+            if (response.error == 0) {
+              //获取账号成功
+              //_this.name = response.data.nickname;
+              _this.headerAvatar = response.data.img;
+              //_this.isLogin = true;
+            } else {
+              //_this.name = "未设置";
+              //_this.isLogin = false;
+              _this.headerAvatar = '';
+            }
+          }
+        )
       }
     },
     components: {
