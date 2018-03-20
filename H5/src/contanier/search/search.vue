@@ -94,21 +94,24 @@
     methods: {
       queryCommission() {
         let _this = this;
-        ajax({
-          url: `/srv/v1/workshop/queryCommission`,
-          method: "GET"
-        }).then(res => {
-          console.debug("xxx");
-          if (res.status == 200) {
-            if (res.data.result.sumCommission === null) {
-              _this.sumCommission = '0元';
+        window.phihome.util.netRequest(
+          "get",
+          _this.neturl + "srv/v1/workshop/queryCommission",
+          "",
+          "",
+          function (response) {
+            response = JSON.parse(response);
+            if (response.status == 200) {
+              if (response.result.sumCommission === null) {
+                _this.sumCommission = '0元';
+              } else {
+                _this.sumCommission = response.result.sumCommission + '元';
+              }
             } else {
-              _this.sumCommission = res.data.result.sumCommission + '元';
+              _this.sumCommission = '获取失败';
             }
-          } else {
-            _this.sumCommission = '获取失败';
           }
-        });
+        );
       },
       queryAccountDetail() {
         let _this = this;
