@@ -42,7 +42,7 @@
     width 100%
     height 130px
     >div
-      font-size 13px
+      font-size 14px
       height 30px
       line-height 30px
       >span

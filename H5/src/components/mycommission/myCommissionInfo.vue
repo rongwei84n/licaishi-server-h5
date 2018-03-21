@@ -56,7 +56,7 @@
       height 40px
       display flex
       align-items center
-      font-size 16px
+      font-size 15px
       div
         flex 1
         padding-left 10px
