@@ -19,7 +19,9 @@
       <div>
         <div v-for="(commission,index) in comList" :key="index">
           <split :sh="8"></split>
-          <myCommissionInfo :myDate="commission.myDate" :myComAmount="commission.myComAmount" :orderId="commission.orderId" :orderAmount="commission.orderAmount" :customName="commission.customName" :customTep="commission.customTep"></myCommissionInfo>
+          <myCommissionInfo :myDate="commission.orderDate" :myComAmount="commission.commission"
+              :orderId="commission.orderNo" :orderAmount="commission.amount"
+              :customName="commission.customerName" :customTep="commission.productShortName"></myCommissionInfo>
         </div>
       </div>
     </Scroll>
@@ -77,7 +79,7 @@
       },
       get_mycommission_info() {
         ajax({
-          url: `/v1/workshop/queryOrdersByfinancerId?pageNo=${this.pageNo}&pageSize=${
+          url: `/srv/v1/workshop/queryOrdersByfinancerId?pageNo=${this.pageNo}&pageSize=${
             this.$store.state.pageSize
             }`,
           method: "GET"

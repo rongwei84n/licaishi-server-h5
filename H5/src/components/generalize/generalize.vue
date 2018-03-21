@@ -67,11 +67,14 @@
             response = JSON.parse(response);
             if (response.error == 0) {
               //获取账号成功
-              //_this.name = response.data.nickname;
+              _this.name = response.data.nickname;
+              _this.tel = response.data.phonenumber;
+              //_this.des = response.data.workstudio;
               _this.headerAvatar = response.data.img;
+
               //_this.isLogin = true;
             } else {
-              //_this.name = "未设置";
+              _this.name = "未设置";
               //_this.isLogin = false;
               _this.headerAvatar = '';
             }

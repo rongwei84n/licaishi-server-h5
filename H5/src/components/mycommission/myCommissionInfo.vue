@@ -5,18 +5,20 @@
       <div>佣金：<span>￥{{myComAmount}}</span></div>
     </div>
     <div class="my-commission-info-bottom-content">
-      <div class="dfdfd">
+
+      <div >
         <span>订单号：{{orderId}}</span>
       </div>
       <div>
         <span>订单金额：{{orderAmount}}</span>
       </div>
       <div>
-        <span>客户姓名：{{customName}}</span>
+        <span>产品名称：{{customTep}}</span>
       </div>
       <div>
-        <span>客户手机号：{{customTep}}</span>
+        <span>客户姓名：{{customName}}</span>
       </div>
+
     </div>
   </div>
 </template>

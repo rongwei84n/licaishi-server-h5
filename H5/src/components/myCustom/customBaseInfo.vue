@@ -42,7 +42,7 @@
     width 100%
     height 130px
     >div
-      font-size 14px
+      font-size 13px
       height 30px
       line-height 30px
       >span
@@ -50,7 +50,7 @@
     .custom-name
       height 40px
       line-height 40px
-      font-size 16px
+      font-size 15px
       border solid 1px #EFF3F6
 
 </style>

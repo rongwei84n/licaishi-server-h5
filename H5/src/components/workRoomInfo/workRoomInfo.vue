@@ -1,10 +1,10 @@
 <template>
   <div class="work-room-info">
 
-    <workRoomHeader @back="back" @clickFunc="modif" mytitle="工作室信息" content="修改" rightFlag="true"></workRoomHeader>
+    <workRoomHeader @back="back" @clickFunc="update_work_room_info" mytitle="工作室信息" content="修改" rightFlag="true"></workRoomHeader>
     <div class="splith">
       <div class="pro-info" v-show="proFlag">
-        提交成功，请耐心等待审核
+        {{alertInfo}}
       </div>
     </div>
     <mt-field label="名称：" placeholder="请输入名称" type="text" v-model="workRoom.workshopName"></mt-field>
@@ -20,12 +20,13 @@
   export default {
     data(){
       return{
-        /**workname:'理财师工作室名称',
-        address:'http://baidu.com',
-        dec:'欢迎来到理财师社区，阿斯兰的激发了就是看了就放大来看就是代理反馈',
-        tep:'15333336666',*/
+        //workshopName:'',
+        //workshopUrl:'',
+        //workshopIntro:'',
+        //tep:'15333336666',
         proFlag:false,
-        workRoom:""
+        workRoom:"",
+        alertInfo:"信息修改成功！"
       }
     },
     components:{
@@ -35,9 +36,6 @@
       this.get_work_room_info();
     },
     methods:{
-      modif(){
-        this.proFlag = true
-      },
       back(){
         this.$router.go(-1)
       },
@@ -49,6 +47,26 @@
 
           if (res.status === 200) {
             this.workRoom = res.data.result;
+          }
+        });
+      },
+      update_work_room_info(){
+
+        ajax({
+          url: `/srv/v1/Workshop/updateWorkshop?workshopName=${this.workRoom.workshopName}&workshopUrl=${
+            this.workRoom.workshopUrl}&workshopIntro=${this.workRoom.workshopIntro}`,
+          method: "POST"
+          /**params: Object.assign({}, {}, {
+            workshopName: this.workRoom.workshopName,
+            workshopUrl: this.workRoom.workshopUrl,
+            workshopIntro: this.workRoom.workshopIntro
+          })*/
+        }).then(res => {
+          if (res.status === 200) {
+            this.proFlag = true
+          }else{
+            this.alertInfo = "修改信息失败！"
+            this.proFlag = true
           }
         });
       }

@@ -7,15 +7,15 @@
     <div class="bottom-content">
       <div>
         <span class="span-red">{{loanAmount}}</span>
-        <span>出借金额（元）</span>
+        <span>订单金额</span>
       </div>
       <div>
         <span>{{auEndDate}}</span>
-        <span>授权到期日</span>
+        <span>订单日期</span>
       </div>
       <div>
         <span>{{commission}}</span>
-        <span>获取佣金（元）</span>
+        <span>佣金</span>
       </div>
     </div>
   </div>

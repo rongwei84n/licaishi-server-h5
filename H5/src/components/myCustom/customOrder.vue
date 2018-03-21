@@ -12,20 +12,27 @@
     <split :sh="4"></split>
     <Scroll class="scroll-conntent" :data="customOrderList" :pullup="pullup" @scrollToEnd="scrollToEnd">
       <div>
+        <div v-show="customOrderList">
+          <div v-for="(product,index) in customOrderList" @click="displayOrderDetail(product)">
+            <customOrderInfo :productName="product.productShortName" :loanAmount="product.amount" :auEndDate="product.orderDate" :commission="product.commission" :productTime="product.ee"></customOrderInfo>
+            <split :sh="8"></split>
+          </div>
+        </div>
         <mt-tab-container v-model="selected">
           <mt-tab-container-item id="1">
-            <div v-for="(product,index) in customOrderList" @click="displayOrderDetail(product)">
-              <customOrderInfo :productName="product.productShortName" :loanAmount="product.profit" :auEndDate="product.createTime" :commission="product.commission" :productTime="product.ee"></customOrderInfo>
-              <split :sh="8"></split>
-            </div>
 
           </mt-tab-container-item>
           <mt-tab-container-item id="2">
-            <mt-cell v-for="(n,index) in 4" :key="index" :title="'测试 ' + n" />
+
           </mt-tab-container-item>
           <mt-tab-container-item id="3">
-            <mt-cell v-for="(n,index) in 6" :key="index" :title="'选项 ' + n" />
-            <!-- <mt-cell v-for="n in 6" :title="'选项 ' + n" /> -->
+
+          </mt-tab-container-item>
+          <mt-tab-container-item id="4">
+
+          </mt-tab-container-item>
+          <mt-tab-container-item id="5">
+
           </mt-tab-container-item>
         </mt-tab-container>
         <loading v-if="pullup"></loading>
@@ -57,13 +64,29 @@ export default {
       pageNo: 1, //当前页
       pullup: true, //开启上拉加载
       customId: "",
-      orderDetailFlag: false
+      orderDetailFlag: false,
+      customOrderList1:[],
+      customOrderList2:[],
+      customOrderList3:[],
+      customOrderList4:[],
+      customOrderList5:[],
+      pullup1: true,
+      pullup2: true,
+      pullup3: true,
+      pullup4: true,
+      pullup5: true,
       //orderDetail:""
     };
   },
   created() {
     this.customId = this.$route.query.customId;
     this.get_custom_order();
+  },
+  watch: {
+    selected: function (val, oldVal) {
+      // 这里就可以通过 val 的值变更来确定
+      this.get_custom_order();
+    }
   },
   methods: {
     back() {
@@ -88,18 +111,15 @@ export default {
       // }
       this.get_custom_order();
     },
-    get_custom_order() {
+    /**get_custom_order() {
       ajax({
         url: `/srv/v1/workshop/queryOrdersByCustomerId?pageNo=${
           this.pageNo
-        }&pageSize=${this.$store.state.pageSize}&customerId=${this.customId}`,
+        }&pageSize=${this.$store.state.pageSize}&customerId=${this.customId}&status=${status}`,
         method: "GET"
       }).then(res => {
         if (res.status === 200) {
-          this.customOrderList = [
-            ...this.customOrderList,
-            ...res.data.result.list
-          ];
+          this.customOrderList = [...this.customOrderList,...res.data.result.list];
           if (res.data.result.pager) {
             this.pullup = res.data.result.pager.hasNaxtPage;
           } else {
@@ -107,6 +127,109 @@ export default {
           }
         }
       });
+    },*/
+    get_custom_order() {
+      let canPull = false;
+      if(this.selected == 1) {
+        canPull = this.pullup1;
+      }else if(this.selected == 2) {
+        canPull = this.pullup2;
+      }else if(this.selected == 3) {
+        canPull = this.pullup3;
+      }else if(this.selected == 4) {
+        canPull = this.pullup4;
+      }else if(this.selected == 5) {
+        canPull = this.pullup5;
+      }
+
+      if(canPull) {
+        let status = "00";
+        if(this.selected == 1) {
+          status = "00";
+        } else if(this.selected == 2) {
+          status = "01";
+        } else if(this.selected == 3) {
+          status = "02";
+        } else if(this.selected == 4) {
+          status = "03";
+        } else if(this.selected == 5) {
+          status = "99";
+        }
+        //alert(canPull)
+        ajax({
+          url: `/srv/v1/workshop/queryOrdersByCustomerId?pageNo=${
+            this.pageNo
+            }&pageSize=${this.$store.state.pageSize}&customerId=${this.customId}&status=${status}`,
+          method: "GET"
+        }).then(res => {
+          if (res.status === 200) {
+            if(this.selected == 1) {
+              this.customOrderList1 = [...this.customOrderList1,...res.data.result.list];
+            }else if(this.selected == 2) {
+              this.customOrderList2 = [...this.customOrderList2, ...res.data.result.list];
+            }else if(this.selected == 3) {
+              this.customOrderList3 = [...this.customOrderList3, ...res.data.result.list];
+            }else if(this.selected == 4) {
+              this.customOrderList4 = [...this.customOrderList4, ...res.data.result.list];
+            }else if(this.selected == 5) {
+              this.customOrderList5 = [...this.customOrderList5, ...res.data.result.list];
+            }
+            if (res.data.result.pager) {
+              if(this.selected == 1) {
+                this.pullup1 = res.data.result.pager.hasNaxtPage;
+              }else if(this.selected == 2) {
+                this.pullup2 = res.data.result.pager.hasNaxtPage;
+              }else if(this.selected == 3) {
+                this.pullup3 = res.data.result.pager.hasNaxtPage;
+              }else if(this.selected == 4) {
+                this.pullup4 = res.data.result.pager.hasNaxtPage;
+              }else if(this.selected == 5) {
+                this.pullup5 = res.data.result.pager.hasNaxtPage;
+              }
+            } else {
+              if(this.selected == 1) {
+                this.pullup1 = false;
+              }else if(this.selected == 2) {
+                this.pullup2 = false;
+              }else if(this.selected == 3) {
+                this.pullup3 = false;
+              }else if(this.selected == 4) {
+                this.pullup4 = false;
+              }else if(this.selected == 5) {
+                this.pullup5 = false;
+              }
+            }
+          }
+          this.copyValue();
+        });
+      } else {
+        this.copyValue();
+      }
+    }, //End get_orderList
+
+    copyValue() {
+      if(this.selected == 1) {
+        this.customOrderList = this.customOrderList1;
+      }else if(this.selected == 2) {
+        this.customOrderList = this.customOrderList2;
+      }else if(this.selected == 3) {
+        this.customOrderList = this.customOrderList3;
+      }else if(this.selected == 4) {
+        this.customOrderList = this.customOrderList4;
+      }else if(this.selected == 5) {
+        this.customOrderList = this.customOrderList5;
+      }
+      if(this.selected == 1) {
+        this.pullup = this.pullup1;
+      }else if(this.selected == 2) {
+        this.pullup = this.pullup2;
+      }else if(this.selected == 3) {
+        this.pullup = this.pullup3;
+      }else if(this.selected == 4) {
+        this.pullup = this.pullup4;
+      }else if(this.selected == 5) {
+        this.pullup = this.pullup5;
+      }
     }
   },
   components: {
