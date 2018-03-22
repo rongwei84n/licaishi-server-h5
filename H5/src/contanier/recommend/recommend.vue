@@ -162,7 +162,7 @@ export default {
         timeout: 10000
       }).then(res => {
         if (res.status === 200) {
-          this.recommendProductsList = res.data.result.slice(0, 2);
+          this.recommendProductsList = res.data.result.slice(0, 4);
         }
       });
     },
@@ -177,7 +177,7 @@ export default {
         timeout: 10000
       }).then(res => {
         if (res.status === 200) {
-          this.newRecommendProductsList = res.data.result.slice(0, 2);
+          this.newRecommendProductsList = res.data.result.slice(0, 4);
         }
       });
     }
@@ -253,7 +253,7 @@ export default {
      * 轮播图组件
      */
     .slider-wrapper {
-      height: 200px;
+      height: 180px;
       width: 100%;
       overflow: hidden;
 
