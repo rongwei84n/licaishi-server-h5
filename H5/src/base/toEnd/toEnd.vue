@@ -1,6 +1,6 @@
 /*
- * @Author: 张浩然 
- * @Date: 2018-03-06 22:47:10 
+ * @Author: 张浩然
+ * @Date: 2018-03-06 22:47:10
  * @Last Modified by: 张浩然
  * @Last Modified time: 2018-03-06 22:53:11
  * 底部状态组件--用于翻页到最底部使用
@@ -19,7 +19,7 @@ export default {
   props: {
     msg: {
       type: String,
-      default: "我也是有底线的"
+      default: "没有更多了"
     }
   }
 };
@@ -48,4 +48,4 @@ export default {
 
 
 
- 
+
