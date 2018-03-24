@@ -4,6 +4,8 @@
 
 > 理财师App
 
+#libing add
+
 ## 技术架构
 
 >`vue`
