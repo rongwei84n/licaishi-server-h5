@@ -1,5 +1,5 @@
 # vue2.0
-# modify by qinghe libingchishi
+# modify by qinghe beigao + libing
 
 
 > 理财师App
