@@ -1,4 +1,6 @@
 # vue2.0
+# modify by qinghe
+
 
 > 理财师App
 
