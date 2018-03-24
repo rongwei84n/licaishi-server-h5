@@ -1,9 +1,5 @@
 # vue2.0
-<<<<<<< Updated upstream
 # qinmodify by qinghe beigao + libing
-=======
-# modify by qinghe beigao
->>>>>>> Stashed changes
 
 
 > 理财师App
