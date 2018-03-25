@@ -93,11 +93,13 @@
 
     methods: {
       gotoMyCustomer() {
-        if (this.isLogin) {
-          this.$router.push("/rank/mycustom")
+        let _this = this;
+        if (_this.isLogin) {
+          _this.$router.push("/rank/mycustom")
         } else {
           window.phihome.app.openPage("lcs.account.login", null, function (response) {
             _this.queryAccountDetail();
+            _this.queryCommission();
           });
         }
       },
@@ -123,6 +125,7 @@
         );
       },
       queryAccountDetail() {
+        console.info("queryAccountDetail");
         let _this = this;
         window.phihome.util.netRequest(
           "get",
@@ -153,10 +156,12 @@
         if (_this.isLogin) {
           window.phihome.app.openPage("lcs.account.personinfo", null, function (response) {
             _this.queryAccountDetail();
+            _this.queryCommission();
           });
         } else {
           window.phihome.app.openPage("lcs.account.login", null, function (response) {
             _this.queryAccountDetail();
+            _this.queryCommission();
           });
         }
       },
@@ -187,6 +192,7 @@
         } else {
           window.phihome.app.openPage("lcs.account.login", null, function (response) {
             _this.queryAccountDetail();
+            _this.queryCommission();
           });
         }
       }
