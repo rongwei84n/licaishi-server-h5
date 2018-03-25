@@ -60,9 +60,11 @@
           <img slot="icon" src="../../common/image/my_settings_my_customer.png" width="18" height="14">
         </mt-cell>
       </div>
-      <mt-cell title="我要推广" is-link>
-        <img slot="icon" src="../../common/image/my_settings_spread.png" width="18" height="14">
-      </mt-cell>
+      <div v-on:click="gotoTuiguang">
+        <mt-cell title="我要推广" is-link>
+          <img slot="icon" src="../../common/image/my_settings_spread.png" width="18" height="14">
+        </mt-cell>
+      </div>
       <mt-cell title="客服热线：400-0852-6325">
         <img slot="icon" src="../../common/image/my_settings_hotline.png" width="18" height="14">
       </mt-cell>
@@ -92,6 +94,17 @@
     },
 
     methods: {
+      gotoTuiguang() {
+        let _this = this;
+        if (_this.isLogin) {
+          this.$router.push("/rank/generalize")
+        } else {
+          window.phihome.app.openPage("lcs.account.login", null, function (response) {
+            _this.queryAccountDetail();
+            _this.queryCommission();
+          });
+        }
+      },
       gotoMyCustomer() {
         let _this = this;
         if (_this.isLogin) {
