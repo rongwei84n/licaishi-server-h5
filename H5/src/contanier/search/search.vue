@@ -371,7 +371,7 @@
       border-bottom: solid 1px gainsboro;
 
       > div {
-        border-bottom: 1px solid #EDEEEF;
+        /*border-bottom: 1px solid #EDEEEF;*/
       }
 
       /* 改变cell组件内的文字大小 */
