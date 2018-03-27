@@ -294,15 +294,20 @@ export default {
   watch: {
     amount() {
       const unit = 10000;
-      this.profitRebates.forEach(item => {
+      for (let i = 0; i < this.profitRebates.length; i++) {
+        const item = this.profitRebates[i];
         if (
-          parseInt(this.amount) > parseInt(item.prStartAmount) / unit &&
-          parseInt(this.amount) < parseInt(item.prEndAmount) / unit
+          parseInt(this.amount) * unit >= parseInt(item.prStartAmount) &&
+          parseInt(this.amount) * unit < parseInt(item.prEndAmount)
         ) {
           this.comRatio = item.prCommission;
           this.proRatio = item.prExpectAnnualRevenue;
+          return;
+        } else {
+          this.comRatio = "";
+          this.proRatio = "";
         }
-      });
+      }
     }
   },
   components: {
