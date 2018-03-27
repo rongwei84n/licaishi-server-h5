@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-18 10:46:17
+ * @Last Modified time: 2018-03-22 22:34:48
  *
  * 基础布局组件
  * 带头部与底部布局
@@ -125,7 +125,6 @@ export default {
     this.pId = this.$route.query.pId;
     this.pName = this.$route.query.pShortName;
     this.profitRebates = JSON.parse(this.$route.query.profitRebates);
-    console.log(this.profitRebates);
   },
   methods: {
     /* 银行选择组件确定事件 */
@@ -152,7 +151,7 @@ export default {
     get_Customers() {
       ajax({
         url: "/srv/v1/order/queryCustomersForOrder",
-        method: "GET"
+        method: "get"
       }).then(res => {
         if (res.status === 200) {
           this.Customers[0].values = res.data.result.list;

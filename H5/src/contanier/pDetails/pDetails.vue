@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-19 00:49:49
+ * @Last Modified time: 2018-03-23 00:03:35
  *
  * 产品详情组件
  */
@@ -163,6 +163,10 @@
           <div class="pro-header-content">
             <span>预览资料</span>
           </div>
+          <div class="body-content">
+            <!-- <a v-for="(item,index) of pDetailsObj.productAttachments" :key='index' :href="item.paFilePath">{{item.paFileName}}</a> -->
+            <a href="https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf">测试pdf</a>
+          </div>
           <!-- TODO:预览资料模块 -->
           <!-- pDetailsObj.productAttachments -->
         </div>
@@ -208,7 +212,9 @@ export default {
     return {
       pCode: "", //产品编号
       pStatusCode: "", //产品状态编码
-      pDetailsObj: {}, //产品详情
+      pDetailsObj: {
+        productAttachments: [] //pdf列表
+      }, //产品详情
       /**
        * 枚举返回字符串
        */

@@ -43,7 +43,6 @@ export default {
     };
   },
   created() {
-    console.log(this.$route.query.activeIndex);
     this.activeIndex = parseInt(this.$route.query.activeIndex);
   },
   methods: {
