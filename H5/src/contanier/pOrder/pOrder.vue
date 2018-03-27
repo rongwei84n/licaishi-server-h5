@@ -4,8 +4,7 @@
  * @Last Modified by: 张浩然
  * @Last Modified time: 2018-03-22 22:34:48
  *
- * 基础布局组件
- * 带头部与底部布局
+ * 预约组件
  */
 
  <template>
@@ -21,19 +20,16 @@
           <i class="fa fa-address-card"></i>
         </mt-field>
         <mt-field label="身份证号" type="number" placeholder="请输入身份证号" v-model="cardId"></mt-field>
-        <!-- <mt-field label="手机号" placeholder="请输入手机号" v-model="phone"></mt-field> -->
-        <mt-field label="银行卡号" type="number" placeholder="请输入银行卡号" v-model="bankCardNo"></mt-field>
-        <mt-field label="打卡行" disabled placeholder="点击右侧图标选择银行" v-model="bankName" @click.native="updatePickerStatus('bankCardPickStatus')">
+        <mt-field label="发卡行" disabled placeholder="点击右侧图标选择银行" v-model="bankName" @click.native="updatePickerStatus('bankCardPickStatus')">
           <i class="fa fa-credit-card"></i>
         </mt-field>
+        <mt-field label="银行卡号" type="number" placeholder="请输入银行卡号" v-model="bankCardNo"></mt-field>
         <mt-field label="预约金额" type="number" placeholder="请输入预约金额" v-model="amount">
           <span>万元</span>
         </mt-field>
         <mt-field label="最迟打款日期" placeholder="最迟打款日期" disabled v-model="pLatestPayNum">
-          <!-- <mt-field label="最迟打款日期" placeholder="最迟打款日期" disabled v-model="pLatestPayNum" @click.native="openDatePicker"> -->
-          <!-- <i class="fa fa-calendar"></i> -->
         </mt-field>
-        <mt-field label="备注" placeholder="备注" type="textarea" rows="4" v-model="note"></mt-field>
+        <mt-field label="备注" placeholder="【发卡行】选择【其他】时，请在此填写上发卡行" type="textarea" rows="4" v-model="note"></mt-field>
       </div>
     </Scroll>
     <!-- 推荐 -->
@@ -89,7 +85,8 @@ export default {
             "民生银行",
             "平安银行",
             "浦发银行",
-            "中信银行"
+            "中信银行",
+            "其他(具体看下面备注)"
           ],
           className: "slot",
           textAlign: "center",

@@ -167,8 +167,6 @@
             <!-- <a v-for="(item,index) of pDetailsObj.productAttachments" :key='index' :href="item.paFilePath">{{item.paFileName}}</a> -->
             <a href="https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf">测试pdf</a>
           </div>
-          <!-- TODO:预览资料模块 -->
-          <!-- pDetailsObj.productAttachments -->
         </div>
         <!-- 备注 -->
         <!-- TODO:缺少字段 -->

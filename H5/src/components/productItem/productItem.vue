@@ -2,16 +2,16 @@
  * @Author: 张浩然 
  * @Date: 2018-03-13 22:45:10 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-26 12:12:26
+ * @Last Modified time: 2018-03-27 23:28:30
  * 首页--产品组件
  */
 
 <template>
     <div class="pro-content" @click="to_pDetails">
-        <div class="pro-content-yqnh">
+        <!-- <div class="pro-content-yqnh">
             <span class="span-key">预期年化</span>
             <span class="span-value annual-rate">{{pExpectAnnualRevenue}}</span>
-        </div>
+        </div> -->
         <div class="pro-header-content">
             <div class="title-content">
                 <span class="type">集合资管</span>
