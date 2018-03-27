@@ -15,7 +15,7 @@
             <span>债券基金</span>
         </li>
         <li class="productKind" :class="{kindActive:kindActiveCode===4}" @click="selectProductKind(4,$event)">
-            <span>阳光私募</span>
+            <span>股权私募</span>
         </li>
         <li class="productKind" :class="{kindActive:kindActiveCode===5}" @click="selectProductKind(5,$event)">
             <span>股权基金</span>
@@ -92,7 +92,7 @@
     },
     methods:{
       _initProductKins(){
-        this.productKinds.push('集合信托','集合资管','债券基金','阳光私募','股权基金');
+        this.productKinds.push('集合信托','集合资管','债券基金','股权私募','股权基金');
       },
       _initItems(){
         this.items.push('不限','1-6个月','6-12个月','1-2年','2-3年','3年以上','5年以上');

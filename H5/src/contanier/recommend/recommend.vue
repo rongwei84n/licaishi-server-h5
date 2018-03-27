@@ -46,7 +46,7 @@
             </li>
             <li @click="toFuncPage('product',3)" class="fl">
               <img src="~@/common/image/icon_30.jpg" alt=""><br/>
-              <span>阳光私募</span>
+              <span>股权私募</span>
             </li>
             <!-- <li @click="toFuncPage('product',4)" class="fl">
               <img src="~@/common/image/icon_31.jpg" alt=""><br/>

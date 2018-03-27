@@ -1,8 +1,8 @@
 /*
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
- * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-18 10:46:17
+ * @Last Modified by: zhanghr
+ * @Last Modified time: 2018-03-27 14:28:50
  *
  * 基础布局组件
  * 带头部与底部布局
@@ -295,15 +295,20 @@ export default {
   watch: {
     amount() {
       const unit = 10000;
-      this.profitRebates.forEach(item => {
+      for (let i = 0; i < this.profitRebates.length; i++) {
+        const item = this.profitRebates[i];
         if (
-          parseInt(this.amount) > parseInt(item.prStartAmount) / unit &&
-          parseInt(this.amount) < parseInt(item.prEndAmount) / unit
+          parseInt(this.amount) * unit >= parseInt(item.prStartAmount) &&
+          parseInt(this.amount) * unit < parseInt(item.prEndAmount)
         ) {
           this.comRatio = item.prCommission;
           this.proRatio = item.prExpectAnnualRevenue;
+          return;
+        } else {
+          this.comRatio = "";
+          this.proRatio = "";
         }
-      });
+      }
     }
   },
   components: {
