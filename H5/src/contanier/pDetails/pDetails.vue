@@ -90,6 +90,26 @@
             </div> -->
           </div>
         </div>
+        <!-- 认购须知 -->
+        <div class="financing" v-if="pDetailsObj.pRgxz">
+          <div class="pro-header-content">
+            <span>认购须知</span>
+          </div>
+          <div class="body-content">
+            <p v-html="pDetailsObj.pRgxz">
+            </p>
+          </div>
+        </div>
+        <!-- 管理机构 -->
+        <div class="financing" v-if="pDetailsObj.pTgjg">
+          <div class="pro-header-content">
+            <span>管理机构</span>
+          </div>
+          <div class="body-content">
+            <p v-html="pDetailsObj.pTgjg">
+            </p>
+          </div>
+        </div>
         <!-- 产品优势 -->
         <div class="p-superiority" v-if="pDetailsObj.pCpys">
           <div class="pro-header-content">
@@ -169,10 +189,13 @@
           </div>
         </div>
         <!-- 备注 -->
-        <!-- TODO:缺少字段 -->
-        <div class="back">
+        <div class="financing" v-if="pDetailsObj.pRemark">
           <div class="pro-header-content">
             <span>备注</span>
+          </div>
+          <div class="body-content">
+            <p v-html="pDetailsObj.pRemark">
+            </p>
           </div>
         </div>
         <!-- 推荐 -->
