@@ -1,8 +1,8 @@
 /*
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
- * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-19 00:49:49
+ * @Last Modified by: zhanghr
+ * @Last Modified time: 2018-03-28 10:35:20
  *
  * 产品详情组件
  */
@@ -90,6 +90,26 @@
             </div> -->
           </div>
         </div>
+        <!-- 认购须知 -->
+        <div class="financing" v-if="pDetailsObj.pRgxz">
+          <div class="pro-header-content">
+            <span>认购须知</span>
+          </div>
+          <div class="body-content">
+            <p v-html="pDetailsObj.pRgxz">
+            </p>
+          </div>
+        </div>
+        <!-- 管理机构 -->
+        <div class="financing" v-if="pDetailsObj.pTgjg">
+          <div class="pro-header-content">
+            <span>管理机构</span>
+          </div>
+          <div class="body-content">
+            <p v-html="pDetailsObj.pTgjg">
+            </p>
+          </div>
+        </div>
         <!-- 产品优势 -->
         <div class="p-superiority" v-if="pDetailsObj.pCpys">
           <div class="pro-header-content">
@@ -163,14 +183,19 @@
           <div class="pro-header-content">
             <span>预览资料</span>
           </div>
-          <!-- TODO:预览资料模块 -->
-          <!-- pDetailsObj.productAttachments -->
+          <div class="body-content">
+            <!-- <a v-for="(item,index) of pDetailsObj.productAttachments" :key='index' :href="item.paFilePath">{{item.paFileName}}</a> -->
+            <a href="https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf">测试pdf</a>
+          </div>
         </div>
         <!-- 备注 -->
-        <!-- TODO:缺少字段 -->
-        <div class="back">
+        <div class="financing" v-if="pDetailsObj.pRemark">
           <div class="pro-header-content">
             <span>备注</span>
+          </div>
+          <div class="body-content">
+            <p v-html="pDetailsObj.pRemark">
+            </p>
           </div>
         </div>
         <!-- 推荐 -->
@@ -208,7 +233,9 @@ export default {
     return {
       pCode: "", //产品编号
       pStatusCode: "", //产品状态编码
-      pDetailsObj: {}, //产品详情
+      pDetailsObj: {
+        productAttachments: [] //pdf列表
+      }, //产品详情
       /**
        * 枚举返回字符串
        */
@@ -267,31 +294,31 @@ export default {
      */
     subscribe() {
       // 判断当前是否登录
-      // this.$ajax({
-      //   url: `/srv/v1/login_status`,
-      //   method: "GET"
-      // }).then(res => {
-      //   if (res.data.status === this.$store.state.status) {
-      //     this.$router.push({
-      //       name: "pOrder",
-      //       query: {
-      //         pId: this.pDetailsObj.pId,
-      //         pShortName: this.pDetailsObj.pShortName,
-      //         profitRebates: JSON.stringify(this.pDetailsObj.profitRebates),
-      //         pLatestPayNum: this.pDetailsObj.pLatestPayNum
-      //       }
-      //     });
-      //   }
-      // });
-      this.$router.push({
-        name: "pOrder",
-        query: {
-          pId: this.pDetailsObj.pId,
-          pShortName: this.pDetailsObj.pShortName,
-          profitRebates: JSON.stringify(this.pDetailsObj.profitRebates),
-          pLatestPayNum: this.pDetailsObj.pLatestPayNum
+      this.$ajax({
+        url: `/srv/v1/login_status`,
+        method: "GET"
+      }).then(res => {
+        if (res.data.status === this.$store.state.status) {
+          this.$router.push({
+            name: "pOrder",
+            query: {
+              pId: this.pDetailsObj.pId,
+              pShortName: this.pDetailsObj.pShortName,
+              profitRebates: JSON.stringify(this.pDetailsObj.profitRebates),
+              pLatestPayNum: this.pDetailsObj.pLatestPayNum
+            }
+          });
         }
       });
+      // this.$router.push({
+      //   name: "pOrder",
+      //   query: {
+      //     pId: this.pDetailsObj.pId,
+      //     pShortName: this.pDetailsObj.pShortName,
+      //     profitRebates: JSON.stringify(this.pDetailsObj.profitRebates),
+      //     pLatestPayNum: this.pDetailsObj.pLatestPayNum
+      //   }
+      // });
     },
     back() {
       this.$router.go(-1);

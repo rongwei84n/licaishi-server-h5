@@ -3,21 +3,12 @@
     <scroll ref="scroll" class="recommend-content" :data="newRecommendProductsList">
       <div>
         <div v-if="recommends.length" class="slider-wrapper" ref="sliderWrapper">
-          <!-- <slider>
-            <div v-for="(item,index) in recommends" :key="index">
-              <a :href="item.linkUrl">
-                <img class="needsclick" @load="loadImage" :src="item.picUrl">
-              </a>
-            </div>
-          </slider> -->
           <mt-swipe :auto="4000">
             <mt-swipe-item v-for="(item,index) in recommends" :key="index">
               <a :href="item.link_url">
                 <img class="needsclick" @load="loadImage" :src="item.url">
               </a>
             </mt-swipe-item>
-            <!-- <mt-swipe-item>2</mt-swipe-item>
-            <mt-swipe-item>3</mt-swipe-item> -->
           </mt-swipe>
         </div>
         <!-- 首页功能导航菜单 -->
@@ -46,7 +37,7 @@
             </li>
             <li @click="toFuncPage('product',3)" class="fl">
               <img src="~@/common/image/icon_30.jpg" alt=""><br/>
-              <span>阳光私募</span>
+              <span>股权私募</span>
             </li>
             <!-- <li @click="toFuncPage('product',4)" class="fl">
               <img src="~@/common/image/icon_31.jpg" alt=""><br/>
@@ -114,7 +105,6 @@ export default {
     },
     //
     to_NanProducts(recommendType) {
-      console.log("点击更多");
       this.$router.push({
         path: "/hotProducts",
         query: { recommendType: recommendType }
@@ -126,18 +116,10 @@ export default {
         this.$refs.scroll.refresh();
       }
     },
-    // _getRecommend() {
-    //   getRecommend().then(res => {
-    //     if (res.code === ERR_OK) {
-    //       this.recommends = res.data.slider;
-    //     }
-    //   });
-    // },
     /**
      * 获取首页banner
      */
     get_banners() {
-      console.log("获取首页banner");
       axios({
         withCredentials: true,
         // TOOD:路径前缀
@@ -145,7 +127,6 @@ export default {
         method: "get",
         timeout: 10000
       }).then(res => {
-        console.log("进入banner回调");
         if (res.status === 200) {
           this.recommends = res.data.result.list;
         }
@@ -162,7 +143,7 @@ export default {
         timeout: 10000
       }).then(res => {
         if (res.status === 200) {
-          this.recommendProductsList = res.data.result.slice(0, 2);
+          this.recommendProductsList = res.data.result.slice(0, 4);
         }
       });
     },
@@ -177,7 +158,7 @@ export default {
         timeout: 10000
       }).then(res => {
         if (res.status === 200) {
-          this.newRecommendProductsList = res.data.result.slice(0, 2);
+          this.newRecommendProductsList = res.data.result.slice(0, 4);
         }
       });
     }
@@ -253,7 +234,7 @@ export default {
      * 轮播图组件
      */
     .slider-wrapper {
-      height: 200px;
+      height: 180px;
       width: 100%;
       overflow: hidden;
 

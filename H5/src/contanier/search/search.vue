@@ -9,7 +9,7 @@
         </div>
         <div class="content">
           <div class="av-name">{{name}}</div>
-          <div class="money-all">累计佣金: {{sumCommission}}</div>
+          <div v-if="this.name!=='未登录'" class="money-all">累计佣金: {{sumCommission}}</div>
         </div>
       </div>
       <div class="right-icon">
@@ -22,7 +22,7 @@
 
     <!-- 我的订单模块 -->
     <div class="setting-order">
-      <div class="view-all-orders" v-on:click="gotoAllOrderList">查看全部订单></div>
+      <div class="view-all-orders" @click="handleOrderClick('1')">查看全部订单></div>
       <img slot="icon" src="../../common/image/my_settings_order.png" width="24" height="24" class="icon">
       <div class="my-order">
         <hr color="#EDEEEF"/>
@@ -30,21 +30,21 @@
         <hr color="#EDEEEF"/>
       </div>
       <div class="order-items">
-        <div class="order-items-tab" v-on:click="handleWaitpayOnclick">
+        <div class="order-items-tab" @click="handleOrderClick('2')">
           <img slot="icon" src="../../common/image/my_settings_waitpay.png" width="24" height="27">
           <span>
             待打款
           </span>
         </div>
-        <div class="order-items-tab" v-on:click="handleWaitCommissionOnclick">
+        <div class="order-items-tab" @click="handleOrderClick('3')">
           <img slot="icon" src="../../common/image/my_settings_wait_commission.png" width="24" height="27">
           <span>待结佣</span>
         </div>
-        <div class="order-items-tab" v-on:click="handleAlreadyCommissionOnclick">
+        <div class="order-items-tab" @click="handleOrderClick('4')">
           <img slot="icon" src="../../common/image/my_settings_already_commission.png" width="24" height="27">
           <span>已结佣</span>
         </div>
-        <div class="order-items-tab" v-on:click="handleFailedOnclick">
+        <div class="order-items-tab" @click="handleOrderClick('5')">
           <img slot="icon" src="../../common/image/my_settings_failed.png" width="24" height="27">
           <span>已失败</span>
         </div>
@@ -55,12 +55,16 @@
       <mt-cell title="我的工作室" to="/rank" is-link>
         <img slot="icon" src="../../common/image/my_settings_mystudio.png" width="18" height="14">
       </mt-cell>
-      <mt-cell title="我的客户" to="/rank/mycustom" is-link>
-        <img slot="icon" src="../../common/image/my_settings_my_customer.png" width="18" height="14">
-      </mt-cell>
-      <mt-cell title="我要推广" is-link>
-        <img slot="icon" src="../../common/image/my_settings_spread.png" width="18" height="14">
-      </mt-cell>
+      <div v-on:click="gotoMyCustomer">
+        <mt-cell title="我的客户" is-link>
+          <img slot="icon" src="../../common/image/my_settings_my_customer.png" width="18" height="14">
+        </mt-cell>
+      </div>
+      <div v-on:click="gotoTuiguang">
+        <mt-cell title="我要推广" is-link>
+          <img slot="icon" src="../../common/image/my_settings_spread.png" width="18" height="14">
+        </mt-cell>
+      </div>
       <mt-cell title="客服热线：400-0852-6325">
         <img slot="icon" src="../../common/image/my_settings_hotline.png" width="18" height="14">
       </mt-cell>
@@ -90,6 +94,28 @@
     },
 
     methods: {
+      gotoTuiguang() {
+        let _this = this;
+        if (_this.isLogin) {
+          this.$router.push("/rank/generalize")
+        } else {
+          window.phihome.app.openPage("lcs.account.login", null, function (response) {
+            _this.queryAccountDetail();
+            _this.queryCommission();
+          });
+        }
+      },
+      gotoMyCustomer() {
+        let _this = this;
+        if (_this.isLogin) {
+          _this.$router.push("/rank/mycustom")
+        } else {
+          window.phihome.app.openPage("lcs.account.login", null, function (response) {
+            _this.queryAccountDetail();
+            _this.queryCommission();
+          });
+        }
+      },
       queryCommission() {
         let _this = this;
         window.phihome.util.netRequest(
@@ -101,17 +127,18 @@
             response = JSON.parse(response);
             if (response.status == 200) {
               if (response.result.sumCommission === null) {
-                _this.sumCommission = '0元';
+                _this.sumCommission = "0元";
               } else {
-                _this.sumCommission = response.result.sumCommission + '元';
+                _this.sumCommission = response.result.sumCommission + "元";
               }
             } else {
-              _this.sumCommission = '获取失败';
+              _this.sumCommission = "获取失败";
             }
           }
         );
       },
       queryAccountDetail() {
+        console.info("queryAccountDetail");
         let _this = this;
         window.phihome.util.netRequest(
           "get",
@@ -128,12 +155,11 @@
             } else {
               _this.name = "未登录";
               _this.isLogin = false;
-              _this.headerAvatar = '';
+              _this.headerAvatar = "";
             }
-            if(_this.name == null || _this.name=='') {
+            if (_this.name == null || _this.name == "") {
               _this.name = "未设置";
             }
-
           }
         );
       },
@@ -143,13 +169,14 @@
         if (_this.isLogin) {
           window.phihome.app.openPage("lcs.account.personinfo", null, function (response) {
             _this.queryAccountDetail();
+            _this.queryCommission();
           });
         } else {
           window.phihome.app.openPage("lcs.account.login", null, function (response) {
             _this.queryAccountDetail();
+            _this.queryCommission();
           });
         }
-
       },
       gotoPersonInfo() {
         window.phihome.app.openPage("lcs.account.personinfo", null, function (response) {
@@ -173,11 +200,12 @@
       },
 
       handleOrderClick(item) {
-        if(this.isLogin) {
+        if (this.isLogin) {
           this.$router.push({name: "Orderlist", params: {tab_id: item}});
-        }else {
+        } else {
           window.phihome.app.openPage("lcs.account.login", null, function (response) {
             _this.queryAccountDetail();
+            _this.queryCommission();
           });
         }
       }
@@ -197,18 +225,22 @@
     /* 头部功能模块 */
     .setting-header {
       height: calc(143px + 14px);
+      width: 100%;
       padding-left: 18px;
       position: relative;
-      background-image url("~@/common/image/my_settings_header_background.png")
+      background: url('../../common/image/my_settings_header_background.png') center center;
+      background-color: red;
+      background-size: cover;
       border-bottom: solid 1px gainsboro;
 
       .content-wrapper {
-        padding: 24px 12px 18px 0px;
+        padding: 24px 12px 18px 18px;
         font-size: 0;
 
         .avatar {
           vertical-align: top;
           display: inline-block;
+
           .header_avatar {
             border-radius: 40px;
           }
@@ -219,15 +251,19 @@
           display: inline-block;
           font-size: 14px;
           margin-left: 16px;
+          color: #ffffff;
 
           .av-name {
             margin-top: 10px;
-            font-size: 12px;
+            font-size: 14px;
             margin-bottom: 10px;
           }
 
           .money-all {
-            font-size: 9px;
+            padding: 2px 4px;
+            font-size: 12px;
+            border: 1px solid #FFDE00;
+            border-radius: 12px;
           }
         }
       }
@@ -237,10 +273,16 @@
       position: absolute;
       right: 18px;
       top: 24px;
-      font-size: 20px;
+      // font-size: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
       .ri-setting {
-        visibility: hidden;
+        // visibility: hidden;
+        margin-right: 16px;
+        font-size: 16px;
+        color: #ffffff;
         display: inline-block;
       }
 
@@ -329,7 +371,7 @@
       border-bottom: solid 1px gainsboro;
 
       > div {
-        border-bottom: 1px solid #EDEEEF;
+        /*border-bottom: 1px solid #EDEEEF;*/
       }
 
       /* 改变cell组件内的文字大小 */
