@@ -106,7 +106,7 @@
       top 4vh
       right 3vw
       height: 6%;
-      background-image: url(/static/img/lcs-logo.3133185.png);
+      background-image: url("~@/common/image/lcs-logo.png");
       background-size: 100% 100%;
       background-repeat no-repeat
     .generalize-avatar
