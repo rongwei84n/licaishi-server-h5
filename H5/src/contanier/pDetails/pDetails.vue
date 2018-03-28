@@ -1,8 +1,8 @@
 /*
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
- * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-23 00:03:35
+ * @Last Modified by: zhanghr
+ * @Last Modified time: 2018-03-28 10:35:20
  *
  * 产品详情组件
  */
@@ -294,31 +294,31 @@ export default {
      */
     subscribe() {
       // 判断当前是否登录
-      // this.$ajax({
-      //   url: `/srv/v1/login_status`,
-      //   method: "GET"
-      // }).then(res => {
-      //   if (res.data.status === this.$store.state.status) {
-      //     this.$router.push({
-      //       name: "pOrder",
-      //       query: {
-      //         pId: this.pDetailsObj.pId,
-      //         pShortName: this.pDetailsObj.pShortName,
-      //         profitRebates: JSON.stringify(this.pDetailsObj.profitRebates),
-      //         pLatestPayNum: this.pDetailsObj.pLatestPayNum
-      //       }
-      //     });
-      //   }
-      // });
-      this.$router.push({
-        name: "pOrder",
-        query: {
-          pId: this.pDetailsObj.pId,
-          pShortName: this.pDetailsObj.pShortName,
-          profitRebates: JSON.stringify(this.pDetailsObj.profitRebates),
-          pLatestPayNum: this.pDetailsObj.pLatestPayNum
+      this.$ajax({
+        url: `/srv/v1/login_status`,
+        method: "GET"
+      }).then(res => {
+        if (res.data.status === this.$store.state.status) {
+          this.$router.push({
+            name: "pOrder",
+            query: {
+              pId: this.pDetailsObj.pId,
+              pShortName: this.pDetailsObj.pShortName,
+              profitRebates: JSON.stringify(this.pDetailsObj.profitRebates),
+              pLatestPayNum: this.pDetailsObj.pLatestPayNum
+            }
+          });
         }
       });
+      // this.$router.push({
+      //   name: "pOrder",
+      //   query: {
+      //     pId: this.pDetailsObj.pId,
+      //     pShortName: this.pDetailsObj.pShortName,
+      //     profitRebates: JSON.stringify(this.pDetailsObj.profitRebates),
+      //     pLatestPayNum: this.pDetailsObj.pLatestPayNum
+      //   }
+      // });
     },
     back() {
       this.$router.go(-1);
