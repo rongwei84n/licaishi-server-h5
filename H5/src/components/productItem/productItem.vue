@@ -106,24 +106,24 @@ export default {
 
 <style lang="stylus" scoped>
 .pro-content {
-    height: 120px;
+    height: 140px;
     width: 100vw;
 
     .pro-header-content {
-        height: 24px;
+        height: 40px;
         border-bottom: 1px solid #fa5c5f;
         display: flex;
         justify-content: space-between;
         align-items: center;
 
         .title-content {
-            font-size: 16px;
-            width: 80px;
+            font-size: 14px;
+            width: 90px;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 0 4px;
-            border-right: 1px solid red;
+            border-right: 1px solid #cfd3d4;
             color: red;
         }
 
@@ -132,15 +132,16 @@ export default {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding-left:8px;
 
             .name {
-                font-size: 16px;
+                font-size: 14px;
                 margin-left: 4px;
             }
 
             >img {
-                height: 22px;
-                width: 22px;
+                height: 40px;
+                width: 40px;
             }
         }
     }
@@ -155,11 +156,11 @@ export default {
             display: flex;
             flex-direction: column;
             margin: 10px 0;
-            padding: 0 10px;
+            padding: 5px 10px;
         }
 
         .main-left-content {
-            border-right: 1px solid red;
+            border-right: 1px solid #dbe0e4;
             // justify-content: space-around;
         }
 
@@ -172,6 +173,7 @@ export default {
 
     .span-key, .span-value {
         font-size: 14px;
+        padding:2px;
     }
 
     // 年化率
@@ -183,8 +185,11 @@ export default {
         line-height: 60px;
     }
 
+    .span-key {
+        color: #686868;
+    }
     .span-value {
-        color: red;
+        color: #fc5756;
     }
 }
 </style>
