@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
  * @Last Modified by: zhanghr
- * @Last Modified time: 2018-03-29 15:32:34
+ * @Last Modified time: 2018-03-29 16:10:08
  *
  * 预约组件
  */
@@ -166,6 +166,7 @@ export default {
     },
     // 提交
     submit() {
+      return;
       /**
        * 1。判断当前是否全部输入
        */
@@ -177,74 +178,72 @@ export default {
         this.check_reg("amount", "预约金额未填写") &&
         this.check_reg("pLatestPayNum", "最迟打款日期未选择")
       ) {
-        const promise = new Promise(function(resolve, reject) {
-          /**
-           * 2。首先得判断当前登录状态
-           */
-          ajax({
-            url: `/srv/v1/login_status`,
-            method: "GET"
-          }).then(res => {
-            if (res.status == 200) {
-              resolve(res);
-            } else {
-              reject(err);
-            }
-          });
+        ajax({
+          url: `/srv/v1/order/createOrder`,
+          params: {
+            productId: this.pId,
+            customerId: this.customerId,
+            customerName: this.customerName,
+            cardId: this.cardId,
+            amount: this.amount,
+            lastPayDate: this.pLatestPayNum,
+            comRatio: this.comRatio,
+            proRatio: this.proRatio,
+            issuingBank: this.bankName,
+            bankCardNo: this.bankCardNo,
+            note: this.note
+          }
+        }).then(res => {
+          // if (res.status === 200) {
+          this.$router.replace("/pOrderSuccess");
+          // }
         });
-        promise.then(
-          res => {
-            window.phihome.util.netRequest(
-              "post",
-              `http://47.97.100.240/srv/v1/order/createOrder`,
-              "",
-              {
-                productId: this.pId,
-                customerId: this.customerId,
-                customerName: this.customerName,
-                cardId: this.cardId,
-                amount: this.amount,
-                lastPayDate: this.pLatestPayNum,
-                comRatio: this.comRatio,
-                proRatio: this.proRatio,
-                issuingBank: this.bankName,
-                bankCardNo: this.bankCardNo,
-                note: this.note
-              },
-              res => {
-                res = JSON.parse(res);
-                // 原生对象包装一层模拟axios返回的对象结构
-                if (res.status == 200) {
-                  this.$router.replace("/pOrderSuccess");
-                }
-              }
-            );
-            // ajax({
-            //   url: "/srv/v1/order/createOrder",
-            //   params: {
-            //     productId: this.pId,
-            //     customerId: this.customerId,
-            //     customerName: this.customerName,
-            //     cardId: this.cardId,
-            //     amount: this.amount,
-            //     lastPayDate: this.pLatestPayNum,
-            //     comRatio: this.comRatio,
-            //     proRatio: this.proRatio,
-            //     issuingBank: this.bankName,
-            //     bankCardNo: this.bankCardNo,
-            //     note: this.note
-            //   },
-            //   method: "post"
-            // }).then(res => {
-            //   if (res.status == 200) {
-            //     console.log("预约订单返回成功");
-            //     this.$router.replace("/pOrderSuccess");
-            //   }
-            // });
-          },
-          // 此处应该跳转登录页
-          err => {}
-        );
+        // const promise = new Promise(function(resolve, reject) {
+        //   /**
+        //    * 2。首先得判断当前登录状态
+        //    */
+        //   ajax({
+        //     url: `/srv/v1/login_status`,
+        //     method: "GET"
+        //   }).then(res => {
+        //     if (res.status == 200) {
+        //       resolve(res);
+        //     } else {
+        //       reject(err);
+        //     }
+        //   });
+        // });
+        // promise.then(
+        //   res => {
+        //     window.phihome.util.netRequest(
+        //       "post",
+        //       `http://47.97.100.240/srv/v1/order/createOrder`,
+        //       "",
+        //       {
+        //         productId: this.pId,
+        //         customerId: this.customerId,
+        //         customerName: this.customerName,
+        //         cardId: this.cardId,
+        //         amount: this.amount,
+        //         lastPayDate: this.pLatestPayNum,
+        //         comRatio: this.comRatio,
+        //         proRatio: this.proRatio,
+        //         issuingBank: this.bankName,
+        //         bankCardNo: this.bankCardNo,
+        //         note: this.note
+        //       },
+        //       res => {
+        //         res = JSON.parse(res);
+        //         // 原生对象包装一层模拟axios返回的对象结构
+        //         if (res.status == 200) {
+        //           this.$router.replace("/pOrderSuccess");
+        //         }
+        //       }
+        //     );
+        //   },
+        //   // 此处应该跳转登录页
+        //   err => {}
+        // );
       }
     },
     /**
@@ -263,30 +262,6 @@ export default {
     openDatePicker() {
       this.$refs.picker.open();
     }
-  },
-  computed: {
-    // // 佣金比例
-    // comRatio() {
-    //   this.profitRebates.forEach(item => {
-    //     if (
-    //       parseInt(this.amount) > parseInt(item.prStartAmount) &&
-    //       parseInt(this.amount) < parseInt(item.prEndAmount)
-    //     ) {
-    //       return item.prCommission;
-    //     }
-    //   });
-    // },
-    // // 预期收益率
-    // proRatio() {
-    //   this.profitRebates.forEach(item => {
-    //     if (
-    //       parseInt(this.amount) > parseInt(item.prStartAmount) &&
-    //       parseInt(this.amount) < parseInt(item.prEndAmount)
-    //     ) {
-    //       return item.prExpectAnnualRevenue;
-    //     }
-    //   });
-    // }
   },
   watch: {
     amount() {

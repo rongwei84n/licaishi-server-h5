@@ -63,17 +63,16 @@ function ajax({
     //   data: qsStatus ? qs.stringify(Object.assign({}, params)) : params,
     //   headers,
     //   method,
-    //   timeout: 10000,
+    //   timeout: 10000
     // }).then(
-    //   (res) => {
+    //   res => {
     //     // 请求成功返回
     //     if (res.status === 200) {
-    //       resolve(res)
+    //       resolve(res);
     //     }
-    //   }
-    //   ,
-    //   (err) => reject(err)
-    // )
+    //   },
+    //   err => reject(err)
+    // );
   });
 }
 
