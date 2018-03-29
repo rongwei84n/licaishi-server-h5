@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
  * @Last Modified by: zhanghr
- * @Last Modified time: 2018-03-29 08:44:13
+ * @Last Modified time: 2018-03-29 10:29:29
  *
  * 产品详情组件
  */
@@ -11,7 +11,7 @@
   <div id="pDetails">
     <mt-header title="产品详情">
       <mt-button icon="back" @click="back" slot="left"></mt-button>
-      <i class="fa fa-share-alt extend-click" slot="right"></i>
+      <i class="fa fa-share-alt extend-click" slot="right" @click="btnEvent"></i>
     </mt-header>
     <Scroll class="scroll-conntent" :data="pDetailsObj">
       <div>
@@ -212,6 +212,8 @@
       </a>
       <a class="subscribe" @click="subscribe">立即预约</a>
     </div>
+    <!-- 分享模态框组件 -->
+    <SoshmModal @confirmClick="confirmClick" @fooModalContent="soshmStatus = false" v-if="soshmStatus"></SoshmModal>
   </div>
 </template>
 
@@ -224,6 +226,7 @@ import {
 import Clipboard from "clipboard";
 import moduleTitle from "components/moduleTitle/moduleTitle";
 import Scroll from "base/scroll/scroll";
+import SoshmModal from "base/soshmModal/soshmModal";
 import productItem from "components/productItem/productItem";
 import whiteSpace from "base/whiteSpace/whiteSpace";
 
@@ -240,13 +243,56 @@ export default {
        */
       pInvestType_str: "",
       pPaymentInterestType_str: "",
-      pSizeRatioType_str: ""
+      pSizeRatioType_str: "",
+      /**
+       * 模态框
+       */
+      soshmStatus: false
     };
   },
   created() {
     this.get_pDetails();
   },
   methods: {
+    // 分享模态框确定点击事件
+    confirmClick(index) {
+      this.AppShare(index);
+      this.soshmStatus = !this.soshmStatus;
+    }, // 在App内进行分享
+    AppShare(index) {
+      // let params = {
+      //   url: `${this.currentItem.url}`,
+      //   title: this.currentItem.share_main_title,
+      //   share_logo_url: this.currentItem.share_logo_url,
+      //   content: this.currentItem.share_sub_title,
+      //   sharetype: index
+      // };
+      // 发短信参数特殊处理
+      if (index === 6) {
+        params = {
+          url: "",
+          title: "",
+          share_logo_url: "",
+          content: `${window.localStorage.userName}邀请您加入${
+            this.currentItem.name
+          }${this.currentItem.url}`,
+          sharetype: index
+        };
+      }
+      if (window.webkit) {
+        // 跟ios发
+        window.webkit.messageHandlers.Share.postMessage(params);
+      } else if (window.jsInterface) {
+        // 跟安卓跑
+        window.jsInterface.invokeMethod(JSON.stringify(params));
+      } else {
+      }
+    },
+    // 分享按钮事件
+    btnEvent() {
+      // TODO:分享是不是要优先登录才行
+      this.soshmStatus = !this.soshmStatus;
+    },
     /**
      * @param btnId 按钮id
      * @param targetId 目标块id
@@ -355,7 +401,8 @@ export default {
     Scroll,
     whiteSpace,
     moduleTitle,
-    productItem
+    productItem,
+    SoshmModal
   }
 };
 </script>
