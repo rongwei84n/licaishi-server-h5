@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
  * @Last Modified by: zhanghr
- * @Last Modified time: 2018-03-29 16:28:02
+ * @Last Modified time: 2018-03-29 16:35:59
  *
  * 预约组件
  */
@@ -243,7 +243,7 @@ export default {
                 if (res.status == 200) {
                   this.$router.replace("/pOrderSuccess");
                 } else {
-                  alert("预约失败");
+                  MessageBox("提示", "预约失败,详情请咨询客服!");
                 }
               }
             );
