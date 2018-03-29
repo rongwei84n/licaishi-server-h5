@@ -1,8 +1,8 @@
 /*
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
- * @Last Modified by: 张浩然
- * @Last Modified time: 2018-03-22 22:34:48
+ * @Last Modified by: zhanghr
+ * @Last Modified time: 2018-03-29 15:32:34
  *
  * 预约组件
  */
@@ -303,6 +303,11 @@ export default {
         } else {
           this.comRatio = "";
           this.proRatio = "";
+        }
+        // 最后一行不做处理
+        if (i === this.profitRebates.length - 1) {
+          this.comRatio = item.prCommission;
+          this.proRatio = item.prExpectAnnualRevenue;
         }
       }
     }
