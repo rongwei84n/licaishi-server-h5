@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
  * @Last Modified by: zhanghr
- * @Last Modified time: 2018-03-28 10:35:20
+ * @Last Modified time: 2018-03-29 08:44:13
  *
  * 产品详情组件
  */
@@ -48,7 +48,7 @@
           <div class="pro-header-content">
             <span>基础信息</span>
             <span class="copy" data-clipboard-target="#information" data-clipboard-action="copy" id="information_btn" @click="copy('information_btn','#information')">
-              <i></i>复制
+              <!-- <i></i>复制 -->
             </span>
           </div>
           <div class="body-content" id="information">
@@ -115,12 +115,11 @@
           <div class="pro-header-content">
             <span>产品优势</span>
             <span class="copy">
-              <i></i>复制
+              <!-- <i></i>复制 -->
             </span>
           </div>
           <div class="body-content">
-            <p>
-              {{pDetailsObj.pCpys}}
+            <p v-html="pDetailsObj.pCpys">
             </p>
           </div>
         </div>
@@ -129,7 +128,7 @@
           <div class="pro-header-content">
             <span>募集账号</span>
             <span class="copy">
-              <i></i>复制
+              <!-- <i></i>复制 -->
             </span>
           </div>
           <div class="body-content">
