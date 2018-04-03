@@ -1,8 +1,8 @@
 /*
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
- * @Last Modified by: zhanghr
- * @Last Modified time: 2018-03-29 16:35:59
+ * @Last Modified by: 张浩然
+ * @Last Modified time: 2018-04-03 21:26:30
  *
  * 预约组件
  */
@@ -156,7 +156,7 @@ export default {
         }
       });
     },
-    /* 校验身份证是否规范 */
+    /* 校验参数是否为空 */
     check_reg(param, msg) {
       if (this[param]) {
         return true;
@@ -178,6 +178,10 @@ export default {
         this.check_reg("amount", "预约金额未填写") &&
         this.check_reg("pLatestPayNum", "最迟打款日期未选择")
       ) {
+        // 对身份证进行验证
+        if (!isCardNo(this.cardId)) {
+          return;
+        }
         const promise = new Promise(function(resolve, reject) {
           /**
            * 2。首先得判断当前登录状态
