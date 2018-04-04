@@ -142,7 +142,6 @@ export default {
       );
     },
     queryAccountDetail() {
-      console.info("queryAccountDetail");
       let _this = this;
       window.phihome.util.netRequest(
         "get",
@@ -209,8 +208,8 @@ export default {
     },
 
     handleOrderClick(item) {
-      this.$router.push({ name: "Orderlist", params: { tab_id: item } });
-      return;
+      // this.$router.push({ name: "Orderlist", params: { tab_id: item } });
+      // return;
       if (this.isLogin) {
         this.$router.push({ name: "Orderlist", params: { tab_id: item } });
       } else {

@@ -140,8 +140,10 @@ export default {
             }
 
             >img {
-                height: 40px;
-                width: 40px;
+                height:36px;
+                width:36px;
+                // height: 40px;
+                // width: 40px;
             }
         }
     }

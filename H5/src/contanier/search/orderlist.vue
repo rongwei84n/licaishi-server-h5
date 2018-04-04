@@ -24,7 +24,7 @@
           <!-- TODO:测试组件--开始 -->
           <div v-show="arrOrderList.length>0">
             <div v-for="(item,index) of arrOrderList" :key="index">
-              <OrderListItem :selectedOrder=selected :orderId="item.orderNo" :voucharStatus="item.voucherStatus" :prodName="item.productShortName" :orderAmount="item.amount" :rebatePresent="item.comRatio" :rebateAmount="item.commission" :status="item.status" :customerName="item.customerName" @order-cancel="get_orderList"/>
+              <OrderListItem :index="index" :selectedOrder=selected :orderId="item.orderNo" :voucharStatus="item.voucherStatus" :prodName="item.productShortName" :orderAmount="item.amount" :rebatePresent="item.comRatio" :rebateAmount="item.commission" :status="item.status" :customerName="item.customerName" @order-cancel="orderCancel" />
               <split :sh="8"></split>
             </div>
           </div>
@@ -116,17 +116,22 @@ export default {
     }
   },
   methods: {
-    handleSearch() {},
+    // 删除成功后手动删除当前行
+    orderCancel(index) {
+      // TODO:遍历当前数组，删除此item
+      // console.log(index);
+      this.arrOrderList2.splice(index,1)
+      this.arrOrderList=this.arrOrderList2
+    },
+    handleSearch(){},
     back() {
       this.$router.go(-1);
     },
-
     scrollToEnd() {
       this.pageNo++;
       this.pageNoAttr[this.selected]++;
       this.get_orderList();
     },
-
     /**
      * 测试用
      * 请求全部订单
@@ -145,7 +150,6 @@ export default {
       } else if (this.selected == 5) {
         canPull = this.pullup5;
       }
-
       if (canPull) {
         let status = "00";
         if (this.selected == 1) {
@@ -165,7 +169,7 @@ export default {
           }&pageSize=${this.$store.state.pageSize}&status=${status}`,
           method: "GET"
         }).then(res => {
-          if (res.status === 200&&res.data.result) {
+          if (res.status === 200 && res.data.result) {
             if (this.selected == 1) {
               this.arrOrderList1 = [
                 ...this.arrOrderList1,
@@ -192,51 +196,31 @@ export default {
                 ...res.data.result.list
               ];
             }
-            this.pullup1 =
-              res.data.result.pager && this.selected == 1
-                ? res.data.result.pager.hasNaxtPage
-                : false;
-            this.pullup2 =
-              res.data.result.pager && this.selected == 2
-                ? res.data.result.pager.hasNaxtPage
-                : false;
-            this.pullup3 =
-              res.data.result.pager && this.selected == 3
-                ? res.data.result.pager.hasNaxtPage
-                : false;
-            this.pullup4 =
-              res.data.result.pager && this.selected == 4
-                ? res.data.result.pager.hasNaxtPage
-                : false;
-            this.pullup5 =
-              res.data.result.pager && this.selected == 5
-                ? res.data.result.pager.hasNaxtPage
-                : false;
-            // if (res.data.result.pager) {
-            //   if (this.selected == 1) {
-            //     this.pullup1 = res.data.result.pager.hasNaxtPage;
-            //   } else if (this.selected == 2) {
-            //     this.pullup2 = res.data.result.pager.hasNaxtPage;
-            //   } else if (this.selected == 3) {
-            //     this.pullup3 = res.data.result.pager.hasNaxtPage;
-            //   } else if (this.selected == 4) {
-            //     this.pullup4 = res.data.result.pager.hasNaxtPage;
-            //   } else if (this.selected == 5) {
-            //     this.pullup5 = res.data.result.pager.hasNaxtPage;
-            //   }
-            // } else {
-            //   if (this.selected == 1) {
-            //     this.pullup1 = false;
-            //   } else if (this.selected == 2) {
-            //     this.pullup2 = false;
-            //   } else if (this.selected == 3) {
-            //     this.pullup3 = false;
-            //   } else if (this.selected == 4) {
-            //     this.pullup4 = false;
-            //   } else if (this.selected == 5) {
-            //     this.pullup5 = false;
-            //   }
-            // }
+            if (res.data.result.pager) {
+              if (this.selected == 1) {
+                this.pullup1 = res.data.result.pager.hasNaxtPage;
+              } else if (this.selected == 2) {
+                this.pullup2 = res.data.result.pager.hasNaxtPage;
+              } else if (this.selected == 3) {
+                this.pullup3 = res.data.result.pager.hasNaxtPage;
+              } else if (this.selected == 4) {
+                this.pullup4 = res.data.result.pager.hasNaxtPage;
+              } else if (this.selected == 5) {
+                this.pullup5 = res.data.result.pager.hasNaxtPage;
+              }
+            } else {
+              if (this.selected == 1) {
+                this.pullup1 = false;
+              } else if (this.selected == 2) {
+                this.pullup2 = false;
+              } else if (this.selected == 3) {
+                this.pullup3 = false;
+              } else if (this.selected == 4) {
+                this.pullup4 = false;
+              } else if (this.selected == 5) {
+                this.pullup5 = false;
+              }
+            }
           }
           this.copyValue();
         });
@@ -246,58 +230,58 @@ export default {
     }, //End get_orderList
 
     copyValue() {
-      switch (parseInt(this.selected)) {
-        case 1:
-          this.arrOrderList = this.arrOrderList1;
-          this.pullup = this.pullup1;
-          break;
-        case 2:
-          this.arrOrderList = this.arrOrderList2;
-          this.pullup = this.pullup2;
-          break;
-        case 3:
-          this.arrOrderList = this.arrOrderList3;
-          this.pullup = this.pullup3;
-          break;
-        case 4:
-          this.arrOrderList = this.arrOrderList4;
-          this.pullup = this.pullup4;
-          break;
-        case 5:
-          this.arrOrderList = this.arrOrderList5;
-          this.pullup = this.pullup5;
-          break;
-        default:
-          console.log("tab的id有问题");
-          break;
+      // switch (parseInt(this.selected)) {
+      //   case 1:
+      //     this.arrOrderList = this.arrOrderList1;
+      //     this.pullup = this.pullup1;
+      //     break;
+      //   case 2:
+      //     this.arrOrderList = this.arrOrderList2;
+      //     this.pullup = this.pullup2;
+      //     break;
+      //   case 3:
+      //     this.arrOrderList = this.arrOrderList3;
+      //     this.pullup = this.pullup3;
+      //     break;
+      //   case 4:
+      //     this.arrOrderList = this.arrOrderList4;
+      //     this.pullup = this.pullup4;
+      //     break;
+      //   case 5:
+      //     this.arrOrderList = this.arrOrderList5;
+      //     this.pullup = this.pullup5;
+      //     break;
+      //   default:
+      //     console.log("tab的id有问题");
+      //     break;
+      // }
+      if (this.selected == 1) {
+        this.arrOrderList = this.arrOrderList1;
+        this.pullup = this.pullup1;
+      } else if (this.selected == 2) {
+        this.arrOrderList = this.arrOrderList2;
+        this.pullup = this.pullup2;
+      } else if (this.selected == 3) {
+        this.arrOrderList = this.arrOrderList3;
+        this.pullup = this.pullup3;
+      } else if (this.selected == 4) {
+        this.arrOrderList = this.arrOrderList4;
+        this.pullup = this.pullup4;
+      } else if (this.selected == 5) {
+        this.arrOrderList = this.arrOrderList5;
+        this.pullup = this.pullup5;
       }
-      // if (this.selected == 1) {
-      //   this.arrOrderList = this.arrOrderList1;
-      //   this.pullup = this.pullup1;
-      // } else if (this.selected == 2) {
-      //   this.arrOrderList = this.arrOrderList2;
-      //   this.pullup = this.pullup2;
-      // } else if (this.selected == 3) {
-      //   this.arrOrderList = this.arrOrderList3;
-      //   this.pullup = this.pullup3;
-      // } else if (this.selected == 4) {
-      //   this.arrOrderList = this.arrOrderList4;
-      //   this.pullup = this.pullup4;
-      // } else if (this.selected == 5) {
-      //   this.arrOrderList = this.arrOrderList5;
-      //   this.pullup = this.pullup5;
-      // }
-      // if (this.selected == 1) {
-      //   this.pullup = this.pullup1;
-      // } else if (this.selected == 2) {
-      //   this.pullup = this.pullup2;
-      // } else if (this.selected == 3) {
-      //   this.pullup = this.pullup3;
-      // } else if (this.selected == 4) {
-      //   this.pullup = this.pullup4;
-      // } else if (this.selected == 5) {
-      //   this.pullup = this.pullup5;
-      // }
+      if (this.selected == 1) {
+        this.pullup = this.pullup1;
+      } else if (this.selected == 2) {
+        this.pullup = this.pullup2;
+      } else if (this.selected == 3) {
+        this.pullup = this.pullup3;
+      } else if (this.selected == 4) {
+        this.pullup = this.pullup4;
+      } else if (this.selected == 5) {
+        this.pullup = this.pullup5;
+      }
     }
   },
 
