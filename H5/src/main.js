@@ -32,7 +32,7 @@ import ajax from "api/ajax"
 import axios from 'axios'
 
 /* eslint-disable no-unused-vars */
-// import vConsole from 'vconsole'
+import vConsole from 'vconsole'
 
 Vue.component(Cell.name, Cell)
 Vue.component(Field.name, Field)

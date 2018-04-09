@@ -43,7 +43,6 @@ export default {
   methods: {
     rankClick(e) {
       let flag = parseInt(e.currentTarget.id);
-
       if (flag === 1) {
         this.$router.push("/rank/workroominfo");
       } else if (flag === 2) {
