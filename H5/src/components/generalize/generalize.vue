@@ -23,12 +23,18 @@
         <table>
           <tr>
             <td>
-              1、向客户出示二维码，通过扫码注册
+              <div class="share-content">
+                <p>1、向客户出示二维码，通过扫码注册</p>
+                <img :src="qrcodeUrl" alt="">
+              </div>
             </td>
           </tr>
           <tr>
             <td>
-              2、分享链接给客户，通过链接注册
+              <div class="share-content">
+                <p>2、分享链接给客户，通过链接注册</p>
+                <mt-button type="danger">链接分享</mt-button>
+              </div>
             </td>
           </tr>
         </table>
@@ -38,7 +44,6 @@
 </template>
 
 <script type="text/ecmascript-6">
-import ajax from "api/ajax";
 import workRoomHeader from "components/workRoomHeader/workRoomHeader";
 export default {
   data() {
@@ -47,10 +52,15 @@ export default {
       name: "",
       tel: "",
       des: "",
-      neturl: "http://47.97.100.240/"
+      uid: "",
+      neturl: "http://47.97.100.240/",
+      // TODO:在后面带上当前理财师的uid参数
+      qrcodeUrl:
+        "http://qr.topscan.com/api.php?text=http://10.41.12.194:8082/shareRegister?uid=" +
+        this.uid //二维码分享地址
     };
   },
-  created: function() {
+  created() {
     this.queryAccountDetail();
   },
   methods: {
@@ -58,38 +68,28 @@ export default {
       this.$router.go(-1);
     },
     queryAccountDetail() {
-      ajax({
-        url: "/srv/v1/accountDetail",
-        method: "GET"
-      }).then(res => {
-        if (res.status === 200) {
-          this.name = res.data.nickname;
-          this.tel = res.data.phonenumber;
-          this.des = res.data.workstudio;
-          this.headerAvatar = res.data.img;
-        } else {
-          this.name = "未设置";
-          this.headerAvatar = "";
+      window.phihome.util.netRequest(
+        "get",
+        this.neturl + "srv/v1/accountDetail",
+        "",
+        "",
+        function(response) {
+          response = JSON.parse(response);
+          if (response.error == 0) {
+            //获取账号成功
+            this.name = response.data.nickname;
+            this.tel = response.data.phonenumber;
+            this.des = response.data.workstudio;
+            this.headerAvatar = response.data.img;
+            this.uid = response.data.uid;
+            //this.isLogin = true;
+          } else {
+            this.name = "未设置";
+            //this.isLogin = false;
+            this.headerAvatar = "";
+          }
         }
-      });
-      // window.phihome.util.netRequest("get", _this.neturl + "", "", "", function(
-      //   response
-      // ) {
-      //   response = JSON.parse(response);
-      //   if (response.error == 0) {
-      //     //获取账号成功
-      //     _this.name = response.data.nickname;
-      //     _this.tel = response.data.phonenumber;
-      //     _this.des = response.data.workstudio;
-      //     _this.headerAvatar = response.data.img;
-
-      //     //_this.isLogin = true;
-      //   } else {
-      //     _this.name = "未设置";
-      //     //_this.isLogin = false;
-      //     _this.headerAvatar = "";
-      //   }
-      // });
+      );
     }
   },
   components: {
@@ -163,6 +163,17 @@ export default {
             line-height: 44px;
             text-align: left;
             font-size: 14px;
+
+            .share-content {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+
+              >img {
+                width: 140px;
+                height: 140px;
+              }
+            }
           }
         }
       }
