@@ -85,6 +85,7 @@ export default {
       isLogin: false,
       headerAvatar: "",
       name: "未登录",
+      uid: "",
       neturl: "http://47.97.100.240/"
     };
   },
@@ -153,6 +154,7 @@ export default {
           if (response.error == 0) {
             //获取账号成功
             _this.name = response.data.nickname;
+            _this.uid = response.data.uid;
             _this.headerAvatar = response.data.img;
             _this.isLogin = true;
           } else {

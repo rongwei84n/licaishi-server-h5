@@ -43,7 +43,7 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script type="text/ecmascript-6" crossorigin>
 import workRoomHeader from "components/workRoomHeader/workRoomHeader";
 export default {
   data() {
@@ -55,9 +55,11 @@ export default {
       uid: "",
       neturl: "http://47.97.100.240/",
       // TODO:在后面带上当前理财师的uid参数
-      qrcodeUrl:
-        "http://qr.topscan.com/api.php?text=http://10.41.12.194:8082/shareRegister?uid=" +
-        this.uid //二维码分享地址
+      // TODO:目标地址
+      target: "http://192.168.0.246:8083",
+      qrcodeUrl: `http://qr.topscan.com/api.php?text=${
+        this.target
+      }/shareRegister?uid=${this.uid}` //二维码分享地址
     };
   },
   created() {
@@ -73,7 +75,7 @@ export default {
         this.neturl + "srv/v1/accountDetail",
         "",
         "",
-        function(response) {
+        response => {
           response = JSON.parse(response);
           if (response.error == 0) {
             //获取账号成功
@@ -81,7 +83,14 @@ export default {
             this.tel = response.data.phonenumber;
             this.des = response.data.workstudio;
             this.headerAvatar = response.data.img;
+            // console.log(111);
+            // console.log("this.headerAvatar", response.data.img);
             this.uid = response.data.uid;
+            // TODO:更新地址
+            this.qrcodeUrl = `http://qr.topscan.com/api.php?text=${
+              this.target
+            }/shareRegister?uid=${this.uid}`;
+            console.log(this.qrcodeUrl);
             //this.isLogin = true;
           } else {
             this.name = "未设置";
