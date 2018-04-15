@@ -56,13 +56,14 @@ export default {
       neturl: "http://47.97.100.240/",
       // TODO:在后面带上当前理财师的uid参数
       // TODO:目标地址
-      target: "http://47.97.100.240:8085/",
-      qrcodeUrl: `http://qr.topscan.com/api.php?text=${
-        this.target
-      }/shareRegister?uid=${this.uid}` //二维码分享地址
+      target: "http://47.97.100.240:8085",
+      qrcodeUrl: "" //二维码分享地址
     };
   },
   created() {
+    this.qrcodeUrl = `http://qr.topscan.com/api.php?text=${
+      this.target
+    }/shareRegister?uid=${this.uid}`;
     this.queryAccountDetail();
   },
   methods: {
