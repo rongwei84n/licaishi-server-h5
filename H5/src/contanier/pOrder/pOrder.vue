@@ -2,7 +2,7 @@
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
  * @Last Modified by: 张浩然
- * @Last Modified time: 2018-04-03 21:26:30
+ * @Last Modified time: 2018-04-04 14:48:24
  *
  * 预约组件
  */
@@ -180,6 +180,7 @@ export default {
       ) {
         // 对身份证进行验证
         if (!isCardNo(this.cardId)) {
+          MessageBox("提示", "身份证填写有误!");
           return;
         }
         const promise = new Promise(function(resolve, reject) {

@@ -33,7 +33,7 @@ import { MessageBox } from "mint-ui";
 export default {
   name: "order-list-item",
   props: {
-    index:'',//传入的索引
+    index: "", //传入的索引
     orderId: "", //订单
     prodName: "", //产品名称
     orderAmount: "", //订单金额
@@ -88,7 +88,7 @@ export default {
 
   methods: {
     cancelOrder() {
-      MessageBox.confirm('是否删除订单?').then(action => {
+      MessageBox.confirm("是否取消订单?").then(action => {
         ajax({
           url: `/srv/v1/order/cancelOrder?orderNo=${this.orderId}`,
           method: "post"

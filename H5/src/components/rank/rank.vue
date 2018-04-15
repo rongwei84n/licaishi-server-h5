@@ -36,14 +36,70 @@
 </template>
 
 <script>
+import ajax from "api/ajax";
+import { MessageBox } from "mint-ui";
 export default {
   data() {
-    return {};
+    return {
+      accountLoginStatus: false,
+      neturl: "http://47.97.100.240/"
+    };
+  },
+  created() {
+    this.checkAccountStatus();
   },
   methods: {
+    // 检查账户登录状态
+    checkAccountStatus() {
+      // window.phihome.util.netRequest(
+      //   "get",
+      //   this.neturl + "srv/v1/accountDetail",
+      //   "",
+      //   "",
+      //   function(response) {
+      //     response = JSON.parse(response);
+      //     this.accountLoginStatus = response.error == 0 ? true : false;
+      //     // if (response.error == 0) {
+      //     //   //获取账号成功
+      //     //   _this.name = response.data.nickname;
+      //     //   _this.headerAvatar = response.data.img;
+      //     //   _this.isLogin = true;
+      //     // } else {
+      //     //   _this.name = "未登录";
+      //     //   _this.isLogin = false;
+      //     //   _this.headerAvatar = "";
+      //     // }
+      //     // if (_this.name == null || _this.name == "") {
+      //     //   _this.name = "未设置";
+      //     // }
+      //   }
+      // );
+      ajax({
+        url: "/srv/v1/login_status",
+        method: "GET"
+      }).then(res => {
+        this.accountLoginStatus = res.status === 200 ? true : false;
+      });
+    },
     rankClick(e) {
+      if (!this.accountLoginStatus) {
+        MessageBox.confirm("当前未登录，是否跳转到登录页面?").then(action => {
+          window.phihome.app.openPage("lcs.account.login", null, function(
+            response
+          ) {});
+          // ajax({
+          //   url: `/srv/v1/order/cancelOrder?orderNo=${this.orderId}`,
+          //   method: "post"
+          // }).then(res => {
+          //   if (res.status === 200) {
+          //     // 抛出事件
+          //     this.$emit("order-cancel", this.index);
+          //   }
+          // });
+        });
+        return;
+      }
       let flag = parseInt(e.currentTarget.id);
-
       if (flag === 1) {
         this.$router.push("/rank/workroominfo");
       } else if (flag === 2) {

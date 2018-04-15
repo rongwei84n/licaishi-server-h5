@@ -1,10 +1,10 @@
 <template>
   <div class="generalize-wrapper">
-    <workRoomHeader @back="back"  mytitle="" ></workRoomHeader>
+    <workRoomHeader @back="back" mytitle=""></workRoomHeader>
     <div class="logo">
     </div>
     <div class="generalize-avatar">
-      <img width="100%" height="100%" :src="headerAvatar"  />
+      <img width="100%" height="100%" :src="headerAvatar" />
     </div>
     <div class="generalize-content">
       <div class="name-class">
@@ -38,113 +38,144 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import workRoomHeader from "components/workRoomHeader/workRoomHeader";
-  export default {
-    data() {
-      return {
-        headerAvatar:"",
-        name:"",
-        tel:"",
-        des:"",
-        neturl: "http://47.97.100.240/"
-      }
+import ajax from "api/ajax";
+import workRoomHeader from "components/workRoomHeader/workRoomHeader";
+export default {
+  data() {
+    return {
+      headerAvatar: "",
+      name: "",
+      tel: "",
+      des: "",
+      neturl: "http://47.97.100.240/"
+    };
+  },
+  created: function() {
+    this.queryAccountDetail();
+  },
+  methods: {
+    back() {
+      this.$router.go(-1);
     },
-    created:function () {
-      this.queryAccountDetail();
-    },
-    methods: {
-      back() {
-        this.$router.go(-1)
-      },
-      queryAccountDetail() {
-        let _this = this;
-        window.phihome.util.netRequest(
-          "get",
-          _this.neturl + "srv/v1/accountDetail",
-          "",
-          "",
-          function (response) {
-            response = JSON.parse(response);
-            if (response.error == 0) {
-              //获取账号成功
-              _this.name = response.data.nickname;
-              _this.tel = response.data.phonenumber;
-              _this.des = response.data.workstudio;
-              _this.headerAvatar = response.data.img;
+    queryAccountDetail() {
+      ajax({
+        url: "/srv/v1/accountDetail",
+        method: "GET"
+      }).then(res => {
+        if (res.status === 200) {
+          this.name = res.data.nickname;
+          this.tel = res.data.phonenumber;
+          this.des = res.data.workstudio;
+          this.headerAvatar = res.data.img;
+        } else {
+          this.name = "未设置";
+          this.headerAvatar = "";
+        }
+      });
+      // window.phihome.util.netRequest("get", _this.neturl + "", "", "", function(
+      //   response
+      // ) {
+      //   response = JSON.parse(response);
+      //   if (response.error == 0) {
+      //     //获取账号成功
+      //     _this.name = response.data.nickname;
+      //     _this.tel = response.data.phonenumber;
+      //     _this.des = response.data.workstudio;
+      //     _this.headerAvatar = response.data.img;
 
-              //_this.isLogin = true;
-            } else {
-              _this.name = "未设置";
-              //_this.isLogin = false;
-              _this.headerAvatar = '';
-            }
-          }
-        )
-      }
-    },
-    components: {
-      workRoomHeader
+      //     //_this.isLogin = true;
+      //   } else {
+      //     _this.name = "未设置";
+      //     //_this.isLogin = false;
+      //     _this.headerAvatar = "";
+      //   }
+      // });
     }
+  },
+  components: {
+    workRoomHeader
   }
-
+};
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  .generalize-wrapper
-    position absolute
-    top 0px
-    width 100%
-    height 100vh
-    background #FFF
-    z-index 100
-    background-image url("~@/common/image/lcs_tuiguang.png")
-    background-size 100% 100%
-    background-repeat no-repeat
-    .logo
-      position absolute
-      width: 14%;
-      top 4vh
-      right 3vw
-      height: 6%;
-      background-image: url("~@/common/image/lcs-logo.png");
-      background-size: 100% 100%;
-      background-repeat no-repeat
-    .generalize-avatar
-      width 90px
-      height 90px
-      margin: 0px  auto 10px auto
-      border-radius  50%
-      background #FFF
-      overflow hidden
-    .generalize-content
-      text-align center
-      color #FFF
-      div
-        margin-top 14px
-      .name-class
-        font-size 15px
-      .tel-class
-        font-size 15px
-      .des-class
-        font-size 13px
-        line-height 22px
-        text-align left
-        padding 0px 10px
-      .tuiguangfangshi
-        table
-          margin auto
-          tr
-            td
-              height 44px
-              line-height 44px
-              text-align left
-              font-size 14px
+.generalize-wrapper {
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  height: 100vh;
+  background: #FFF;
+  z-index: 100;
+  background-image: url('~@/common/image/lcs_tuiguang.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
 
-    .mint-header
-      background none
-      height 45px
-    .mint-header-button.is-left
-      color:#FFF
+  .logo {
+    position: absolute;
+    width: 14%;
+    top: 4vh;
+    right: 3vw;
+    height: 6%;
+    background-image: url('~@/common/image/lcs-logo.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  }
 
+  .generalize-avatar {
+    width: 90px;
+    height: 90px;
+    margin: 0px auto 10px auto;
+    border-radius: 50%;
+    background: #FFF;
+    overflow: hidden;
+  }
 
+  .generalize-content {
+    text-align: center;
+    color: #FFF;
+
+    div {
+      margin-top: 14px;
+    }
+
+    .name-class {
+      font-size: 15px;
+    }
+
+    .tel-class {
+      font-size: 15px;
+    }
+
+    .des-class {
+      font-size: 13px;
+      line-height: 22px;
+      text-align: left;
+      padding: 0px 10px;
+    }
+
+    .tuiguangfangshi {
+      table {
+        margin: auto;
+
+        tr {
+          td {
+            height: 44px;
+            line-height: 44px;
+            text-align: left;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+
+  .mint-header {
+    background: none;
+    height: 45px;
+  }
+
+  .mint-header-button.is-left {
+    color: #FFF;
+  }
+}
 </style>

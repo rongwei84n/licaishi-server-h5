@@ -8,16 +8,14 @@
         </div>
       </div>
     </scroll>-->
-    <productKinds @showProductList="showProductList" class="product-kinds"
-    ></productKinds>
+    <productKinds @showProductList="showProductList" class="product-kinds"></productKinds>
     <!--<router-view></router-view>
     <div class="product-select">
       <div v-for="selectType in productSelectList" class="product-select-div">
         {{selectType}}
       </div>
     </div>-->
-    <ShowProduct :productRecordList="productRecordList" class="product-record-list-v"
-    @showProductDetail="showProductDetail"></ShowProduct>
+    <ShowProduct :productRecordList="productRecordList" class="product-record-list-v" @showProductDetail="showProductDetail"></ShowProduct>
     <!--<scroll ref="scroll" class="product-record-list" :data="productRecordList">
     <div>
       <div v-for="productRecord in productRecordList" class="product-record"
@@ -68,62 +66,66 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import Scroll from 'base/scroll/scroll'
-  import productKinds from 'components/product/productKinds'
-  import ProductDetail from 'components/product/productDetail'
-  import ShowProduct from 'components/product/showProduct'
-  export default {
-    data () {
-      return {
-        productTypeList: [],
-        productSelectList: ['全部','佣金','收益','筛选'],
-        productRecordList:[],
-        selectProduct:{}
-      }
-    },
-    created:function () {
-      //this.weiwei()
-    },
-    methods:{
-      showProductDetail(productRecord) {
-        this.selectProduct = productRecord;
-        this.$refs.productDetail.show();
-        //this.selectedFood = food;
+import Scroll from "base/scroll/scroll";
+import productKinds from "components/product/productKinds";
+import ProductDetail from "components/product/productDetail";
+import ShowProduct from "components/product/showProduct";
+export default {
+  data() {
+    return {
+      productTypeList: [],
+      productSelectList: ["全部", "佣金", "收益", "筛选"],
+      productRecordList: [],
+      selectProduct: {}
+    };
+  },
+  created: function() {
+    //this.weiwei()
+  },
+  methods: {
+    showProductDetail(productRecord) {
+      this.selectProduct = productRecord;
+      this.$refs.productDetail.show();
+      //this.selectedFood = food;
 
-        //this.$refs.food.show();
-      },
-      showProductList(data){
-        this.productRecordList = data;
-      }
+      //this.$refs.food.show();
     },
-    components: {
-      Scroll,
-      productKinds,
-      ProductDetail,
-      ShowProduct
+    showProductList(data) {
+      this.productRecordList = data;
     }
+  },
+  components: {
+    Scroll,
+    productKinds,
+    ProductDetail,
+    ShowProduct
   }
+};
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  .product
-    position absolute
-    width 100%
-    top 88px
-    bottom 71px
-    overflow hidden
-    display flex
-    flex-direction:column
-    .product-kinds
-      flex 0 0 auto
-      //white-space:nowrap
-      //position relative
-      overflow hidden
-      //height:40px
+.product {
+  position: absolute;
+  width: 100%;
+  top: 88px;
+  bottom: 71px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 
-    .product-record-list-v
-      flex 1
-      position: relative
-      bottom 0px
-      overflow hidden
+  .product-kinds {
+    flex: 0 0 auto;
+    // white-space:nowrap
+    // position relative
+    overflow: hidden;
+    // height:40px
+  }
+
+  .product-record-list-v {
+    flex: 1;
+    position: relative;
+    bottom: 0px;
+    overflow: hidden;
+  }
+}
 </style>
