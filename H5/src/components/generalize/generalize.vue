@@ -121,11 +121,17 @@ export default {
       sharedStr += ";"; //分享的标题和URL，用;隔开
       sharedStr += "http://47.97.100.240:8085/";
 
-      if (index === 3) { //微信分享
-        window.phihome.app.openPage("lcs.account.share.wechat", sharedStr + '', function(
+      var page = ""; //微信分享
+      if (index === 2) {//朋友圈分享
+        page = "lcs.account.share.wechatmoments";
+      } else if(index ===3) {
+        page = "lcs.account.share.wechat";
+      }
+
+      if (page != "") { //微信，朋友圈分享
+        window.phihome.app.openPage(page, sharedStr + '', function(
           response
         ) {
-          console.debug("shared call back");
         });
       }
       if (window.webkit) {
