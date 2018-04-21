@@ -33,18 +33,22 @@
             <td>
               <div class="share-content">
                 <p>2、分享链接给客户，通过链接注册</p>
-                <mt-button type="danger">链接分享</mt-button>
+                <mt-button type="danger" @click="btnEvent">链接分享</mt-button>
               </div>
             </td>
           </tr>
         </table>
       </div>
     </div>
+    <!-- 分享模态框组件 -->
+    <SoshmModal @confirmClick="confirmClick" @fooModalContent="soshmStatus = false" v-if="soshmStatus"></SoshmModal>
   </div>
 </template>
 
 <script type="text/ecmascript-6" crossorigin>
 import workRoomHeader from "components/workRoomHeader/workRoomHeader";
+import SoshmModal from "base/soshmModal/soshmModal";
+
 export default {
   data() {
     return {
@@ -57,7 +61,11 @@ export default {
       // TODO:在后面带上当前理财师的uid参数
       // TODO:目标地址
       target: "http://47.97.100.240:8085",
-      qrcodeUrl: "" //二维码分享地址
+      qrcodeUrl: "", //二维码分享地址
+      /**
+       * 分享模态框
+       */
+      soshmStatus: false
     };
   },
   created() {
@@ -69,6 +77,47 @@ export default {
   methods: {
     back() {
       this.$router.go(-1);
+    },
+    // 分享按钮点击事件
+    btnEvent() {
+      this.soshmStatus = !this.soshmStatus;
+    },
+    // 分享模态框确定点击事件
+    confirmClick(index) {
+      console.log(index);
+      return;
+      this.AppShare(index);
+      this.soshmStatus = !this.soshmStatus;
+    },
+    // 在App内进行分享
+    AppShare(index) {
+      // 按枚举顺序输出？
+      console.log(index);
+      // let params = {
+      //   url: `${this.currentItem.url}`,
+      //   title: this.currentItem.share_main_title,
+      //   share_logo_url: this.currentItem.share_logo_url,
+      //   content: this.currentItem.share_sub_title,
+      //   sharetype: index
+      // };
+      // 发短信参数特殊处理
+      if (index === 6) {
+        params = {
+          url: "",
+          title: "",
+          share_logo_url: "",
+          content: `${window.localStorage.userName}邀请您加入${
+            this.currentItem.name
+          }${this.currentItem.url}`,
+          sharetype: index
+        };
+      }
+      if (window.webkit) {
+        // 跟ios发
+      } else if (window.jsInterface) {
+        // 跟安卓跑
+      } else {
+      }
     },
     queryAccountDetail() {
       window.phihome.util.netRequest(
@@ -103,7 +152,8 @@ export default {
     }
   },
   components: {
-    workRoomHeader
+    workRoomHeader,
+    SoshmModal
   }
 };
 </script>

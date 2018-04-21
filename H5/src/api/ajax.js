@@ -56,23 +56,23 @@ function ajax({
     /**
      * 本地调试
      */
-    // axios({
-    //   withCredentials: true,
-    //   // TOOD:路径前缀
-    //   url: IP_PORT.houtai + url,
-    //   data: qsStatus ? qs.stringify(Object.assign({}, params)) : params,
-    //   headers,
-    //   method,
-    //   timeout: 10000
-    // }).then(
-    //   res => {
-    //     // 请求成功返回
-    //     if (res.status === 200) {
-    //       resolve(res);
-    //     }
-    //   },
-    //   err => reject(err)
-    // );
+    //   axios({
+    //     withCredentials: true,
+    //     // TOOD:路径前缀
+    //     url: IP_PORT.houtai + url,
+    //     data: qsStatus ? qs.stringify(Object.assign({}, params)) : params,
+    //     headers,
+    //     method,
+    //     timeout: 10000
+    //   }).then(
+    //     res => {
+    //       // 请求成功返回
+    //       if (res.status === 200) {
+    //         resolve(res);
+    //       }
+    //     },
+    //     err => reject(err)
+    //   );
   });
 }
 

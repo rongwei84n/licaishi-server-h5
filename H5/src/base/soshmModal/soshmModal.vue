@@ -3,11 +3,11 @@
     <div class="modal-content">
       <p>分享至</p>
       <div class="btnBlock">
-        <div class="btn" @click="confirm(1)">
+        <!-- <div class="btn" @click="confirm(1)">
           <img src="./image/weibo.png" class="img">
           <span class="title">新浪微博</span>
-        </div>
-        <div class="btn" @click="confirm(2)" v-if="thirdTerminalType==='1'">
+        </div> -->
+        <div class="btn" @click="confirm(2)">
           <img src="./image/pengyouquan.png" class="img">
           <span class="title">朋友圈</span>
         </div>
@@ -15,7 +15,7 @@
           <img src="./image/weixin.png" class="img">
           <span class="title">微信好友</span>
         </div>
-        <div class="btn" @click="confirm(4)">
+        <!-- <div class="btn" @click="confirm(4)">
           <img src="./image/qq.png" class="img">
           <span class="title">QQ好友</span>
         </div>
@@ -26,7 +26,7 @@
         <div class="btn" @click="confirm(6)" v-if="thirdTerminalType==='1'">
           <img src="./image/duanxin.png" class="img">
           <span class="title">短信</span>
-        </div>
+        </div> -->
         <!-- <div class="btn" @click="confirm(7)">
                     <img src="./image/youxiang.png" class="img">
                     <span class="title">邮箱</span>

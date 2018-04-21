@@ -1,8 +1,8 @@
 /*
  * @Author: 张浩然 
  * @Date: 2018-03-07 19:23:27 
- * @Last Modified by: zhanghr
- * @Last Modified time: 2018-03-29 15:51:28
+ * @Last Modified by: 张浩然
+ * @Last Modified time: 2018-04-21 13:25:17
  *
  * 产品详情组件
  */
@@ -218,6 +218,7 @@
 </template>
 
  <script type="es6">
+import ajax from "api/ajax";
 import {
   pInvestType,
   pPaymentInterestType,
@@ -245,7 +246,7 @@ export default {
       pPaymentInterestType_str: "",
       pSizeRatioType_str: "",
       /**
-       * 模态框
+       * 分享模态框
        */
       soshmStatus: false
     };
@@ -258,7 +259,8 @@ export default {
     confirmClick(index) {
       this.AppShare(index);
       this.soshmStatus = !this.soshmStatus;
-    }, // 在App内进行分享
+    },
+    // 在App内进行分享
     AppShare(index) {
       // let params = {
       //   url: `${this.currentItem.url}`,
@@ -317,7 +319,7 @@ export default {
       if (this.$route.query) {
         this.pCode = this.$route.query.pCode;
       }
-      this.$ajax({
+      ajax({
         url: `/srv/v1/product/productDetail?pCode=${this.pCode}`,
         method: "GET"
       }).then(res => {
@@ -339,7 +341,7 @@ export default {
      */
     subscribe() {
       // 判断当前是否登录
-      // this.$ajax({
+      // ajax({
       //   url: `/srv/v1/login_status`,
       //   method: "GET"
       // }).then(res => {
