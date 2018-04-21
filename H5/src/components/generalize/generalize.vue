@@ -84,15 +84,15 @@ export default {
     },
     // 分享模态框确定点击事件
     confirmClick(index) {
-      console.log(index);
-      return;
       this.AppShare(index);
       this.soshmStatus = !this.soshmStatus;
     },
     // 在App内进行分享
     AppShare(index) {
+      let _this = this;
       // 按枚举顺序输出？
       console.log(index);
+
       // let params = {
       //   url: `${this.currentItem.url}`,
       //   title: this.currentItem.share_main_title,
@@ -111,6 +111,22 @@ export default {
           }${this.currentItem.url}`,
           sharetype: index
         };
+      }
+
+      let sharedStr = _this.tel;
+      if(_this.name != '' ) {
+        sharedStr = '理财师' + _this.name;
+      }
+      sharedStr = sharedStr + " 邀请你加入理财师";
+      sharedStr += ";";
+      sharedStr += "http://47.97.100.240:8085/";
+
+      if (index === 3) { //微信分享
+        window.phihome.app.openPage("lcs.account.share.wechat", sharedStr + '', function(
+          response
+        ) {
+          console.debug("shared call back");
+        });
       }
       if (window.webkit) {
         // 跟ios发
