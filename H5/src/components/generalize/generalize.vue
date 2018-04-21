@@ -118,7 +118,7 @@ export default {
         sharedStr = '理财师' + _this.name;
       }
       sharedStr = sharedStr + " 邀请你加入理财师";
-      sharedStr += ";";
+      sharedStr += ";"; //分享的标题和URL，用;隔开
       sharedStr += "http://47.97.100.240:8085/";
 
       if (index === 3) { //微信分享
